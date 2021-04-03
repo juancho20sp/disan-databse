@@ -10,17 +10,40 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 
 Create the restrictions for:
 
-- Test
-- Test
-- Test
+- Appointment
+- Background
+- Battalion
+- Brigade
+- City
+- ClinicalHistory
+- Disease
+- Division
+- Doctor
+- Exams
+- Hospital
+- Laboratory
 
 ### Juan
 
 Create the restrictions for:
 
-- Test
-- Test
-- Test
+- ManagementPlan
+- MedicineComponents
+- MedicationInventory
+- MedicationType
+- Medicines
+- Nurse
+- Patient
+- Person
+- Procedure
+- Specialty
+- SuppliesInventory
+- Supply
+
+## Considerations
+
+- ON DELETE RESTRICT
+- Do not create Indexes
 
 ## Running the code
 
