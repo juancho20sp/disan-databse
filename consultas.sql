@@ -10,5 +10,5 @@ SELECT * FROM SuppliesInventory ORDER BY idSuppliesInventory;
 --- CITY ---
 SELECT * FROM City ORDER BY idCity;
 
---- DIVISION ---
-SELECT * FROM Division ORDER BY idDivision;
+--- MILITARY UNIT ---
+SELECT * FROM MilitaryUnit ORDER BY idMilitaryUnit;

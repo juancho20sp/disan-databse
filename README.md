@@ -49,7 +49,7 @@ Create the restrictions for:
 - City (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - ClinicalHistory
 - Disease
-- Division (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- Division
 - Doctor
 - Exams
 - Hospital
