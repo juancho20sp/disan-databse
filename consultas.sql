@@ -12,3 +12,12 @@ SELECT * FROM City ORDER BY idCity;
 
 --- MILITARY UNIT ---
 SELECT * FROM MilitaryUnit ORDER BY idMilitaryUnit;
+
+--- DIVISION ---
+SELECT * FROM Division ORDER BY idDivision;
+
+--- BRIGADE ---
+SELECT * FROM Brigade ORDER BY idBrigade;
+
+--- BATTALION ---
+SELECT * FROM Battalion ORDER BY idBattalion;

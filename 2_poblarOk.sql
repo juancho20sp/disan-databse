@@ -176,7 +176,7 @@ INSERT INTO Division VALUES (0000000010, 'Ferdy Peizer', 'Armada');
 INSERT INTO Division VALUES (0000000011, 'Franz Ferdinand', 'Ejercito');
 
 --- QUERY ---
-SELECT * FROM Division ORDER BY idDivision;
+--- SELECT * FROM Division ORDER BY idDivision;
 
 
 --- BRIGADE ---
@@ -193,7 +193,24 @@ INSERT INTO Brigade VALUES (0000000021, 'Sabine Lampitt', 'Fuerza Aerea', 10);
 INSERT INTO Brigade VALUES (0000000022, 'Joaquín Correa', 'Ejercito', 11);
 
 --- QUERY ---
-SELECT * FROM Brigade ORDER BY idBrigade;
+--- SELECT * FROM Brigade ORDER BY idBrigade;
+
+
+--- BATTALION ---
+INSERT INTO Battalion VALUES (0000000023, 'Noe Mellows', 'Armada', 12);
+INSERT INTO Battalion VALUES (0000000024, 'Kathie Olwen', 'Armada', 13);
+INSERT INTO Battalion VALUES (0000000025, 'Emlynn Wisher', 'Ejercito', 14);
+INSERT INTO Battalion VALUES (0000000026, 'Dulcea Blewmen', 'Ejercito', 15);
+INSERT INTO Battalion VALUES (0000000027, 'Wayne McKellar', 'Armada', 16);
+INSERT INTO Battalion VALUES (0000000028, 'Reeba Abotson', 'Fuerza Aerea', 17);
+INSERT INTO Battalion VALUES (0000000029, 'Maxim Pond', 'Ejercito', 18);
+INSERT INTO Battalion VALUES (0000000030, 'Orrin Lonie', 'Ejercito', 19);
+INSERT INTO Battalion VALUES (0000000031, 'Michael Matiewe', 'Armada', 20);
+INSERT INTO Battalion VALUES (0000000032, 'Suzi Clue', 'Fuerza Aerea', 21);
+
+--- QUERY ---
+SELECT * FROM Battalion ORDER BY idBattalion;
+
 
 
 --- HOSPITAL (CREAR BATALLÓN)---

@@ -163,29 +163,26 @@ INSERT INTO Brigade VALUES (12, 'Averyl Stinson', 'Armada', NULL);
 --- QUERY ---
 SELECT * FROM Brigade ORDER BY idBrigade;
 
-/*
 
---- BRIGADE ---
---- idDivision ->  NUMBER(10) NOT NULL
-INSERT INTO Brigade VALUES (999999999, 'División 1', 'Juline Theobold', 'Trailsway', 'Fuerza Aerea');
-INSERT INTO Brigade VALUES (NULL, 'División 1', 'Juline Theobold', 'Trailsway', 'Fuerza Aerea');
 
---- name -> VARCHAR2(250) NOT NULL
-INSERT INTO Brigade VALUES (999, '', 'Juline Theobold', 'Trailsway', 'Fuerza Aerea');
-
-INSERT INTO Brigade VALUES (999, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium q', 'Juline Theobold', 'Trailsway', 'Fuerza Aerea');
+--- BATTALION  ---
+--- idBattalion ->  NUMBER(10) NOT NULL
+INSERT INTO Battalion VALUES (75321478951, 'Noe Mellows', 'Armada', 12);
+INSERT INTO Battalion VALUES (NULL, 'Noe Mellows', 'Armada', 12);
 
 --- commander -> VARCHAR2(100) NOT NULL
-INSERT INTO Brigade VALUES (999, 'División 1', '', 'Trailsway', 'Fuerza Aerea');
+INSERT INTO Battalion VALUES (23, '', 'Fuerza Aerea', 12);
 
-INSERT INTO Brigade VALUES (999, 'División 1', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean mer', 'Trailsway', 'Fuerza Aerea');
-
---- location -> VARCHAR2(50) NOT NULL 
-INSERT INTO Brigade VALUES (999, 'División 1', 'Juline Theobold', '', 'Fuerza Aerea');
-
-INSERT INTO Brigade VALUES (999, 'División 1', 'Juline Theobold', 'Lorem ipsum dolor sit amet, consectetuer adipiscin1', 'Fuerza Aerea');
+INSERT INTO Battalion VALUES (23, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean mer', 'Fuerza Aerea', 12);
 
 --- militaryForce -> VARCHAR2(50) NOT NULL 
-INSERT INTO Brigade VALUES (999, 'División 1', 'Juline Theobold', 'Trailsway', '');
+INSERT INTO Battalion VALUES (23, 'Juline Theobold', '', 12);
 
-INSERT INTO Brigade VALUES (999, 'División 1', 'Juline Theobold', 'Trailsway', 'Lorem ipsum dolor sit amet, consectetuer adipisciner');/*
+INSERT INTO Battalion VALUES (23, 'Juline Theobold', 'Lorem ipsum dolor sit amet, consectetuer adipisciner', 12);
+
+--- idBrigade -> NUMBER(10) NOT NULL
+INSERT INTO Battalion VALUES (23, 'Averyl Stinson', 'Armada', 75321478951);
+INSERT INTO Battalion VALUES (23, 'Averyl Stinson', 'Armada', NULL);
+
+--- QUERY ---
+SELECT * FROM Battalion ORDER BY idBattalion;

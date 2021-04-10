@@ -6,6 +6,8 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 
 ## TO-DO List
 
+- Fuerza militar IN ('Ejército', 'Fuerza Aérea', 'Armada')
+
 ### Laura
 
 Create the restrictions for:
@@ -45,7 +47,7 @@ Create the restrictions for:
 - Appointment
 - Background
 - Battalion
-- Brigade
+- Brigade (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - City (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - ClinicalHistory
 - Disease
