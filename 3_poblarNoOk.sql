@@ -94,6 +94,9 @@ INSERT INTO City VALUES(12, 'Amazonas', 'Lorem ipsum dolor sit amet, consectetue
 INSERT INTO City VALUES(NULL, '', 'Lorem ipsum dolor sit amet, consectetuer adipiscing'); 
 INSERT INTO City VALUES(12, '', '');
 
+INSERT INTO City VALUES(0000000001, 'Leticia', 'Amazonas');
+INSERT INTO City VALUES(0000000002, 'Leticia', 'Amazonas');
+
 --- QUERY ---
 SELECT * FROM City ORDER BY idCity;
 
@@ -115,8 +118,20 @@ INSERT INTO MilitaryUnit VALUES (777, 'Lorem', 99999999999, NULL);
 INSERT INTO MilitaryUnit VALUES (777, 'Lorem', NULL, NULL);
 
 --- NAME IS UNIQUE
-INSERT INTO MilitaryUnit VALUES (777, 'Lorem', 1, NULL);
-INSERT INTO MilitaryUnit VALUES (777, 'Lorem', 16, NULL);
+INSERT INTO MilitaryUnit VALUES (0000000001, 'División 1', 1, NULL);
+INSERT INTO MilitaryUnit VALUES (0000000002, 'División 1', 1, NULL);
+INSERT INTO MilitaryUnit VALUES (0000000003, 'División 2', 1, NULL);
+INSERT INTO MilitaryUnit VALUES (0000000004, 'División 2', 1, NULL);
+
+INSERT INTO MilitaryUnit VALUES (00000000011, 'Brigada 1', 1, NULL);
+INSERT INTO MilitaryUnit VALUES (00000000012, 'Brigada 1', 1, NULL);
+INSERT INTO MilitaryUnit VALUES (00000000013, 'Brigada 2', 1, NULL);
+INSERT INTO MilitaryUnit VALUES (00000000014, 'Brigada 2', 1, NULL);
+
+INSERT INTO MilitaryUnit VALUES (00000000021, 'Batallón 1', 1, NULL);
+INSERT INTO MilitaryUnit VALUES (00000000022, 'Batallón 1', 1, NULL);
+INSERT INTO MilitaryUnit VALUES (00000000023, 'Batallón 2', 1, NULL);
+INSERT INTO MilitaryUnit VALUES (00000000024, 'Batallón 2', 1, NULL);
 
 --- QUERY ---
 SELECT * FROM MilitaryUnit ORDER BY idMilitaryUnit;
@@ -136,6 +151,10 @@ INSERT INTO Division VALUES (11, 'Lorem ipsum dolor sit amet, consectetuer adipi
 INSERT INTO Division VALUES (11, 'Juline Theobold', '');
 
 INSERT INTO Division VALUES (11, 'Juline Theobold', 'Lorem ipsum dolor sit amet, consectetuer adipisciner');
+
+--- COMANDER IS UNIQUE ---
+INSERT INTO Division VALUES (0000000001, 'Juline Theobold', 'Fuerza Aerea');
+INSERT INTO Division VALUES (0000000003, 'Juline Theobold', 'Armada');
 
 --- QUERY ---
 SELECT * FROM Division ORDER BY idDivision;
@@ -159,6 +178,10 @@ INSERT INTO Brigade VALUES (12, 'Juline Theobold', 'Lorem ipsum dolor sit amet, 
 --- idDivision -> NUMBER(10) NOT NULL
 INSERT INTO Brigade VALUES (12, 'Averyl Stinson', 'Armada', 75321478951);
 INSERT INTO Brigade VALUES (12, 'Averyl Stinson', 'Armada', NULL);
+
+--- COMANDER IS UNIQUE ---
+INSERT INTO Brigade VALUES (0000000011, 'Averyl Stinson', 'Armada', 1);
+INSERT INTO Brigade VALUES (0000000013, 'Averyl Stinson', 'Fuerza Aérea', 1);
 
 --- QUERY ---
 SELECT * FROM Brigade ORDER BY idBrigade;
@@ -184,5 +207,49 @@ INSERT INTO Battalion VALUES (23, 'Juline Theobold', 'Lorem ipsum dolor sit amet
 INSERT INTO Battalion VALUES (23, 'Averyl Stinson', 'Armada', 75321478951);
 INSERT INTO Battalion VALUES (23, 'Averyl Stinson', 'Armada', NULL);
 
+--- COMANDER IS UNIQUE ---
+INSERT INTO Battalion VALUES (0000000021, 'Noe Mellows', 'Armada', 11);
+INSERT INTO Battalion VALUES (0000000023, 'Noe Mellows', 'Ejército', 11);
+
 --- QUERY ---
 SELECT * FROM Battalion ORDER BY idBattalion;
+
+
+
+--- HOSPITAL ---
+--- idHospital -> NUMBER(10) NOT NULL
+INSERT INTO Hospital VALUES (12345678914, 'Hospital 1', 150, 48, 23, 1, 1, 1);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 1', 150, 48, 23, 1, 1, 1);
+
+--- name -> VARCHAR2(50) NOT NULL 
+INSERT INTO Hospital VALUES (0000000001, '', 150, 48, 23, 1, 1, 1);
+INSERT INTO Hospital VALUES (0000000001, 'Lorem ipsum dolor sit amet, consectetuer adipiscing', 150, 48, 23, 1, 1, 1);
+
+--- bedNumber -> NUMBER(10) NOT NULL
+INSERT INTO Hospital VALUES (0000000001, 'Hospital 1', 12345678914, 48, 23, 1, 1, 1);
+INSERT INTO Hospital VALUES (0000000001, 'Hospital 1', NULL, 48, 23, 1, 1, 1);
+
+--- UCINumber -> NUMBER(10) NOT NULL 
+INSERT INTO Hospital VALUES (0000000001, 'Hospital 1', 12, 12345678914, 23, 1, 1, 1);
+INSERT INTO Hospital VALUES (0000000001, 'Hospital 1', 34, NULL, 23, 1, 1, 1);
+
+
+--- idBattalion -> NUMBER(10) NOT NULL 
+INSERT INTO Hospital VALUES (0000000001, 'Hospital 1', 150, 48, 12345678965, 1, 1, 1);
+INSERT INTO Hospital VALUES (0000000001, 'Hospital 1', 150, 48, NULL, 1, 1, 1);
+
+
+--- idSuppliesInventory	-> NUMBER(10) NOT NULL 
+INSERT INTO Hospital VALUES (0000000001, 'Hospital 1', 150, 48, 1, 12345678965, 1, 1);
+INSERT INTO Hospital VALUES (0000000001, 'Hospital 1', 150, 48, 1, NULL, 1, 1);
+
+--- idCity -> NUMBER(10) NOT NULL 
+INSERT INTO Hospital VALUES (0000000001, 'Hospital 1', 150, 48, 1, 1, 12345678965, 1);
+INSERT INTO Hospital VALUES (0000000001, 'Hospital 1', 150, 48, 1, 1, NULL, 1);
+
+--- idMedicationInventory -> NUMBER(10) NOT NULL
+INSERT INTO Hospital VALUES (0000000001, 'Hospital 1', 150, 48, 1, 1, 1, 12345678965);
+INSERT INTO Hospital VALUES (0000000001, 'Hospital 1', 150, 48, 1, 1, 1, NULL);
+
+--- QUERY ---
+SELECT * FROM Hospital ORDER BY idHospital;

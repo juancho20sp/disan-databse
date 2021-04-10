@@ -61,12 +61,17 @@ INSERT INTO MedicationInventory VALUES(NULL);
 INSERT INTO MedicationInventory VALUES(NULL); 
 INSERT INTO MedicationInventory VALUES(NULL); 
 INSERT INTO MedicationInventory VALUES(NULL); 
+INSERT INTO MedicationInventory VALUES(NULL); 
+INSERT INTO MedicationInventory VALUES(NULL); 
 
 --- QUERY ---
 --- SELECT * FROM MEDICATIONINVENTORY ORDER BY idMedicationInventory;
 
 
 --- SUPPLIES INVENTORY ---
+INSERT INTO SuppliesInventory VALUES(NULL); 
+INSERT INTO SuppliesInventory VALUES(NULL); 
+INSERT INTO SuppliesInventory VALUES(NULL); 
 INSERT INTO SuppliesInventory VALUES(NULL); 
 INSERT INTO SuppliesInventory VALUES(NULL); 
 INSERT INTO SuppliesInventory VALUES(NULL); 
@@ -154,16 +159,67 @@ INSERT INTO MilitaryUnit VALUES (NULL, 'Batallón 10', 20, NULL);
 --- SELECT * FROM MilitaryUnit ORDER BY idMilitaryUnit;
 
 
-
 --- DIVISION ---
-/*INSERT INTO Division VALUES (NULL, 'División 1', 'Juline Theobold', 'Trailsway', 'Fuerza Aerea');
-INSERT INTO Division VALUES (NULL, 'División 2', 'Ralina Jacklings', 'Tomscot', 'Ejercito');
-INSERT INTO Division VALUES (NULL, 'División 3', 'Ashlen Snary', 'Superior', 'Armada');
-INSERT INTO Division VALUES (NULL, 'División 4', 'Anne Bernasek', 'Crest Line', 'Ejercito');
-INSERT INTO Division VALUES (NULL, 'División 5', 'Cody Carlan', 'Lakeland', 'Armada');
-INSERT INTO Division VALUES (NULL, 'División 6', 'Mabelle Cherryman', 'Lakewood Gardens', 'Fuerza Aerea');
-INSERT INTO Division VALUES (NULL, 'División 7', 'Godwin Jarrad', 'Northland', 'Fuerza Aerea');
-INSERT INTO Division VALUES (NULL, 'División 8', 'Deena Hague', 'Shopko', 'Ejercito');
-INSERT INTO Division VALUES (NULL, 'División 9', 'Roddy Richardes', 'Crest Line', 'Fuerza Aerea');
-INSERT INTO Division VALUES (NULL, 'División 10', 'Ferdy Peizer', 'Trailsway', 'Armada');
-*/
+INSERT INTO Division VALUES (0000000001, 'Juline Theobold', 'Fuerza Aerea');
+INSERT INTO Division VALUES (0000000002, 'Ralina Jacklings', 'Ejercito');
+INSERT INTO Division VALUES (0000000003, 'Ashlen Snary', 'Armada');
+INSERT INTO Division VALUES (0000000004, 'Anne Bernasek', 'Ejercito');
+INSERT INTO Division VALUES (0000000005, 'Cody Carlan', 'Armada');
+INSERT INTO Division VALUES (0000000006, 'Mabelle Cherryman', 'Fuerza Aerea');
+INSERT INTO Division VALUES (0000000007, 'Godwin Jarrad', 'Fuerza Aerea');
+INSERT INTO Division VALUES (0000000008, 'Deena Hague', 'Ejercito');
+INSERT INTO Division VALUES (0000000009, 'Roddy Richardes', 'Fuerza Aerea');
+INSERT INTO Division VALUES (0000000010, 'Ferdy Peizer', 'Armada');
+INSERT INTO Division VALUES (0000000011, 'Franz Ferdinand', 'Ejercito');
+
+--- QUERY ---
+--- SELECT * FROM Division ORDER BY idDivision;
+
+
+--- BRIGADE ---
+INSERT INTO Brigade VALUES (0000000012, 'Averyl Stinson', 'Armada', 1);
+INSERT INTO Brigade VALUES (0000000013, 'Haven Amberg', 'Fuerza Aerea', 2);
+INSERT INTO Brigade VALUES (0000000014, 'Althea Laetham', 'Ejercito', 3);
+INSERT INTO Brigade VALUES (0000000015, 'Cyrus Langhor', 'Ejercito', 4);
+INSERT INTO Brigade VALUES (0000000016, 'Edan Volett', 'Ejercito', 5);
+INSERT INTO Brigade VALUES (0000000017, 'Marthena Nortcliffe', 'Fuerza Aerea', 6);
+INSERT INTO Brigade VALUES (0000000018, 'Brynna Nipper', 'Armada', 7);
+INSERT INTO Brigade VALUES (0000000019, 'Marchelle Clunie', 'Fuerza Aerea', 8);
+INSERT INTO Brigade VALUES (0000000020, 'Kaela Mechem', 'Armada', 9);
+INSERT INTO Brigade VALUES (0000000021, 'Sabine Lampitt', 'Fuerza Aerea', 10);
+INSERT INTO Brigade VALUES (0000000022, 'Joaquín Correa', 'Ejercito', 11);
+
+--- QUERY ---
+--- SELECT * FROM Brigade ORDER BY idBrigade;
+
+
+--- BATTALION ---
+INSERT INTO Battalion VALUES (0000000023, 'Noe Mellows', 'Armada', 12);
+INSERT INTO Battalion VALUES (0000000024, 'Kathie Olwen', 'Armada', 13);
+INSERT INTO Battalion VALUES (0000000025, 'Emlynn Wisher', 'Ejercito', 14);
+INSERT INTO Battalion VALUES (0000000026, 'Dulcea Blewmen', 'Ejercito', 15);
+INSERT INTO Battalion VALUES (0000000027, 'Wayne McKellar', 'Armada', 16);
+INSERT INTO Battalion VALUES (0000000028, 'Reeba Abotson', 'Fuerza Aerea', 17);
+INSERT INTO Battalion VALUES (0000000029, 'Maxim Pond', 'Ejercito', 18);
+INSERT INTO Battalion VALUES (0000000030, 'Orrin Lonie', 'Ejercito', 19);
+INSERT INTO Battalion VALUES (0000000031, 'Michael Matiewe', 'Armada', 20);
+INSERT INTO Battalion VALUES (0000000032, 'Suzi Clue', 'Fuerza Aerea', 21);
+
+--- QUERY ---
+--- SELECT * FROM Battalion ORDER BY idBattalion;
+
+
+
+--- HOSPITAL ---
+INSERT INTO Hospital VALUES (NULL, 'Hospital 1', 150, 48, 23, 1, 1, 1);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 2', 200, 64, 24, 2, 2, 2);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 3', 25, 2, 25, 3, 3, 3);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 4', 140, 20, 26, 4, 4, 4);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 5', 100, 10, 27, 5, 5, 5);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 6', 250, 200, 28, 6, 6, 6);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 7', 135, 15, 29, 7, 7, 7);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 8', 100, 20, 30, 8, 8, 8);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 9', 500, 85, 31, 9, 9, 9);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 10', 9, 1, 32, 10, 10, 10);
+--- QUERY ---
+--- SELECT * FROM Hospital ORDER BY idHospital;

@@ -46,7 +46,7 @@ Create the restrictions for:
 
 - Appointment
 - Background
-- Battalion
+- Battalion (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - Brigade (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - City (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - ClinicalHistory
