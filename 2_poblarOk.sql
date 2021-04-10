@@ -178,19 +178,22 @@ INSERT INTO Division VALUES (0000000011, 'Franz Ferdinand', 'Ejercito');
 --- QUERY ---
 SELECT * FROM Division ORDER BY idDivision;
 
-/*
+
 --- BRIGADE ---
-INSERT INTO Brigade VALUES (0000000001, 'Averyl Stinson', 'Armada');
-INSERT INTO Brigade VALUES (0000000002, 'Haven Amberg', 'Fuerza Aerea');
-INSERT INTO Brigade VALUES (0000000003, 'Althea Laetham', 'Ejercito');
-INSERT INTO Brigade VALUES (0000000004, 'Cyrus Langhor', 'Ejercito');
-INSERT INTO Brigade VALUES (0000000005, 'Edan Volett', 'Ejercito');
-INSERT INTO Brigade VALUES (0000000006, 'Marthena Nortcliffe', 'Fuerza Aerea');
-INSERT INTO Brigade VALUES (0000000007, 'Brynna Nipper', 'Armada');
-INSERT INTO Brigade VALUES (0000000008, 'Marchelle Clunie', 'Fuerza Aerea');
-INSERT INTO Brigade VALUES (0000000009, 'Kaela Mechem', 'Armada');
-INSERT INTO Brigade VALUES (0000000010, 'Sabine Lampitt', 'Fuerza Aerea');
-*/
+INSERT INTO Brigade VALUES (0000000012, 'Averyl Stinson', 'Armada', 1);
+INSERT INTO Brigade VALUES (0000000013, 'Haven Amberg', 'Fuerza Aerea', 2);
+INSERT INTO Brigade VALUES (0000000014, 'Althea Laetham', 'Ejercito', 3);
+INSERT INTO Brigade VALUES (0000000015, 'Cyrus Langhor', 'Ejercito', 4);
+INSERT INTO Brigade VALUES (0000000016, 'Edan Volett', 'Ejercito', 5);
+INSERT INTO Brigade VALUES (0000000017, 'Marthena Nortcliffe', 'Fuerza Aerea', 6);
+INSERT INTO Brigade VALUES (0000000018, 'Brynna Nipper', 'Armada', 7);
+INSERT INTO Brigade VALUES (0000000019, 'Marchelle Clunie', 'Fuerza Aerea', 8);
+INSERT INTO Brigade VALUES (0000000020, 'Kaela Mechem', 'Armada', 9);
+INSERT INTO Brigade VALUES (0000000021, 'Sabine Lampitt', 'Fuerza Aerea', 10);
+INSERT INTO Brigade VALUES (0000000022, 'Joaquín Correa', 'Ejercito', 11);
+
+--- QUERY ---
+SELECT * FROM Brigade ORDER BY idBrigade;
 
 
 --- HOSPITAL (CREAR BATALLÓN)---

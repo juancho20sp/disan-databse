@@ -128,17 +128,40 @@ INSERT INTO Division VALUES (75321478951, 'Juline Theobold', 'Fuerza Aerea');
 INSERT INTO Division VALUES (NULL, 'Juline Theobold', 'Fuerza Aerea');
 
 --- commander -> VARCHAR2(100) NOT NULL
-INSERT INTO Division VALUES (123, '', 'Fuerza Aerea');
+INSERT INTO Division VALUES (11, '', 'Fuerza Aerea');
 
-INSERT INTO Division VALUES (123, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean mer', 'Fuerza Aerea');
+INSERT INTO Division VALUES (11, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean mer', 'Fuerza Aerea');
 
 --- militaryForce -> VARCHAR2(50) NOT NULL 
-INSERT INTO Division VALUES (123, 'Juline Theobold', '');
+INSERT INTO Division VALUES (11, 'Juline Theobold', '');
 
-INSERT INTO Division VALUES (123, 'Juline Theobold', 'Lorem ipsum dolor sit amet, consectetuer adipisciner');
+INSERT INTO Division VALUES (11, 'Juline Theobold', 'Lorem ipsum dolor sit amet, consectetuer adipisciner');
 
 --- QUERY ---
 SELECT * FROM Division ORDER BY idDivision;
+
+
+--- BRIGADE ---
+--- idBrigade ->  NUMBER(10) NOT NULL
+INSERT INTO Brigade VALUES (75321478951, 'Averyl Stinson', 'Armada', 1);
+INSERT INTO Brigade VALUES (NULL, 'Averyl Stinson', 'Armada', 1);
+
+--- commander -> VARCHAR2(100) NOT NULL
+INSERT INTO Brigade VALUES (12, '', 'Fuerza Aerea', 1);
+
+INSERT INTO Brigade VALUES (12, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean mer', 'Fuerza Aerea', 1);
+
+--- militaryForce -> VARCHAR2(50) NOT NULL 
+INSERT INTO Brigade VALUES (12, 'Juline Theobold', '', 1);
+
+INSERT INTO Brigade VALUES (12, 'Juline Theobold', 'Lorem ipsum dolor sit amet, consectetuer adipisciner', 1);
+
+--- idDivision -> NUMBER(10) NOT NULL
+INSERT INTO Brigade VALUES (12, 'Averyl Stinson', 'Armada', 75321478951);
+INSERT INTO Brigade VALUES (12, 'Averyl Stinson', 'Armada', NULL);
+
+--- QUERY ---
+SELECT * FROM Brigade ORDER BY idBrigade;
 
 /*
 
