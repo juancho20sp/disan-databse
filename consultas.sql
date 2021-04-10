@@ -26,3 +26,6 @@ SELECT * FROM Battalion ORDER BY idBattalion;
 
 --- HOSPITAL ---
 SELECT * FROM Hospital ORDER BY idHospital;
+
+--- PERSON ---
+SELECT * FROM Person;

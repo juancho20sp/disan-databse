@@ -7,6 +7,11 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 ## TO-DO List
 
 - Fuerza militar IN ('Ejército', 'Fuerza Aérea', 'Armada')
+- documentType IN ('CC', 'CE', 'TI', 'RC', 'PS')
+- gender IN ('F', 'M')
+- status IN ('A', 'I')
+- Verificar correo
+- Verificar que la fecha de cumpleaños de un paciente sea mayor a su fecha de registro en el sistema (no hay registros de personas que no han nacido)
 
 ### Laura
 
@@ -54,7 +59,7 @@ Create the restrictions for:
 - Division (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - Doctor
 - Exams
-- Hospital
+- Hospital (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Laboratory
 - ManagementPlan
 - MedicineComponents

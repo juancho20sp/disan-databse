@@ -253,3 +253,54 @@ INSERT INTO Hospital VALUES (0000000001, 'Hospital 1', 150, 48, 1, 1, 1, NULL);
 
 --- QUERY ---
 SELECT * FROM Hospital ORDER BY idHospital;
+
+
+
+--- PERSON ---
+--- documentType -> VARCHAR2(2) NOT NULL
+INSERT INTO Person VALUES ('CEEE', 1948559565, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+INSERT INTO Person VALUES ('', 1948559565, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+--- documentNumber -> NUMBER(10) NOT NULL
+INSERT INTO Person VALUES ('CE', 147852369878, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+INSERT INTO Person VALUES ('CE', NULL, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+--- name -> VARCHAR2(50) NOT NULL
+INSERT INTO Person VALUES ('CE', 1948559565, '', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+INSERT INTO Person VALUES ('CE', 1948559565, 'Lorem ipsum dolor sit amet, consectetuer adipiscing', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+--- lastname -> VARCHAR2(50) NOT NULL
+INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', '', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Lorem ipsum dolor sit amet, consectetuer adipiscing', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+--- gender -> CHAR(1) NOT NULL
+INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', '', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', 'MM', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+--- birthDate -> DATE NOT NULL
+INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', 'M', 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+--- status -> CHAR(1) NOT NULL
+INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), '', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'III', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+--- email -> VARCHAR2(100) NOT NULL
+INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', '', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+--- registerDate -> DATE NOT NULL
+INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', NULL);
+
+--- EMAIL IS UNIQUE
+INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+--- QUERY ---
+SELECT * FROM Person;

@@ -222,4 +222,4 @@ INSERT INTO Hospital VALUES (NULL, 'Hospital 8', 100, 20, 30, 8, 8, 8);
 INSERT INTO Hospital VALUES (NULL, 'Hospital 9', 500, 85, 31, 9, 9, 9);
 INSERT INTO Hospital VALUES (NULL, 'Hospital 10', 9, 1, 32, 10, 10, 10);
 --- QUERY ---
---- SELECT * FROM Hospital ORDER BY idHospital;
+SELECT * FROM Hospital ORDER BY idHospital;
