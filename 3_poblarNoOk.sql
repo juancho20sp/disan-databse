@@ -122,29 +122,25 @@ INSERT INTO MilitaryUnit VALUES (777, 'Lorem', 16, NULL);
 SELECT * FROM MilitaryUnit ORDER BY idMilitaryUnit;
 
 
+--- DIVISION ---
 --- idDivision ->  NUMBER(10) NOT NULL
-/*INSERT INTO Division VALUES (999999999, 'División 1', 'Juline Theobold', 'Trailsway', 'Fuerza Aerea');
-INSERT INTO Division VALUES (NULL, 'División 1', 'Juline Theobold', 'Trailsway', 'Fuerza Aerea');
-
---- name -> VARCHAR2(250) NOT NULL
-INSERT INTO Division VALUES (999, '', 'Juline Theobold', 'Trailsway', 'Fuerza Aerea');
-
-INSERT INTO Division VALUES (999, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium q', 'Juline Theobold', 'Trailsway', 'Fuerza Aerea');
+INSERT INTO Division VALUES (75321478951, 'Juline Theobold', 'Fuerza Aerea');
+INSERT INTO Division VALUES (NULL, 'Juline Theobold', 'Fuerza Aerea');
 
 --- commander -> VARCHAR2(100) NOT NULL
-INSERT INTO Division VALUES (999, 'División 1', '', 'Trailsway', 'Fuerza Aerea');
+INSERT INTO Division VALUES (123, '', 'Fuerza Aerea');
 
-INSERT INTO Division VALUES (999, 'División 1', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean mer', 'Trailsway', 'Fuerza Aerea');
-
---- location -> VARCHAR2(50) NOT NULL 
-INSERT INTO Division VALUES (999, 'División 1', 'Juline Theobold', '', 'Fuerza Aerea');
-
-INSERT INTO Division VALUES (999, 'División 1', 'Juline Theobold', 'Lorem ipsum dolor sit amet, consectetuer adipiscin1', 'Fuerza Aerea');
+INSERT INTO Division VALUES (123, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean mer', 'Fuerza Aerea');
 
 --- militaryForce -> VARCHAR2(50) NOT NULL 
-INSERT INTO Division VALUES (999, 'División 1', 'Juline Theobold', 'Trailsway', '');
+INSERT INTO Division VALUES (123, 'Juline Theobold', '');
 
-INSERT INTO Division VALUES (999, 'División 1', 'Juline Theobold', 'Trailsway', 'Lorem ipsum dolor sit amet, consectetuer adipisciner');
+INSERT INTO Division VALUES (123, 'Juline Theobold', 'Lorem ipsum dolor sit amet, consectetuer adipisciner');
+
+--- QUERY ---
+SELECT * FROM Division ORDER BY idDivision;
+
+/*
 
 --- BRIGADE ---
 --- idDivision ->  NUMBER(10) NOT NULL

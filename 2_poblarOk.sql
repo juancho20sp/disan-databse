@@ -163,7 +163,7 @@ INSERT INTO MilitaryUnit VALUES (0000000032, 'Batallón 10', 20, NULL);
 --- SELECT * FROM MilitaryUnit ORDER BY idMilitaryUnit;
 
 --- DIVISION ---
-/*INSERT INTO Division VALUES (0000000001, 'Juline Theobold', 'Fuerza Aerea');
+INSERT INTO Division VALUES (0000000001, 'Juline Theobold', 'Fuerza Aerea');
 INSERT INTO Division VALUES (0000000002, 'Ralina Jacklings', 'Ejercito');
 INSERT INTO Division VALUES (0000000003, 'Ashlen Snary', 'Armada');
 INSERT INTO Division VALUES (0000000004, 'Anne Bernasek', 'Ejercito');
@@ -173,7 +173,12 @@ INSERT INTO Division VALUES (0000000007, 'Godwin Jarrad', 'Fuerza Aerea');
 INSERT INTO Division VALUES (0000000008, 'Deena Hague', 'Ejercito');
 INSERT INTO Division VALUES (0000000009, 'Roddy Richardes', 'Fuerza Aerea');
 INSERT INTO Division VALUES (0000000010, 'Ferdy Peizer', 'Armada');
+INSERT INTO Division VALUES (0000000011, 'Franz Ferdinand', 'Ejercito');
 
+--- QUERY ---
+SELECT * FROM Division ORDER BY idDivision;
+
+/*
 --- BRIGADE ---
 INSERT INTO Brigade VALUES (0000000001, 'Averyl Stinson', 'Armada');
 INSERT INTO Brigade VALUES (0000000002, 'Haven Amberg', 'Fuerza Aerea');

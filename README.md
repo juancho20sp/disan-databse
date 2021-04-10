@@ -49,7 +49,7 @@ Create the restrictions for:
 - City (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - ClinicalHistory
 - Disease
-- Division
+- Division (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - Doctor
 - Exams
 - Hospital
@@ -59,6 +59,7 @@ Create the restrictions for:
 - MedicationInventory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - MedicationType (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Medicines
+- MilitaryUnit (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Nurse
 - Patient
 - Person
