@@ -1,0 +1,14 @@
+--- MEDICATION TYPE ---
+SELECT * FROM MEDICATIONTYPE ORDER BY idmedicationtype;
+
+--- MEDICATION INVENTORY ---
+SELECT * FROM MEDICATIONINVENTORY ORDER BY idMedicationInventory;
+
+--- SUPPLIES INVENTORY ---
+SELECT * FROM SuppliesInventory ORDER BY idSuppliesInventory;
+
+--- CITY ---
+SELECT * FROM City ORDER BY idCity;
+
+--- DIVISION ---
+SELECT * FROM Division ORDER BY idDivision;

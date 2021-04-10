@@ -40,6 +40,33 @@ Create the restrictions for:
 - SuppliesInventory
 - Supply
 
+### Summary
+
+- Appointment
+- Background
+- Battalion
+- Brigade
+- City (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- ClinicalHistory
+- Disease
+- Division (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- Doctor
+- Exams
+- Hospital
+- Laboratory
+- ManagementPlan
+- MedicineComponents
+- MedicationInventory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- MedicationType (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- Medicines
+- Nurse
+- Patient
+- Person
+- Procedure
+- Specialty
+- SuppliesInventory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- Supply
+
 ## Considerations
 
 - ON DELETE RESTRICT

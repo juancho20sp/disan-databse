@@ -1,7 +1,7 @@
 /* ------------ TABLAS -------------*/ 
 CREATE TABLE Appointment (
     idAppointment	    NUMBER(10) NOT NULL,
-    diagnosis          	VARCHAR(500) NOT NULL,
+    diagnosis          	VARCHAR2(500) NOT NULL,
     dateAppointment    	DATE,
 	idClinicalHistory	NUMBER(10) NOT NULL, 
 	idManagmentPlan		NUMBER(10) NOT NULL,
@@ -15,58 +15,58 @@ CREATE TABLE Background (
 
 CREATE TABLE Battalion (
     idBattalion		    NUMBER(10) NOT NULL,
-	name				VARCHAR(250) NOT NULL, 	
-	commander			VARCHAR(100) NOT NULL, 
-	location			VARCHAR(50) NOT NULL, 
-	militaryForce		VARCHAR(50) NOT NULL, 
+	name				VARCHAR2(250) NOT NULL, 	
+	commander			VARCHAR2(100) NOT NULL, 
+	location			VARCHAR2(50) NOT NULL, 
+	militaryForce		VARCHAR2(50) NOT NULL, 
 	idBrigade			NUMBER(10) NOT NULL
 );
 
 CREATE TABLE Brigade (
     idBrigade		    NUMBER(10) NOT NULL,
-	name				VARCHAR(250) NOT NULL, 	
-	commander			VARCHAR(100) NOT NULL, 
-	location			VARCHAR(50) NOT NULL, 
-	militaryForce		VARCHAR(50) NOT NULL, 
+	name				VARCHAR2(250) NOT NULL, 	
+	commander			VARCHAR2(100) NOT NULL, 
+	location			VARCHAR2(50) NOT NULL, 
+	militaryForce		VARCHAR2(50) NOT NULL, 
 	idDivision			NUMBER(10) NOT NULL
 );
 
 CREATE TABLE City (
     idCity			    NUMBER(10) NOT NULL,
-	name				VARCHAR(10) NOT NULL, 	
-	department			VARCHAR(50) NOT NULL
+	name				VARCHAR2(10) NOT NULL, 	
+	department			VARCHAR2(50) NOT NULL
 ); 
 
 CREATE TABLE ClinicalHistory (
     idClinicalHistory   NUMBER(10) NOT NULL,
-	documentType		VARCHAR(2) NOT NULL, 
+	documentType		VARCHAR2(2) NOT NULL, 
 	documentNumber		NUMBER(10) NOT NULL
 ); 
 
 CREATE TABLE Disease (
     idDisease			NUMBER(10) NOT NULL,
-	name				VARCHAR(50) NOT NULL, 
-	description 		VARCHAR(500) NOT NULL,
+	name				VARCHAR2(50) NOT NULL, 
+	description 		VARCHAR2(500) NOT NULL,
 	idBackground		NUMBER(10) NOT NULL
 ); 
 
 CREATE TABLE Division (
     idDivision		    NUMBER(10) NOT NULL,
-	name				VARCHAR(250) NOT NULL, 	
-	commander			VARCHAR(100) NOT NULL, 
-	location			VARCHAR(50) NOT NULL, 
-	militaryForce		VARCHAR(50) NOT NULL 
+	name				VARCHAR2(250) NOT NULL, 	
+	commander			VARCHAR2(100) NOT NULL, 
+	location			VARCHAR2(50) NOT NULL, 
+	militaryForce		VARCHAR2(50) NOT NULL 
 );
 
 CREATE TABLE Doctor (
-    documentType	    VARCHAR(2) NOT NULL,
+    documentType	    VARCHAR2(2) NOT NULL,
 	documentNumber		NUMBER(10) NOT NULL, 	
-	militaryForce		VARCHAR(50) NOT NULL
+	militaryForce		VARCHAR2(50) NOT NULL
 );
 
 CREATE TABLE Hospital (
     idHospital		    NUMBER(10) NOT NULL,
-	name				VARCHAR(50) NOT NULL, 	
+	name				VARCHAR2(50) NOT NULL, 	
 	bedNumber			NUMBER(10) NOT NULL, 
 	UCINumber			NUMBER(10) NOT NULL, 
 	idBattalion			NUMBER(10) NOT NULL, 
@@ -77,25 +77,25 @@ CREATE TABLE Hospital (
 
 CREATE TABLE Exams (
     idExams			    NUMBER(10) NOT NULL,
-	name				VARCHAR(50) NOT NULL, 
+	name				VARCHAR2(50) NOT NULL, 
 	idManagmentPlan		NUMBER(10) NOT NULL
 ); 
 
 CREATE TABLE Laboratory (
     idLaboratory	    NUMBER(10) NOT NULL,
-	name				VARCHAR(50) NOT NULL, 
+	name				VARCHAR2(50) NOT NULL, 
 	idCity				NUMBER(10) NOT NULL,
 	idSuppliesInventory	NUMBER(10) NOT NULL
 ); 
 
 CREATE TABLE ManagementPlan (
     idManagmentPlan	    NUMBER(10) NOT NULL,
-	instructions		VARCHAR(500) NOT NULL
+	instructions		VARCHAR2(500) NOT NULL
 ); 
 
 CREATE TABLE MedicationComponents (
     idMedicationComponent NUMBER(10) NOT NULL,
-	name				VARCHAR(50) NOT NULL, 
+	name				VARCHAR2(50) NOT NULL, 
 	idMedicines			NUMBER(10) NOT NULL
 ); 
 
@@ -105,45 +105,45 @@ CREATE TABLE MedicationInventory (
 
 CREATE TABLE MedicationType (
     idMedicationType	NUMBER(10) NOT NULL,
-	name				VARCHAR(50) NOT NULL
+	name				VARCHAR2(50) NOT NULL
 ); 
 
 CREATE TABLE Medicines (
     idMedicines			NUMBER(10) NOT NULL,
-	commercialName		VARCHAR(50) NOT NULL, 
-	presentation		VARCHAR(50) NOT NULL, 
-	producer			VARCHAR(50) NOT NULL, 
+	commercialName		VARCHAR2(50) NOT NULL, 
+	presentation		VARCHAR2(50) NOT NULL, 
+	producer			VARCHAR2(50) NOT NULL, 
 	idManagmentPlan		NUMBER(10) NOT NULL, 
 	idMedicationType	NUMBER(10) NOT NULL, 
 	idMedicationInventory NUMBER(10) NOT NULL
 ); 
 
 CREATE TABLE Nurse (
-    documentType	    VARCHAR(2) NOT NULL,
+    documentType	    VARCHAR2(2) NOT NULL,
 	documentNumber		NUMBER(10) NOT NULL, 	
-	militaryForce		VARCHAR(50) NOT NULL
+	militaryForce		VARCHAR2(50) NOT NULL
 );
 
 CREATE TABLE Patient (
-    documentType	    VARCHAR(2) NOT NULL,
+    documentType	    VARCHAR2(2) NOT NULL,
 	documentNumber		NUMBER(10) NOT NULL, 	
 	disanId				NUMBER(10) NOT NULL
 );
 
 CREATE TABLE Person (
-    documentType	    VARCHAR(2) NOT NULL,
+    documentType	    VARCHAR2(2) NOT NULL,
 	documentNumber		NUMBER(10) NOT NULL, 	
-	name				VARCHAR(50) NOT NULL, 
-	lastname			VARCHAR(50) NOT NULL, 
+	name				VARCHAR2(50) NOT NULL, 
+	lastname			VARCHAR2(50) NOT NULL, 
 	gender				CHAR(1) NOT NULL, 
 	birthDate			DATE NOT NULL, 
 	status				CHAR(1) NOT NULL, 
-	email				VARCHAR(100) NOT NULL
+	email				VARCHAR2(100) NOT NULL
 );
 
 CREATE TABLE Procedures (
     idProcedure			NUMBER(10) NOT NULL,
-	name				VARCHAR(50) NOT NULL, 
+	name				VARCHAR2(50) NOT NULL, 
 	dateProcedure		DATE NOT NULL,
 	idBackground		NUMBER(10) NOT NULL, 
 	idManagmentPlan		NUMBER(10) NOT NULL, 
@@ -153,7 +153,7 @@ CREATE TABLE Procedures (
 
 CREATE TABLE Speciality (
     idSpeciality		NUMBER(10) NOT NULL,
-	name				VARCHAR(50) NOT NULL
+	name				VARCHAR2(50) NOT NULL
 );
 
 CREATE TABLE SuppliesInventory (
@@ -162,7 +162,7 @@ CREATE TABLE SuppliesInventory (
 
 CREATE TABLE Supply (
 	idSupply			NUMBER(10) NOT NULL, 
-	name				VARCHAR(50) NOT NULL, 
+	name				VARCHAR2(50) NOT NULL, 
 	amount				NUMBER(10) NOT NULL, 
 	idSuppliesInventory	NUMBER(10) NOT NULL
 ); 		
@@ -174,42 +174,42 @@ CREATE TABLE ExamsLaboratory (
 
 CREATE TABLE ExamsNurse (
 	idExam				NUMBER(10) NOT NULL, 
-	documentType		VARCHAR(2) NOT NULL,
+	documentType		VARCHAR2(2) NOT NULL,
 	documentNumber		NUMBER(10) NOT NULL
 );
 
 CREATE TABLE NurseSpeciality (
-	documentType		VARCHAR(2) NOT NULL,
+	documentType		VARCHAR2(2) NOT NULL,
 	documentNumber		NUMBER(10) NOT NULL,
 	idSpeciality		NUMBER(10) NOT NULL
 );
 
 CREATE TABLE DoctorSpeciality (
-	documentType		VARCHAR(2) NOT NULL,
+	documentType		VARCHAR2(2) NOT NULL,
 	documentNumber		NUMBER(10) NOT NULL,
 	idSpeciality		NUMBER(10) NOT NULL
 );
 
 CREATE TABLE AppointmentDoctor (
 	idAppointment		NUMBER(10) NOT NULL,
-	documentType		VARCHAR(2) NOT NULL,
+	documentType		VARCHAR2(2) NOT NULL,
 	documentNumber		NUMBER(10) NOT NULL
 );
 
 CREATE TABLE AppointmentNurse (
 	idAppointment		NUMBER(10) NOT NULL,
-	documentType		VARCHAR(2) NOT NULL,
+	documentType		VARCHAR2(2) NOT NULL,
 	documentNumber		NUMBER(10) NOT NULL
 );
 
 CREATE TABLE ProcedureNurse (
-	documentType		VARCHAR(2) NOT NULL,
+	documentType		VARCHAR2(2) NOT NULL,
 	documentNumber		NUMBER(10) NOT NULL, 
 	idProcedure			NUMBER(10) NOT NULL
 );
 
 CREATE TABLE ProcedureDoctor (
-	documentType		VARCHAR(2) NOT NULL,
+	documentType		VARCHAR2(2) NOT NULL,
 	documentNumber		NUMBER(10) NOT NULL, 
 	idProcedure			NUMBER(10) NOT NULL
 );
