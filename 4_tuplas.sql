@@ -28,7 +28,7 @@ ALTER TABLE Person
 	
 ALTER TABLE Person 
 	ADD CONSTRAINT CK_PERSON_STATUS
-	CHECK (documentType IN ('A', 'I'));
+	CHECK (status IN ('A', 'I'));
 	
 ALTER TABLE Person 
 	ADD CONSTRAINT CK_PERSON_EMAIL 
