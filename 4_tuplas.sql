@@ -34,8 +34,6 @@ ALTER TABLE Person
 	ADD CONSTRAINT CK_PERSON_EMAIL 
 	CHECK (REGEXP_LIKE(email, '^[A-Za-z]*[0-9]*@[A-Za-z]*.[A-Za-z]*$'));
 	
-ALTER TABLE Person 
-	ADD CONSTRAINT CK_PERSON_EMAIL 
-	CHECK (REGEXP_LIKE(email, '^[A-Za-z]*[0-9]*@[A-Za-z]*.[A-Za-z]*$'));
+
 	
 	
