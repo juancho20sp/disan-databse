@@ -40,7 +40,7 @@ CREATE TABLE Appointment (
     diagnosis          	VARCHAR2(500) NOT NULL,
     dateAppointment    	DATE,
 	idClinicalHistory	NUMBER(10) NOT NULL, 
-	idManagmentPlan		NUMBER(10) NOT NULL,
+	idManagementPlan	NUMBER(10) NOT NULL,
 	idHospital			NUMBER(10) NOT NULL
 ); 
 
@@ -108,7 +108,7 @@ CREATE TABLE Hospital (
 CREATE TABLE Exams (
     idExams			    NUMBER(10) NOT NULL,
 	name				VARCHAR2(50) NOT NULL, 
-	idManagmentPlan		NUMBER(10) NOT NULL
+	idManagementPlan	NUMBER(10) NOT NULL
 ); 
 
 CREATE TABLE Laboratory (
@@ -119,14 +119,14 @@ CREATE TABLE Laboratory (
 ); 
 
 CREATE TABLE ManagementPlan (
-    idManagmentPlan	    NUMBER(10) NOT NULL,
+    idManagementPlan	NUMBER(10) NOT NULL,
 	instructions		VARCHAR2(500) NOT NULL
 ); 
 
 CREATE TABLE MedicationComponents (
     idMedicationComponent NUMBER(10) NOT NULL,
-	name				VARCHAR2(50) NOT NULL, 
-	idMedicines			NUMBER(10) NOT NULL
+	name				  VARCHAR2(50) NOT NULL, 
+	idMedicines			  NUMBER(10) NOT NULL
 ); 
 
 CREATE TABLE MedicationInventory (
@@ -139,12 +139,12 @@ CREATE TABLE MedicationType (
 ); 
 
 CREATE TABLE Medicines (
-    idMedicines			NUMBER(10) NOT NULL,
-	commercialName		VARCHAR2(50) NOT NULL, 
-	presentation		VARCHAR2(50) NOT NULL, 
-	producer			VARCHAR2(50) NOT NULL, 
-	idManagmentPlan		NUMBER(10) NOT NULL, 
-	idMedicationType	NUMBER(10) NOT NULL, 
+    idMedicines			  NUMBER(10) NOT NULL,
+	commercialName		  VARCHAR2(50) NOT NULL, 
+	presentation		  VARCHAR2(50) NOT NULL, 
+	producer			  VARCHAR2(50) NOT NULL, 
+	idManagementPlan	  NUMBER(10) NOT NULL, 
+	idMedicationType	  NUMBER(10) NOT NULL, 
 	idMedicationInventory NUMBER(10) NOT NULL
 ); 
 
@@ -184,7 +184,7 @@ CREATE TABLE Procedures (
 	name				VARCHAR2(50) NOT NULL, 
 	dateProcedure		DATE NOT NULL,
 	idBackground		NUMBER(10) NOT NULL, 
-	idManagmentPlan		NUMBER(10) NOT NULL, 
+	idManagementPlan	NUMBER(10) NOT NULL, 
 	idClinicalHistory	NUMBER(10) NOT NULL, 
 	idHospital			NUMBER(10) NOT NULL
 );
@@ -280,7 +280,7 @@ ALTER TABLE Doctor ADD CONSTRAINT PK_ID_DOCTOR PRIMARY KEY (documentType, docume
 ALTER TABLE Hospital ADD CONSTRAINT PK_ID_HOSPITAL PRIMARY KEY (idHospital); 
 ALTER TABLE Exams ADD CONSTRAINT PK_ID_EXAMS PRIMARY KEY (idExams); 
 ALTER TABLE Laboratory ADD CONSTRAINT PK_ID_LABORATORY PRIMARY KEY (idLaboratory); 
-ALTER TABLE ManagementPlan ADD CONSTRAINT PK_ID_MANAGEMENTPLAN PRIMARY KEY (idManagmentPlan); 
+ALTER TABLE ManagementPlan ADD CONSTRAINT PK_ID_MANAGEMENTPLAN PRIMARY KEY (idManagementPlan); 
 ALTER TABLE MedicationComponents ADD CONSTRAINT PK_ID_MEDICATIONCOMPONENTS PRIMARY KEY (idMedicationComponent); 
 ALTER TABLE MedicationInventory ADD CONSTRAINT PK_ID_MEDICATIONINVENTORY PRIMARY KEY (idMedicationInventory); 
 ALTER TABLE MedicationType ADD CONSTRAINT PK_ID_MEDICATIONTYPE PRIMARY KEY (idMedicationType); 
@@ -305,7 +305,7 @@ ALTER TABLE ProcedureDoctor ADD CONSTRAINT PK_ID_PROCEDUREDOCTOR PRIMARY KEY (do
 
 --- FORÁNEAS ---
 ALTER TABLE Appointment ADD CONSTRAINT FK_APPOINTMNET_CLINICALH FOREIGN KEY (idClinicalHistory) REFERENCES ClinicalHistory(idClinicalHistory);
-ALTER TABLE Appointment ADD CONSTRAINT FK_APPOINTMNET_MANAGEPLAN FOREIGN KEY (idManagmentPlan) REFERENCES ManagementPlan(idManagmentPlan);
+ALTER TABLE Appointment ADD CONSTRAINT FK_APPOINTMNET_MANAGEPLAN FOREIGN KEY (idManagementPlan) REFERENCES ManagementPlan(idManagementPlan);
 ALTER TABLE Appointment ADD CONSTRAINT FK_APPOINTMNET_HOSPITAL FOREIGN KEY (idHospital) REFERENCES Hospital(idHospital);
 ALTER TABLE Background ADD CONSTRAINT FK_BACKGROUND_CLINICALH FOREIGN KEY (idClinicalHistory) REFERENCES ClinicalHistory(idClinicalHistory);
 
@@ -327,11 +327,11 @@ ALTER TABLE Hospital ADD CONSTRAINT FK_HOSPITAL_BATTALION FOREIGN KEY (idBattali
 ALTER TABLE Hospital ADD CONSTRAINT FK_HOSPITAL_SUPPLIESINV FOREIGN KEY (idSuppliesInventory) REFERENCES SuppliesInventory(idSuppliesInventory);
 ALTER TABLE Hospital ADD CONSTRAINT FK_HOSPITAL_CITY FOREIGN KEY (idCity) REFERENCES City(idCity);
 ALTER TABLE Hospital ADD CONSTRAINT FK_HOSPITAL_MEDICATIONINV FOREIGN KEY (idMedicationInventory) REFERENCES MedicationInventory(idMedicationInventory);
-ALTER TABLE Exams ADD CONSTRAINT FK_EXAMS_MANAGEPLAN FOREIGN KEY (idManagmentPlan) REFERENCES ManagementPlan(idManagmentPlan);
+ALTER TABLE Exams ADD CONSTRAINT FK_EXAMS_MANAGEPLAN FOREIGN KEY (idManagementPlan) REFERENCES ManagementPlan(idManagementPlan);
 ALTER TABLE Laboratory ADD CONSTRAINT FK_LABORATORY_CITY FOREIGN KEY (idCity) REFERENCES City(idCity);
 ALTER TABLE Laboratory ADD CONSTRAINT FK_LABORATORY_SUPPLIESINV FOREIGN KEY (idSuppliesInventory) REFERENCES SuppliesInventory(idSuppliesInventory);
 ALTER TABLE MedicationComponents ADD CONSTRAINT FK_MEDICATIONC_MEDICINE FOREIGN KEY (idMedicines) REFERENCES Medicines(idMedicines);
-ALTER TABLE Medicines ADD CONSTRAINT FK_MEDICINES_MANAGEPLAN FOREIGN KEY (idManagmentPlan) REFERENCES ManagementPlan(idManagmentPlan);
+ALTER TABLE Medicines ADD CONSTRAINT FK_MEDICINES_MANAGEPLAN FOREIGN KEY (idManagementPlan) REFERENCES ManagementPlan(idManagementPlan);
 ALTER TABLE Medicines ADD CONSTRAINT FK_MEDICINES_MEDTYPE FOREIGN KEY (idMedicationType) REFERENCES MedicationType(idMedicationType);
 ALTER TABLE Medicines ADD CONSTRAINT FK_MEDICINES_MEDINV FOREIGN KEY (idMedicationInventory) REFERENCES MedicationInventory(idMedicationInventory);
 
@@ -341,7 +341,7 @@ ALTER TABLE MilitaryUnit ADD CONSTRAINT FK_MU_CITY FOREIGN KEY (city) REFERENCES
 ALTER TABLE Nurse ADD CONSTRAINT FK_NURSE_ID FOREIGN KEY (documentType, documentNumber) REFERENCES Person(documentType, documentNumber);
 ALTER TABLE Patient ADD CONSTRAINT FK_PATIENT_DOCTYPE FOREIGN KEY (documentType, documentNumber) REFERENCES Person(documentType, documentNumber); 
 ALTER TABLE Procedures ADD CONSTRAINT FK_PROCEDURE_BACKGROUND FOREIGN KEY (idBackground) REFERENCES Background(idBackground); 
-ALTER TABLE Procedures ADD CONSTRAINT FK_PROCEDURE_MANAGEPLAN FOREIGN KEY (idManagmentPlan) REFERENCES ManagementPlan(idManagmentPlan); 
+ALTER TABLE Procedures ADD CONSTRAINT FK_PROCEDURE_MANAGEPLAN FOREIGN KEY (idManagementPlan) REFERENCES ManagementPlan(idManagementPlan); 
 ALTER TABLE Procedures ADD CONSTRAINT FK_PROCEDURE_CLINICALH FOREIGN KEY (idClinicalHistory) REFERENCES ClinicalHistory(idClinicalHistory); 
 ALTER TABLE Procedures ADD CONSTRAINT FK_PROCEDURE_HOSPITAL FOREIGN KEY (idHospital) REFERENCES Hospital(idHospital); 
 ALTER TABLE Supply ADD CONSTRAINT FK_SUPPLY_SUPPLIESINV FOREIGN KEY (idSuppliesInventory) REFERENCES SuppliesInventory(idSuppliesInventory); 

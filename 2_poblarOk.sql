@@ -251,17 +251,36 @@ INSERT INTO Person VALUES ('CC', 4563832319, 'Electra', 'de Marco', 'M', TO_DATE
 --- SELECT * FROM Person;
 
 
---- PENDIENTE DE PRUEBAS
+--- PENDIENTE POR PROBAR
+
+--- DOCTOR ---
+INSERT INTO Doctor VALUES('TI', 1773190621, 'Fuerza Aerea'); 
+INSERT INTO Doctor VALUES('CC', 2878196529, 'Armada'); 
+INSERT INTO Doctor VALUES('TI', 9115387117, 'Ejercito'); 
+INSERT INTO Doctor VALUES('CC', 7049570787, 'Fuerza Aerea'); 
+
+--- QUERY ---
+SELECT * FROM Doctor;
 
 
- --- PATIENT --- 
+--- NURSE ---
+INSERT INTO Nurse VALUES('TI', 7933982639, 'Fuerza Aerea'); 
+INSERT INTO Nurse VALUES('TI', 4252609306, 'Armada'); 
+INSERT INTO Nurse VALUES('CE', 4779118851, 'Ejercito'); 
+INSERT INTO Nurse VALUES('CC', 4563832319, 'Fuerza Aerea'); 
+
+--- QUERY ---
+SELECT * FROM Nurse;
+
+
+--- PATIENT --- 
 INSERT INTO Patient VALUES ('CE', 1948559565, 00001);
 INSERT INTO Patient VALUES ('CC', 9254619331, 00002);
 INSERT INTO Patient VALUES ('CE', 1786662041, 00003);
 INSERT INTO Patient VALUES ('CC', 2984806463, 00004);
 
- --- QUERY ---
- SELECT * FROM Patient;
+--- QUERY ---
+--- SELECT * FROM Patient;
 
 
 --- CLINICAL HISTORY ---
@@ -270,8 +289,84 @@ INSERT INTO ClinicalHistory VALUES (00002, 'CC', 9254619331);
 INSERT INTO ClinicalHistory VALUES (00003, 'CE', 1786662041);
 INSERT INTO ClinicalHistory VALUES (00004, 'CC', 2984806463);
 
- --- QUERY ---
- SELECT * FROM ClinicalHistory ORDER BY idClinicalHistory ;
+--- QUERY ---
+--- SELECT * FROM ClinicalHistory ORDER BY idClinicalHistory ;
 
+
+--- SPECIALTY ---
+INSERT INTO Speciality VALUES (0000000001, 'Hematologia');
+INSERT INTO Speciality VALUES (0000000002, 'Endocrinologia');
+INSERT INTO Speciality VALUES (0000000003, 'Medicina Interna');
+INSERT INTO Speciality VALUES (0000000004, 'Cirugia General');
+INSERT INTO Speciality VALUES (0000000005, 'Pediatria');
+INSERT INTO Speciality VALUES (0000000006, 'Gastroenterologia');
+INSERT INTO Speciality VALUES (0000000007, 'Infectologia');
+INSERT INTO Speciality VALUES (0000000008, 'Neumologia');
+INSERT INTO Speciality VALUES (0000000009, 'Dermatologia');
+INSERT INTO Speciality VALUES (0000000010, 'Neurocirugia');
+
+--- QUERY ---
+SELECT * FROM Speciality ORDER BY idSpeciality ;
 
  
+--- DOCTOR SPECIALTY ---
+INSERT INTO DoctorSpeciality VALUES ('TI', 1773190621, 0000000001);
+INSERT INTO DoctorSpeciality VALUES ('CC', 2878196529, 0000000002);
+INSERT INTO DoctorSpeciality VALUES ('TI', 9115387117, 0000000003);
+INSERT INTO DoctorSpeciality VALUES ('CC', 7049570787, 0000000004);
+
+--- QUERY ---
+SELECT * FROM DoctorSpeciality;
+
+
+--- NURSE SPECIALTY ---
+INSERT INTO NurseSpeciality VALUES ('TI', 7933982639, 0000000001);
+INSERT INTO NurseSpeciality VALUES ('TI', 4252609306, 0000000002);
+INSERT INTO NurseSpeciality VALUES ('CE', 4779118851, 0000000003);
+INSERT INTO NurseSpeciality VALUES ('CC', 4563832319, 0000000004);
+
+--- QUERY ---
+SELECT * FROM NurseSpeciality;
+
+
+--- BACKGROUND ---
+INSERT INTO Background VALUES (0000000001, 00001); 
+INSERT INTO Background VALUES (0000000002, 00002); 
+INSERT INTO Background VALUES (0000000003, 00003); 
+INSERT INTO Background VALUES (0000000004, 00004);
+
+--- QUERY ---
+SELECT * FROM Background ORDER BY idBackground ;
+
+--- DISEASE ---
+INSERT INTO Disease VALUES (0000000001, 'Pteridaceae', 'Rheumatoid polyneuropathy with rheumatoid arthritis of right elbow', 1);
+INSERT INTO Disease VALUES (0000000002, 'Campanulaceae', 'Toxic effect of 2-Propanol, intentional self-harm, sequela', 2);
+INSERT INTO Disease VALUES (0000000003, 'Asteraceae', 'Benign neoplasm of scapula and long bones of upper limb', 3);
+INSERT INTO Disease VALUES (0000000004, 'Cyperaceae', 'Benign mammary dysplasia', 4);
+INSERT INTO Disease VALUES (0000000005, 'Hypnaceae', 'Nondisplaced fracture of capitate [os magnum] bone, right wrist, initial encounter for open fracture', 1);
+INSERT INTO Disease VALUES (0000000006, 'Rosaceae', 'Poisoning by unspecified drugs, medicaments and biological substances, accidental (unintentional), initial encounter', 2);
+INSERT INTO Disease VALUES (0000000007, 'Scrophulariaceae', 'Crushing injury of unspecified foot, sequela', 3);
+INSERT INTO Disease VALUES (0000000008, 'Sarraceniaceae', 'Infection and inflammatory reaction due to cardiac valve prosthesis, subsequent encounter', 4);
+INSERT INTO Disease VALUES (0000000009, 'Araceae', 'Driver of heavy transport vehicle injured in collision with pedestrian or animal in traffic accident, subsequent encounter', 1);
+INSERT INTO Disease VALUES (0000000010, 'Liliaceae', 'Other fracture of left patella, subsequent encounter for open fracture type IIIA, IIIB, or IIIC with routine healing', 2);
+
+--- QUERY ---
+SELECT * FROM Disease ORDER BY idDisease ;
+
+
+--- LABORATORY ---
+INSERT INTO Laboratory VALUES (0000000001, 'Kshlerin-Hilll', 1, 1);
+INSERT INTO Laboratory VALUES (0000000002, 'Lang-Hyatt', 2, 2);
+INSERT INTO Laboratory VALUES (0000000003, 'Reichert and Sons', 3, 3);
+INSERT INTO Laboratory VALUES (0000000004, 'Beer, Jast and Heidenreich', 4, 4);
+INSERT INTO Laboratory VALUES (0000000005, 'Metz-Beier', 5, 5);
+INSERT INTO Laboratory VALUES (0000000006, 'Runolfsson Inc', 6, 6);
+INSERT INTO Laboratory VALUES (0000000007, 'Goodwin-Batz', 7, 7);
+INSERT INTO Laboratory VALUES (0000000008, 'Schamberger, Schuppe and McDermott', 8, 8);
+INSERT INTO Laboratory VALUES (0000000009, 'Ankunding, Bins and Dach', 9, 9);
+INSERT INTO Laboratory VALUES (0000000010, 'Thompson-Wiza', 10, 10);
+
+--- QUERY ---
+SELECT * FROM Laboratory ORDER BY idLaboratory ;
+
+

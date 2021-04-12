@@ -6,6 +6,13 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 
 ## TO-DO List
 
+### 11/04/2021
+
+- Si una persona es doctor, los tipos de documento válidos son ('CC', 'CE', 'PS')
+- Si una persona es enfermero/a, los tipos de documento válidos son ('CC', 'CE', 'PS')
+
+### POR PROBAR
+
 - Fuerza militar IN ('Ejército', 'Fuerza Aérea', 'Armada')
 - documentType IN ('CC', 'CE', 'TI', 'RC', 'PS')
 - gender IN ('F', 'M')
@@ -13,65 +20,34 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 - Verificar correo
 - Verificar que la fecha de cumpleaños de un paciente sea mayor a su fecha de registro en el sistema (no hay registros de personas que no han nacido)
 
-### Laura
-
-Create the restrictions for:
-
-- Appointment
-- Background
-- Battalion
-- Brigade
-- City
-- ClinicalHistory
-- Disease
-- Division
-- Doctor
-- Exams
-- Hospital
-- Laboratory
-
-### Juan
-
-Create the restrictions for:
-
-- ManagementPlan
-- MedicineComponents
-- MedicationInventory
-- MedicationType
-- Medicines
-- Nurse
-- Patient
-- Person
-- Procedure
-- Specialty
-- SuppliesInventory
-- Supply
-
 ### Summary
 
 - Appointment
-- Background
+- Background <PENDIENTE POR PROBAR>
 - Battalion (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - Brigade (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - City (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - ClinicalHistory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- Disease
+- Disease <PENDIENTE POR PROBAR>
 - Division (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
-- Doctor
+- Doctor <PENDIENTE POR PROBAR>
 - Exams
 - Hospital (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Laboratory
+- ExamsLaboratory
 - ManagementPlan
 - MedicineComponents
 - MedicationInventory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - MedicationType (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Medicines
 - MilitaryUnit (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- Nurse
+- Nurse <PENDIENTE POR PROBAR>
 - Patient (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Person (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Procedure
-- Specialty
+- Specialty <PENDIENTE POR PROBAR>
+- NurseSpeciality <PENDIENTE POR PROBAR>
+- DoctorSpeciality <PENDIENTE POR PROBAR>
 - SuppliesInventory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Supply
 

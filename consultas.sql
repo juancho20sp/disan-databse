@@ -28,10 +28,29 @@ SELECT * FROM Hospital ORDER BY idHospital;
 --- PERSON ---
 SELECT * FROM Person;
 
---- HASTA AQUÍ TODO 10/10
+ --- HASTA AQUÍ TODO 10/10
 
- --- PATIENT ---
- SELECT * FROM Patient;
+--- DOCTOR ---
+SELECT * FROM Doctor;
 
-  --- CLINICAL HISTORY ---
- SELECT * FROM ClinicalHistory ORDER BY idClinicalHistory ;
+--- NURSE ---
+SELECT * FROM Nurse;
+
+--- PATIENT ---
+SELECT * FROM Patient;
+
+--- CLINICAL HISTORY ---
+SELECT * FROM ClinicalHistory ORDER BY idClinicalHistory;
+
+--- SPECIALTY ---
+SELECT * FROM Speciality ORDER BY idSpeciality ;
+
+--- DOCTOR SPECIALTY ---
+SELECT * FROM DoctorSpeciality;
+
+--- NURSE SPECIALTY ---
+SELECT * FROM NurseSpeciality;
+
+--- BACKGROUND ---
+SELECT * FROM Backgound ORDER BY idBackground ;
+

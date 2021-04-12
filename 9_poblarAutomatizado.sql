@@ -224,14 +224,20 @@ INSERT INTO Hospital VALUES (NULL, 'Hospital 10', 9, 1, 32, 10, 10, 10);
 --- QUERY ---
 --- SELECT * FROM Hospital ORDER BY idHospital;
 
+--- PERSON ---
+--- PATIENTS ---
 INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', NULL);
 INSERT INTO Person VALUES ('CC', 9254619331, 'Barbaraanne', 'Ceyssen', 'F', TO_DATE('09/06/2002', 'MM/DD/YYYY'), 'A', 'bceyssen1@photobucket.com', NULL);
 INSERT INTO Person VALUES ('CE', 1786662041, 'Alard', 'Blackburne', 'M', TO_DATE('05/21/2018', 'MM/DD/YYYY'), 'I', 'ablackburne2@usa.gov', NULL);
 INSERT INTO Person VALUES ('CC', 2984806463, 'Sacha', 'Bilbrook', 'F', TO_DATE('01/20/1969', 'MM/DD/YYYY'), 'I', 'sbilbrook3@skyrock.com', NULL);
+
+--- DOCTORS ---
 INSERT INTO Person VALUES ('TI', 1773190621, 'Sallie', 'Hearnshaw', 'F',TO_DATE( '11/22/1957', 'MM/DD/YYYY'), 'I', 'shearnshaw4@bandcamp.com', NULL);
 INSERT INTO Person VALUES ('CC', 2878196529, 'Dotti', 'Tadman', 'F',TO_DATE ('01/17/1974', 'MM/DD/YYYY'), 'I', 'dtadman5@moonfruit.com', NULL);
 INSERT INTO Person VALUES ('TI', 9115387117, 'Wilden', 'McLuckie', 'F', TO_DATE('09/20/1992', 'MM/DD/YYYY'), 'A', 'wmcluckie6@dion.ne.jp', NULL);
 INSERT INTO Person VALUES ('CC', 7049570787, 'Antonino', 'Bletsoe', 'M',TO_DATE( '4/7/1957', 'MM/DD/YYYY'), 'A', 'abletsoe7@ed.gov', NULL);
+
+--- NURSES ---
 INSERT INTO Person VALUES ('TI', 793398263, 'Arri', 'Woolerton', 'M',TO_DATE ('3/1/1992', 'MM/DD/YYYY'), 'A', 'awoolerton8@theatlantic.com', NULL);
 INSERT INTO Person VALUES ('TI', 4252609306, 'Teodoor', 'Ferschke', 'F',TO_DATE ('4/13/2010', 'MM/DD/YYYY'), 'I', 'tferschke9@cdc.gov', NULL);
 INSERT INTO Person VALUES ('CE', 4779118851, 'Janie', 'Paszak', 'F',TO_DATE('4/3/1955', 'MM/DD/YYYY'), 'I', 'jpaszaka@chicagotribune.com', NULL);
@@ -239,7 +245,27 @@ INSERT INTO Person VALUES ('CC', 4563832319, 'Electra', 'de Marco', 'M', TO_DATE
  
  --- QUERY ---
  SELECT * FROM Person;
- 
+
+
+--- DOCTOR ---
+INSERT INTO Doctor VALUES('TI', 1773190621, 'Fuerza Aerea'); 
+INSERT INTO Doctor VALUES('CC', 2878196529, 'Armada'); 
+INSERT INTO Doctor VALUES('TI', 9115387117, 'Ejercito'); 
+INSERT INTO Doctor VALUES('CC', 7049570787, 'Fuerza Aerea'); 
+
+--- QUERY ---
+SELECT * FROM Doctor;
+
+
+--- NURSE ---
+INSERT INTO Nurse VALUES('TI', 7933982639, 'Fuerza Aerea'); 
+INSERT INTO Nurse VALUES('TI', 4252609306, 'Armada'); 
+INSERT INTO Nurse VALUES('CE', 4779118851, 'Ejercito'); 
+INSERT INTO Nurse VALUES('CC', 4563832319, 'Fuerza Aerea'); 
+
+--- QUERY ---
+SELECT * FROM Nurse;
+
 
 --- PATIENT --- 
 INSERT INTO Patient VALUES ('CE', 1948559565, NULL);
@@ -259,3 +285,65 @@ INSERT INTO ClinicalHistory VALUES (NULL, 'CC', 2984806463);
 
  --- QUERY ---
  SELECT * FROM ClinicalHistory ORDER BY idClinicalHistory ;
+
+
+ --- SPECIALTY ---
+INSERT INTO Speciality VALUES (NULL, 'Hematologia');
+INSERT INTO Speciality VALUES (NULL, 'Endocrinologia');
+INSERT INTO Speciality VALUES (NULL, 'Medicina Interna');
+INSERT INTO Speciality VALUES (NULL, 'Cirugia General');
+INSERT INTO Speciality VALUES (NULL, 'Pediatria');
+INSERT INTO Speciality VALUES (NULL, 'Gastroenterologia');
+INSERT INTO Speciality VALUES (NULL, 'Infectologia');
+INSERT INTO Speciality VALUES (NULL, 'Neumologia');
+INSERT INTO Speciality VALUES (NULL, 'Dermatologia');
+INSERT INTO Speciality VALUES (NULL, 'Neurocirugia');
+
+--- QUERY ---
+SELECT * FROM Speciality ORDER BY idSpeciality ;
+
+
+--- DOCTOR SPECIALTY ---
+INSERT INTO DoctorSpeciality VALUES ('TI', 1773190621, 0000000001);
+INSERT INTO DoctorSpeciality VALUES ('CC', 2878196529, 0000000002);
+INSERT INTO DoctorSpeciality VALUES ('TI', 9115387117, 0000000003);
+INSERT INTO DoctorSpeciality VALUES ('CC', 7049570787, 0000000004);
+
+--- QUERY ---
+SELECT * FROM DoctorSpeciality;
+
+
+--- NURSE SPECIALTY ---
+INSERT INTO NurseSpeciality VALUES ('TI', 7933982639, 0000000001);
+INSERT INTO NurseSpeciality VALUES ('TI', 4252609306, 0000000002);
+INSERT INTO NurseSpeciality VALUES ('CE', 4779118851, 0000000003);
+INSERT INTO NurseSpeciality VALUES ('CC', 4563832319, 0000000004);
+
+--- QUERY ---
+SELECT * FROM NurseSpeciality;
+
+
+--- BACKGROUND ---
+INSERT INTO Background VALUES (NULL, 00001); 
+INSERT INTO Background VALUES (NULL, 00002); 
+INSERT INTO Background VALUES (NULL, 00003); 
+INSERT INTO Background VALUES (NULL, 00004);
+
+--- QUERY ---
+SELECT * FROM Background ORDER BY idBackground ;
+
+
+--- DISEASE ---
+INSERT INTO Disease VALUES (NULL, 'Pteridaceae', 'Rheumatoid polyneuropathy with rheumatoid arthritis of right elbow', 1);
+INSERT INTO Disease VALUES (NULL, 'Campanulaceae', 'Toxic effect of 2-Propanol, intentional self-harm, sequela', 2);
+INSERT INTO Disease VALUES (NULL, 'Asteraceae', 'Benign neoplasm of scapula and long bones of upper limb', 3);
+INSERT INTO Disease VALUES (NULL, 'Cyperaceae', 'Benign mammary dysplasia', 4);
+INSERT INTO Disease VALUES (NULL, 'Hypnaceae', 'Nondisplaced fracture of capitate [os magnum] bone, right wrist, initial encounter for open fracture', 1);
+INSERT INTO Disease VALUES (NULL, 'Rosaceae', 'Poisoning by unspecified drugs, medicaments and biological substances, accidental (unintentional), initial encounter', 2);
+INSERT INTO Disease VALUES (NULL, 'Scrophulariaceae', 'Crushing injury of unspecified foot, sequela', 3);
+INSERT INTO Disease VALUES (NULL, 'Sarraceniaceae', 'Infection and inflammatory reaction due to cardiac valve prosthesis, subsequent encounter', 4);
+INSERT INTO Disease VALUES (NULL, 'Araceae', 'Driver of heavy transport vehicle injured in collision with pedestrian or animal in traffic accident, subsequent encounter', 1);
+INSERT INTO Disease VALUES (NULL, 'Liliaceae', 'Other fracture of left patella, subsequent encounter for open fracture type IIIA, IIIB, or IIIC with routine healing', 2);
+
+--- QUERY ---
+SELECT * FROM Disease ORDER BY idDisease ;
