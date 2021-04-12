@@ -225,7 +225,7 @@ INSERT INTO Hospital VALUES (NULL, 'Hospital 10', 9, 1, 32, 10, 10, 10);
 --- SELECT * FROM Hospital ORDER BY idHospital;
 
 INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', NULL);
-INSERT INTO Person VALUES ('CC', 9254619331, 'Barbaraanne', 'Ceyssen', 'F', TO_DATE('09/06/2002', 'MM/DD/YYYY'), 'A', 'bceyssen1@photobucket.com', , NULL);
+INSERT INTO Person VALUES ('CC', 9254619331, 'Barbaraanne', 'Ceyssen', 'F', TO_DATE('09/06/2002', 'MM/DD/YYYY'), 'A', 'bceyssen1@photobucket.com', NULL);
 INSERT INTO Person VALUES ('CE', 1786662041, 'Alard', 'Blackburne', 'M', TO_DATE('05/21/2018', 'MM/DD/YYYY'), 'I', 'ablackburne2@usa.gov', NULL);
 INSERT INTO Person VALUES ('CC', 2984806463, 'Sacha', 'Bilbrook', 'F', TO_DATE('01/20/1969', 'MM/DD/YYYY'), 'I', 'sbilbrook3@skyrock.com', NULL);
 INSERT INTO Person VALUES ('TI', 1773190621, 'Sallie', 'Hearnshaw', 'F',TO_DATE( '11/22/1957', 'MM/DD/YYYY'), 'I', 'shearnshaw4@bandcamp.com', NULL);
@@ -238,4 +238,24 @@ INSERT INTO Person VALUES ('CE', 4779118851, 'Janie', 'Paszak', 'F',TO_DATE('4/3
 INSERT INTO Person VALUES ('CC', 4563832319, 'Electra', 'de Marco', 'M', TO_DATE('8/30/2017', 'MM/DD/YYYY'), 'I', 'edemarcob@etsy.com', NULL);
  
  --- QUERY ---
- SELECT * FROM Person;NULL
+ SELECT * FROM Person;
+ 
+
+--- PATIENT --- 
+INSERT INTO Patient VALUES ('CE', 1948559565, NULL);
+INSERT INTO Patient VALUES ('CC', 9254619331, NULL);
+INSERT INTO Patient VALUES ('CE', 1786662041, NULL);
+INSERT INTO Patient VALUES ('CC', 2984806463, NULL);
+
+ --- QUERY ---
+ SELECT * FROM Patient;
+
+
+--- CLINICAL HISTORY ---
+INSERT INTO ClinicalHistory VALUES (NULL, 'CE', 1948559565);
+INSERT INTO ClinicalHistory VALUES (NULL, 'CC', 9254619331);
+INSERT INTO ClinicalHistory VALUES (NULL, 'CE', 1786662041);
+INSERT INTO ClinicalHistory VALUES (NULL, 'CC', 2984806463);
+
+ --- QUERY ---
+ SELECT * FROM ClinicalHistory ORDER BY idClinicalHistory ;

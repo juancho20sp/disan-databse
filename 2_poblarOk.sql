@@ -229,18 +229,49 @@ INSERT INTO Hospital VALUES (0000000010, 'Hospital 10', 9, 1, 32, 10, 10, 10);
 --- SELECT * FROM Hospital ORDER BY idHospital;
 
 --- PERSON ---
+--- PATIENTS ---
 INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
-INSERT INTO Person VALUES ('CC', 9254619331, 'Barbaraanne', 'Ceyssen', 'F', TO_DATE('09/06/2002', 'MM/DD/YYYY'), 'A', 'bceyssen1@photobucket.com', , TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+INSERT INTO Person VALUES ('CC', 9254619331, 'Barbaraanne', 'Ceyssen', 'F', TO_DATE('09/06/2002', 'MM/DD/YYYY'), 'A', 'bceyssen1@photobucket.com', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
 INSERT INTO Person VALUES ('CE', 1786662041, 'Alard', 'Blackburne', 'M', TO_DATE('05/21/2018', 'MM/DD/YYYY'), 'I', 'ablackburne2@usa.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
 INSERT INTO Person VALUES ('CC', 2984806463, 'Sacha', 'Bilbrook', 'F', TO_DATE('01/20/1969', 'MM/DD/YYYY'), 'I', 'sbilbrook3@skyrock.com', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+--- DOCTORS ---
 INSERT INTO Person VALUES ('TI', 1773190621, 'Sallie', 'Hearnshaw', 'F',TO_DATE( '11/22/1957', 'MM/DD/YYYY'), 'I', 'shearnshaw4@bandcamp.com', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
 INSERT INTO Person VALUES ('CC', 2878196529, 'Dotti', 'Tadman', 'F',TO_DATE ('01/17/1974', 'MM/DD/YYYY'), 'I', 'dtadman5@moonfruit.com', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
 INSERT INTO Person VALUES ('TI', 9115387117, 'Wilden', 'McLuckie', 'F', TO_DATE('09/20/1992', 'MM/DD/YYYY'), 'A', 'wmcluckie6@dion.ne.jp', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
 INSERT INTO Person VALUES ('CC', 7049570787, 'Antonino', 'Bletsoe', 'M',TO_DATE( '4/7/1957', 'MM/DD/YYYY'), 'A', 'abletsoe7@ed.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+
+--- NURSES ---
 INSERT INTO Person VALUES ('TI', 793398263, 'Arri', 'Woolerton', 'M',TO_DATE ('3/1/1992', 'MM/DD/YYYY'), 'A', 'awoolerton8@theatlantic.com', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
 INSERT INTO Person VALUES ('TI', 4252609306, 'Teodoor', 'Ferschke', 'F',TO_DATE ('4/13/2010', 'MM/DD/YYYY'), 'I', 'tferschke9@cdc.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
 INSERT INTO Person VALUES ('CE', 4779118851, 'Janie', 'Paszak', 'F',TO_DATE('4/3/1955', 'MM/DD/YYYY'), 'I', 'jpaszaka@chicagotribune.com', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
 INSERT INTO Person VALUES ('CC', 4563832319, 'Electra', 'de Marco', 'M', TO_DATE('8/30/2017', 'MM/DD/YYYY'), 'I', 'edemarcob@etsy.com', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
  
+--- QUERY ---
+--- SELECT * FROM Person;
+
+
+--- PENDIENTE DE PRUEBAS
+
+
+ --- PATIENT --- 
+INSERT INTO Patient VALUES ('CE', 1948559565, 00001);
+INSERT INTO Patient VALUES ('CC', 9254619331, 00002);
+INSERT INTO Patient VALUES ('CE', 1786662041, 00003);
+INSERT INTO Patient VALUES ('CC', 2984806463, 00004);
+
  --- QUERY ---
- SELECT * FROM Person;
+ SELECT * FROM Patient;
+
+
+--- CLINICAL HISTORY ---
+INSERT INTO ClinicalHistory VALUES (00001, 'CE', 1948559565);
+INSERT INTO ClinicalHistory VALUES (00002, 'CC', 9254619331);
+INSERT INTO ClinicalHistory VALUES (00003, 'CE', 1786662041);
+INSERT INTO ClinicalHistory VALUES (00004, 'CC', 2984806463);
+
+ --- QUERY ---
+ SELECT * FROM ClinicalHistory ORDER BY idClinicalHistory ;
+
+
+ 

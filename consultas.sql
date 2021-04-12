@@ -22,10 +22,16 @@ SELECT * FROM Brigade ORDER BY idBrigade;
 --- BATTALION ---
 SELECT * FROM Battalion ORDER BY idBattalion;
 
---- HASTA AQUÍ TODO 10/10
-
 --- HOSPITAL ---
 SELECT * FROM Hospital ORDER BY idHospital;
 
 --- PERSON ---
 SELECT * FROM Person;
+
+--- HASTA AQUÍ TODO 10/10
+
+ --- PATIENT ---
+ SELECT * FROM Patient;
+
+  --- CLINICAL HISTORY ---
+ SELECT * FROM ClinicalHistory ORDER BY idClinicalHistory ;

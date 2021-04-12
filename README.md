@@ -54,7 +54,7 @@ Create the restrictions for:
 - Battalion (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - Brigade (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - City (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- ClinicalHistory
+- ClinicalHistory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Disease
 - Division (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - Doctor
@@ -68,7 +68,7 @@ Create the restrictions for:
 - Medicines
 - MilitaryUnit (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Nurse
-- Patient
+- Patient (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Person (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Procedure
 - Specialty
