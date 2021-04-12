@@ -17,7 +17,7 @@ ALTER TABLE Doctor
 ALTER TABLE Nurse 
 	ADD CONSTRAINT CK_NURSE_MILFORCE
 	CHECK (militaryForce IN ('Fuerza Aérea', 'Armada', 'Ejército'));
-	
+
 ALTER TABLE Person 
 	ADD CONSTRAINT CK_PERSON_DOCTYPE
 	CHECK (documentType IN ('CC', 'CE', 'TI', 'RC', 'PS'));
@@ -28,14 +28,27 @@ ALTER TABLE Person
 	
 ALTER TABLE Person 
 	ADD CONSTRAINT CK_PERSON_STATUS
-	CHECK (documentType IN ('A', 'I'));
+	CHECK (status IN ('A', 'I'));
 	
 ALTER TABLE Person 
 	ADD CONSTRAINT CK_PERSON_EMAIL 
 	CHECK (REGEXP_LIKE(email, '^[A-Za-z]*[0-9]*@[A-Za-z]*.[A-Za-z]*$'));
 	
 ALTER TABLE Person 
-	ADD CONSTRAINT CK_PERSON_EMAIL 
-	CHECK (REGEXP_LIKE(email, '^[A-Za-z]*[0-9]*@[A-Za-z]*.[A-Za-z]*$'));
+	ADD CONSTRAINT CK_PERSON_DATEVAL 
+	CHECK (registerDate > birthDate); 
 	
+ALTER TABLE Doctor 
+	ADD CONSTRAINT CK_PERSON_DOCTYPE
+	CHECK (documentType IN ('CC', 'CE', 'PS'));	
+	
+ALTER TABLE Nurse 
+	ADD CONSTRAINT CK_PERSON_DOCTYPE
+	CHECK (documentType IN ('CC', 'CE', 'PS'));	
+	
+	
+
+
+	
+
 	
