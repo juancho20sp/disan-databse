@@ -351,13 +351,13 @@ ALTER TABLE ExamsNurse ADD CONSTRAINT FK_EXAMSN_EXAM FOREIGN KEY (idExam) REFERE
 ALTER TABLE ExamsNurse ADD CONSTRAINT FK_EXAMSN_NDOCTYPE FOREIGN KEY (documentType, documentNumber) REFERENCES Nurse(documentType, documentNumber); 
 ALTER TABLE NurseSpeciality ADD CONSTRAINT FK_NURSESP_NDOCTYPE FOREIGN KEY (documentType, documentNumber) REFERENCES Nurse(documentType, documentNumber);
 ALTER TABLE NurseSpeciality ADD CONSTRAINT FK_NURSESP_SPECIALITY FOREIGN KEY (idSpeciality) REFERENCES Speciality(idSpeciality);
-ALTER TABLE DoctorSpeciality ADD CONSTRAINT FK_DOCSP_NDOCTYPE FOREIGN KEY (documentType, documentNumber) REFERENCES Nurse(documentType, documentNumber);
+ALTER TABLE DoctorSpeciality ADD CONSTRAINT FK_DOCSP_NDOCTYPE FOREIGN KEY (documentType, documentNumber) REFERENCES Doctor(documentType, documentNumber);
 ALTER TABLE DoctorSpeciality ADD CONSTRAINT FK_DOCSP_SPECIALITY FOREIGN KEY (idSpeciality) REFERENCES Speciality(idSpeciality);
 ALTER TABLE AppointmentDoctor ADD CONSTRAINT FK_APPDOC_IDAPP FOREIGN KEY (idAppointment) REFERENCES Appointment(idAppointment);
 ALTER TABLE AppointmentDoctor ADD CONSTRAINT FK_APPDOC_DDOCTYPE FOREIGN KEY (documentType, documentNumber) REFERENCES Doctor(documentType, documentNumber);
 ALTER TABLE AppointmentNurse ADD CONSTRAINT FK_APPNUR_IDAPP FOREIGN KEY (idAppointment) REFERENCES Appointment(idAppointment);
-ALTER TABLE AppointmentNurse ADD CONSTRAINT FK_APPNUR_NDOCTYPE FOREIGN KEY (documentType, documentNumber) REFERENCES Doctor(documentType, documentNumber);
+ALTER TABLE AppointmentNurse ADD CONSTRAINT FK_APPNUR_NDOCTYPE FOREIGN KEY (documentType, documentNumber) REFERENCES Nurse(documentType, documentNumber);
 ALTER TABLE ProcedureDoctor ADD CONSTRAINT FK_PRODOC_DDCOTYPE FOREIGN KEY (documentType, documentNumber) REFERENCES Doctor(documentType, documentNumber);
 ALTER TABLE ProcedureDoctor ADD CONSTRAINT FK_PRODOC_IDPROC FOREIGN KEY (idProcedure) REFERENCES Procedures(idProcedure);
-ALTER TABLE ProcedureNurse ADD CONSTRAINT FK_PRONUR_NDCOTYPE FOREIGN KEY (documentType, documentNumber) REFERENCES Doctor(documentType, documentNumber);
+ALTER TABLE ProcedureNurse ADD CONSTRAINT FK_PRONUR_NDCOTYPE FOREIGN KEY (documentType, documentNumber) REFERENCES Nurse(documentType, documentNumber);
 ALTER TABLE ProcedureNurse ADD CONSTRAINT FK_PRONUR_IDPROC FOREIGN KEY (idProcedure) REFERENCES Procedures(idProcedure);

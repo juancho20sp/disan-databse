@@ -34,7 +34,7 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 - ClinicalHistory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Disease <PENDIENTE POR PROBAR>
 - Division (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
-- Doctor <PENDIENTE POR PROBAR>
+- Doctor (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - Exams <PENDIENTE POR PROBAR>
 - Hospital (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Laboratory <PENDIENTE POR PROBAR>
@@ -45,7 +45,7 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 - MedicationType (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Medicines <PENDIENTE POR PROBAR>
 - MilitaryUnit (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- Nurse <PENDIENTE POR PROBAR>
+- Nurse (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - ExamsNurse <PENDIENTE POR PROBAR>
 - Patient (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Person (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)

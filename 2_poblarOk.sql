@@ -242,16 +242,13 @@ INSERT INTO Person VALUES ('TI', 9115387117, 'Wilden', 'McLuckie', 'F', TO_DATE(
 INSERT INTO Person VALUES ('CC', 7049570787, 'Antonino', 'Bletsoe', 'M',TO_DATE( '4/7/1957', 'MM/DD/YYYY'), 'A', 'abletsoe7@ed.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
 
 --- NURSES ---
-INSERT INTO Person VALUES ('TI', 793398263, 'Arri', 'Woolerton', 'M',TO_DATE ('3/1/1992', 'MM/DD/YYYY'), 'A', 'awoolerton8@theatlantic.com', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
+INSERT INTO Person VALUES ('TI', 7933982639, 'Arri', 'Woolerton', 'M',TO_DATE ('3/1/1992', 'MM/DD/YYYY'), 'A', 'awoolerton8@theatlantic.com', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
 INSERT INTO Person VALUES ('TI', 4252609306, 'Teodoor', 'Ferschke', 'F',TO_DATE ('4/13/2010', 'MM/DD/YYYY'), 'I', 'tferschke9@cdc.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
 INSERT INTO Person VALUES ('CE', 4779118851, 'Janie', 'Paszak', 'F',TO_DATE('4/3/1955', 'MM/DD/YYYY'), 'I', 'jpaszaka@chicagotribune.com', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
 INSERT INTO Person VALUES ('CC', 4563832319, 'Electra', 'de Marco', 'M', TO_DATE('8/30/2017', 'MM/DD/YYYY'), 'I', 'edemarcob@etsy.com', TO_DATE('04/10/2021', 'MM/DD/YYYY'));
  
 --- QUERY ---
 --- SELECT * FROM Person;
-
-
---- PENDIENTE POR PROBAR
 
 --- DOCTOR ---
 INSERT INTO Doctor VALUES('TI', 1773190621, 'Fuerza Aerea'); 
@@ -260,7 +257,7 @@ INSERT INTO Doctor VALUES('TI', 9115387117, 'Ejercito');
 INSERT INTO Doctor VALUES('CC', 7049570787, 'Fuerza Aerea'); 
 
 --- QUERY ---
-SELECT * FROM Doctor;
+--- SELECT * FROM Doctor;
 
 
 --- NURSE ---
@@ -270,7 +267,9 @@ INSERT INTO Nurse VALUES('CE', 4779118851, 'Ejercito');
 INSERT INTO Nurse VALUES('CC', 4563832319, 'Fuerza Aerea'); 
 
 --- QUERY ---
-SELECT * FROM Nurse;
+--- SELECT * FROM Nurse;
+
+
 
 
 --- PATIENT --- 
@@ -281,6 +280,7 @@ INSERT INTO Patient VALUES ('CC', 2984806463, 00004);
 
 --- QUERY ---
 --- SELECT * FROM Patient;
+
 
 
 --- CLINICAL HISTORY ---
@@ -306,17 +306,17 @@ INSERT INTO Speciality VALUES (0000000009, 'Dermatologia');
 INSERT INTO Speciality VALUES (0000000010, 'Neurocirugia');
 
 --- QUERY ---
-SELECT * FROM Speciality ORDER BY idSpeciality ;
+--- SELECT * FROM Speciality ORDER BY idSpeciality ;
 
- 
+
 --- DOCTOR SPECIALTY ---
-INSERT INTO DoctorSpeciality VALUES ('TI', 1773190621, 0000000001);
-INSERT INTO DoctorSpeciality VALUES ('CC', 2878196529, 0000000002);
-INSERT INTO DoctorSpeciality VALUES ('TI', 9115387117, 0000000003);
-INSERT INTO DoctorSpeciality VALUES ('CC', 7049570787, 0000000004);
+INSERT INTO DoctorSpeciality VALUES ('TI', 1773190621, 1);
+INSERT INTO DoctorSpeciality VALUES ('CC', 2878196529, 2);
+INSERT INTO DoctorSpeciality VALUES ('TI', 9115387117, 3);
+INSERT INTO DoctorSpeciality VALUES ('CC', 7049570787, 4);
 
 --- QUERY ---
-SELECT * FROM DoctorSpeciality;
+--- SELECT * FROM DoctorSpeciality;
 
 
 --- NURSE SPECIALTY ---
@@ -326,7 +326,7 @@ INSERT INTO NurseSpeciality VALUES ('CE', 4779118851, 0000000003);
 INSERT INTO NurseSpeciality VALUES ('CC', 4563832319, 0000000004);
 
 --- QUERY ---
-SELECT * FROM NurseSpeciality;
+--- SELECT * FROM NurseSpeciality;
 
 
 --- BACKGROUND ---
@@ -336,7 +336,8 @@ INSERT INTO Background VALUES (0000000003, 00003);
 INSERT INTO Background VALUES (0000000004, 00004);
 
 --- QUERY ---
-SELECT * FROM Background ORDER BY idBackground ;
+--- SELECT * FROM Background ORDER BY idBackground ;
+
 
 --- DISEASE ---
 INSERT INTO Disease VALUES (0000000001, 'Pteridaceae', 'Rheumatoid polyneuropathy with rheumatoid arthritis of right elbow', 1);
@@ -351,7 +352,7 @@ INSERT INTO Disease VALUES (0000000009, 'Araceae', 'Driver of heavy transport ve
 INSERT INTO Disease VALUES (0000000010, 'Liliaceae', 'Other fracture of left patella, subsequent encounter for open fracture type IIIA, IIIB, or IIIC with routine healing', 2);
 
 --- QUERY ---
-SELECT * FROM Disease ORDER BY idDisease ;
+--- SELECT * FROM Disease ORDER BY idDisease ;
 
 
 --- LABORATORY ---
@@ -367,7 +368,7 @@ INSERT INTO Laboratory VALUES (0000000009, 'Ankunding, Bins and Dach', 9, 9);
 INSERT INTO Laboratory VALUES (0000000010, 'Thompson-Wiza', 10, 10);
 
 --- QUERY ---
-SELECT * FROM Laboratory ORDER BY idLaboratory ;
+--- SELECT * FROM Laboratory ORDER BY idLaboratory ;
 
 
 --- MANAGEMENT PLAN ---
@@ -383,7 +384,7 @@ INSERT INTO ManagementPlan VALUES (0000000009, 'Dysmenorrhea');
 INSERT INTO ManagementPlan VALUES (0000000010, 'Retroverted and incarcerated gravid uterus, postpartum condition or complication');
 
 --- QUERY ---
-SELECT * FROM ManagementPlan ORDER BY idManagementPlan;
+--- SELECT * FROM ManagementPlan ORDER BY idManagementPlan;
 
 
 --- APPOINTMENT ---
@@ -399,8 +400,7 @@ INSERT INTO Appointment VALUES (0000000009, 'Burn of first degree of right palm'
 INSERT INTO Appointment VALUES (0000000010, 'Crushing injury of right hand, initial encounter', TO_DATE('11/20/2022', 'MM/DD/YYYY'), 4, 4, 4);
 
 --- QUERY ---
-SELECT * FROM Appointment ORDER BY idAppointment;
-
+--- SELECT * FROM Appointment ORDER BY idAppointment;
 
 --- APPOINTMENT DOCTOR ---
 INSERT INTO AppointmentDoctor VALUES (0000000001, 'TI', 1773190621);
@@ -415,7 +415,7 @@ INSERT INTO AppointmentDoctor VALUES (0000000009, 'TI', 1773190621);
 INSERT INTO AppointmentDoctor VALUES (0000000010, 'CC', 2878196529);
 
 --- QUERY ---
-SELECT * FROM AppointmentDoctor ORDER BY idAppointment;
+--- SELECT * FROM AppointmentDoctor ORDER BY idAppointment;
 
 
 --- APPOINTMENT NURSE ---
@@ -431,7 +431,7 @@ INSERT INTO AppointmentNurse VALUES (0000000009, 'TI', 7933982639);
 INSERT INTO AppointmentNurse VALUES (0000000010, 'TI', 4252609306);
 
 --- QUERY ---
-SELECT * FROM AppointmentNurse ORDER BY idAppointment;
+--- SELECT * FROM AppointmentNurse ORDER BY idAppointment;
 
 
 --- EXAMS ---
@@ -447,7 +447,7 @@ INSERT INTO Exams VALUES (0000000009, 'Removal of Bandage on Left Lower Leg', 9)
 INSERT INTO Exams VALUES (0000000010, 'Replacement of L Up Femur with Autol Sub, Perc Approach', 10);
  
 --- QUERY ---
-SELECT * FROM Exams ORDER BY idExams;
+--- SELECT * FROM Exams ORDER BY idExams;
 
 
 --- EXAMS LABORATORY ---
@@ -463,20 +463,20 @@ INSERT INTO ExamsLaboratory VALUES (0000000009, 0000000009);
 INSERT INTO ExamsLaboratory VALUES (0000000010, 0000000010);
 
 --- QUERY ---
-SELECT * FROM ExamsLaboratory;
+--- SELECT * FROM ExamsLaboratory;
 
 
 --- SUPPLY ---
-INSERT INTO Speciality values (000000001, 'Polygonaceae', 150, 1);
-INSERT INTO Speciality values (000000002, 'Poaceae', 1200, 2);
-INSERT INTO Speciality values (000000003, 'Boraginaceae', 12000, 3);
-INSERT INTO Speciality values (000000004, 'Chenopodiaceae', 5, 7);
-INSERT INTO Speciality values (000000005, 'Arthopyreniaceae', 14788, 6);
-INSERT INTO Speciality values (000000006, 'Ranunculaceae', 36895, 5);
-INSERT INTO Speciality values (000000007, 'Brassicaceae', 6187, 8);
-INSERT INTO Speciality values (000000008, 'Orchidaceae', 41282, 9);
-INSERT INTO Speciality values (000000009, 'Rubiaceae', 592, 10);
-INSERT INTO Speciality values (000000010, 'Caryophyllaceae', 66042, 3);
+INSERT INTO Supply VALUES (000000001, 'Polygonaceae', 150, 1);
+INSERT INTO Supply VALUES (000000002, 'Poaceae', 1200, 2);
+INSERT INTO Supply VALUES (000000003, 'Boraginaceae', 12000, 3);
+INSERT INTO Supply VALUES (000000004, 'Chenopodiaceae', 5, 7);
+INSERT INTO Supply VALUES (000000005, 'Arthopyreniaceae', 14788, 6);
+INSERT INTO Supply VALUES (000000006, 'Ranunculaceae', 36895, 5);
+INSERT INTO Supply VALUES (000000007, 'Brassicaceae', 6187, 8);
+INSERT INTO Supply VALUES (000000008, 'Orchidaceae', 41282, 9);
+INSERT INTO Supply VALUES (000000009, 'Rubiaceae', 592, 10);
+INSERT INTO Supply VALUES (000000010, 'Caryophyllaceae', 66042, 3);
  
 --- QUERY ---
 SELECT * FROM Supply ORDER BY idSupply;
@@ -487,7 +487,7 @@ INSERT INTO Medicines VALUES (0000000001, 'bisoprolol fumarate and hydrochloroth
 INSERT INTO Medicines VALUES (0000000002, 'BENZOYL PEROXIDE', 'Benzoyl peroxide short contact', 'Metacon Labs', 2, 12, 1);
 INSERT INTO Medicines VALUES (0000000003, 'TITANIUM DIOXIDE, ZINC OXIDE', 'Anew Solar Advance', 'Avon Products, Inc.', 3, 3, 3);
 INSERT INTO Medicines VALUES (0000000004, 'fosamprenavir calcium', 'LEXIVA', 'REMEDYREPACK INC.', 1, 1, 3);
-INSERT INTO Medicines VALUES (0000000005, 'Loperamide HCl', 'Anti-Diarrheal', 'GREAT LAKES WHOLESALE, MARKETING, & SALES, INC.', 4, 3, 9);
+INSERT INTO Medicines VALUES (0000000005, 'Loperamide HCl', 'Anti-Diarrheal', 'GREAT LAKES WHOLESALE, MARKETING, AND SALES, INC.', 4, 3, 9);
 INSERT INTO Medicines VALUES (0000000006, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 2, 2, 2);
 INSERT INTO Medicines VALUES (0000000007, 'isopropyl alcohol', 'LENS CLEANER', 'Yuyao Jessie Commodity Co.,Ltd.', 8, 7, 1);
 INSERT INTO Medicines VALUES (0000000008, 'Atropa belladonna, Euphrasia stricta and Calcium sulfide', 'Irritated Eye Relief', 'Similasan Corporation', 10, 10, 10);
@@ -495,7 +495,7 @@ INSERT INTO Medicines VALUES (0000000009, 'Dextromethorphan Hydrobromide, Guaife
 INSERT INTO Medicines VALUES (0000000010, 'Fluoxetine Hydrochloride', 'Fluoxetine', 'Rebel Distributors Corp', 2, 10, 2);
 
 --- QUERY ---
-SELECT * FROM Medicines ORDER BY idMedicines; 
+--- SELECT * FROM Medicines ORDER BY idMedicines; 
 
 
 --- MEDICATION COMPONENTS ---
@@ -511,7 +511,7 @@ INSERT INTO MedicationComponents VALUES (0000000009, 'Hydrocortisone anti-itch p
 INSERT INTO MedicationComponents VALUES (0000000010, 'Myrbetriq', 10); 
 
 --- QUERY ---
-SELECT * FROM MedicationComponents ORDER BY idMedicationComponent; 
+--- SELECT * FROM MedicationComponents ORDER BY idMedicationComponent; 
 
 
 --- PROCEDURES ---
@@ -527,7 +527,7 @@ INSERT INTO Procedures VALUES (0000000009, 'Release Esophagogastric Junction, Pe
 INSERT INTO Procedures VALUES (0000000010, 'Revise of Infusion Dev in R Temporomandib Jt, Perc Approach', TO_DATE('8/22/2022', 'MM/DD/YYYY'), 1, 2, 3, 4);
 
 --- QUERY ---
-SELECT * FROM Procedures ORDER BY idProcedure; 
+--- SELECT * FROM Procedures ORDER BY idProcedure; 
 
 
 --- EXAMS NURSE ---
@@ -543,24 +543,23 @@ INSERT INTO ExamsNurse VALUES (0000000009, 'TI', 4252609306);
 INSERT INTO ExamsNurse VALUES (0000000010, 'CE', 4779118851);
 
 --- QUERY ---
-SELECT * FROM ExamsNurse ORDER BY idExam; 
-
+--- SELECT * FROM ExamsNurse ORDER BY idExam; 
 
 --- PROCEDURE NURSE ---
-INSERT INTO ProcedureNurse VALUES ('TI', 1773190621, 0000000001);
-INSERT INTO ProcedureNurse VALUES ('CC', 2878196529, 0000000002);
-INSERT INTO ProcedureNurse VALUES ('TI', 9115387117, 0000000003);
-INSERT INTO ProcedureNurse VALUES ('CC', 7049570787, 0000000004);
+INSERT INTO ProcedureNurse VALUES ('TI', 7933982639, 0000000001);
+INSERT INTO ProcedureNurse VALUES ('TI', 4252609306, 0000000002);
+INSERT INTO ProcedureNurse VALUES ('CE', 4779118851, 0000000003);
+INSERT INTO ProcedureNurse VALUES ('CC', 4563832319, 0000000004);
 
 --- QUERY ---
-SELECT * FROM ProcedureNurse ORDER BY idProcedure;
+--- SELECT * FROM ProcedureNurse ORDER BY idProcedure;
 
 
 --- PROCEDURE DOCTOR ---
-INSERT INTO ProcedureNurse VALUES ('TI', 1773190621, 0000000001);
-INSERT INTO ProcedureNurse VALUES ('CC', 2878196529, 0000000002);
-INSERT INTO ProcedureNurse VALUES ('TI', 9115387117, 0000000003);
-INSERT INTO ProcedureNurse VALUES ('CC', 7049570787, 0000000004);
+INSERT INTO ProcedureDoctor VALUES ('TI', 1773190621, 0000000001);
+INSERT INTO ProcedureDoctor VALUES ('CC', 2878196529, 0000000002);
+INSERT INTO ProcedureDoctor VALUES ('TI', 9115387117, 0000000003);
+INSERT INTO ProcedureDoctor VALUES ('CC', 7049570787, 0000000004);
 
 --- QUERY ---
-SELECT * FROM ProcedureNurse ORDER BY idProcedure; 
+--- SELECT * FROM ProcedureNurse ORDER BY idProcedure; 
