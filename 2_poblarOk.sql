@@ -226,7 +226,7 @@ INSERT INTO Hospital VALUES (0000000009, 'Hospital 9', 500, 85, 31, 9, 9, 9);
 INSERT INTO Hospital VALUES (0000000010, 'Hospital 10', 9, 1, 32, 10, 10, 10);
 
 --- QUERY ---
-SELECT * FROM Hospital ORDER BY idHospital;
+--- SELECT * FROM Hospital ORDER BY idHospital;
 
 --- PERSON ---
 INSERT INTO Person VALUES ('CE', 1948559565, 'Didi', 'Cianni', 'M', TO_DATE('01/26/1979', 'MM/DD/YYYY'), 'I', 'dcianni0@dot.gov', TO_DATE('04/10/2021', 'MM/DD/YYYY'));

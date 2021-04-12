@@ -69,7 +69,7 @@ Create the restrictions for:
 - MilitaryUnit (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Nurse
 - Patient
-- Person
+- Person (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Procedure
 - Specialty
 - SuppliesInventory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
