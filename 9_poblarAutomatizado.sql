@@ -347,3 +347,131 @@ INSERT INTO Disease VALUES (NULL, 'Liliaceae', 'Other fracture of left patella, 
 
 --- QUERY ---
 SELECT * FROM Disease ORDER BY idDisease ;
+
+
+--- LABORATORY ---
+INSERT INTO Laboratory VALUES (NULL, 'Kshlerin-Hilll', 1, 1);
+INSERT INTO Laboratory VALUES (NULL, 'Lang-Hyatt', 2, 2);
+INSERT INTO Laboratory VALUES (NULL, 'Reichert and Sons', 3, 3);
+INSERT INTO Laboratory VALUES (NULL, 'Beer, Jast and Heidenreich', 4, 4);
+INSERT INTO Laboratory VALUES (NULL, 'Metz-Beier', 5, 5);
+INSERT INTO Laboratory VALUES (NULL, 'Runolfsson Inc', 6, 6);
+INSERT INTO Laboratory VALUES (NULL, 'Goodwin-Batz', 7, 7);
+INSERT INTO Laboratory VALUES (NULL, 'Schamberger, Schuppe and McDermott', 8, 8);
+INSERT INTO Laboratory VALUES (NULL, 'Ankunding, Bins and Dach', 9, 9);
+INSERT INTO Laboratory VALUES (NULL, 'Thompson-Wiza', 10, 10);
+
+--- QUERY ---
+SELECT * FROM Laboratory ORDER BY idLaboratory ;
+
+
+--- MANAGEMENT PLAN ---
+INSERT INTO ManagementPlan VALUES (NULL, 'Erythema nodosum with hypersensitivity reaction in tuberculosis, bacteriological or histological examination unknown (at present)');
+INSERT INTO ManagementPlan VALUES (NULL, 'Other venous complications of pregnancy and the puerperium, unspecified as to episode of care or not applicable');
+INSERT INTO ManagementPlan VALUES (NULL, 'Multiple myeloma, in relapse');
+INSERT INTO ManagementPlan VALUES (NULL, 'Other forms of progressive coccidioidomycosis');
+INSERT INTO ManagementPlan VALUES (NULL, 'Pulmonary complications of anesthesia or other sedation in labor and delivery, antepartum condition or complication');
+INSERT INTO ManagementPlan VALUES (NULL, 'Malignant neoplasm of other specified sites of large intestine');
+INSERT INTO ManagementPlan VALUES (NULL, 'Sarcoidosis');
+INSERT INTO ManagementPlan VALUES (NULL, 'Roseola infantum, unspecified');
+INSERT INTO ManagementPlan VALUES (NULL, 'Dysmenorrhea');
+INSERT INTO ManagementPlan VALUES (NULL, 'Retroverted and incarcerated gravid uterus, postpartum condition or complication');
+
+--- QUERY ---
+SELECT * FROM ManagementPlan ORDER BY idManagementPlan;
+
+
+--- APPOINTMENT ---
+INSERT INTO Appointment VALUES (NULL, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
+INSERT INTO Appointment VALUES (NULL, 'Machinery accident on board other powered watercraft, initial encounter',TO_DATE( '9/22/2021', 'MM/DD/YYYY'), 2, 3, 3);
+INSERT INTO Appointment VALUES (NULL, 'Yellow fever', TO_DATE('6/13/2021', 'MM/DD/YYYY'), 3, 1, 9);
+INSERT INTO Appointment VALUES (NULL, 'Drug-induced folate deficiency anemia', TO_DATE('12/6/2022', 'MM/DD/YYYY'), 4, 1, 1);
+INSERT INTO Appointment VALUES (NULL, 'Absolute glaucoma, bilateral', TO_DATE('6/17/2024', 'MM/DD/YYYY'), 1, 7, 3);
+INSERT INTO Appointment VALUES (NULL, 'Laceration with foreign body of unspecified thumb with damage to nail, subsequent encounter', TO_DATE('11/3/2024', 'MM/DD/YYYY'), 3, 2, 1);
+INSERT INTO Appointment VALUES (NULL, 'Open bite of right thumb without damage to nail, subsequent encounter', TO_DATE('11/10/2022', 'MM/DD/YYYY'), 2, 2, 2);
+INSERT INTO Appointment VALUES (NULL, 'Nondisplaced avulsion fracture of tuberosity of unspecified calcaneus, initial encounter for open fracture', TO_DATE('6/6/2023', 'MM/DD/YYYY'), 1, 1, 1);
+INSERT INTO Appointment VALUES (NULL, 'Burn of first degree of right palm', TO_DATE('10/11/2021', 'MM/DD/YYYY'), 3, 2, 3);
+INSERT INTO Appointment VALUES (NULL, 'Crushing injury of right hand, initial encounter', TO_DATE('11/20/2022', 'MM/DD/YYYY'), 4, 4, 4);
+
+--- QUERY ---
+SELECT * FROM Appointment ORDER BY idAppointment;
+
+
+--- APPOINTMENT DOCTOR ---
+INSERT INTO AppointmentDoctor VALUES (0000000001, 'TI', 1773190621);
+INSERT INTO AppointmentDoctor VALUES (0000000002, 'CC', 2878196529);
+INSERT INTO AppointmentDoctor VALUES (0000000003, 'TI', 9115387117);
+INSERT INTO AppointmentDoctor VALUES (0000000004, 'CC', 7049570787);
+INSERT INTO AppointmentDoctor VALUES (0000000005, 'TI', 1773190621);
+INSERT INTO AppointmentDoctor VALUES (0000000006, 'CC', 2878196529);
+INSERT INTO AppointmentDoctor VALUES (0000000007, 'TI', 9115387117);
+INSERT INTO AppointmentDoctor VALUES (0000000008, 'CC', 7049570787);
+INSERT INTO AppointmentDoctor VALUES (0000000009, 'TI', 1773190621);
+INSERT INTO AppointmentDoctor VALUES (0000000010, 'CC', 2878196529);
+
+--- QUERY ---
+SELECT * FROM AppointmentDoctor ORDER BY idAppointment;
+
+
+--- APPOINTMENT NURSE ---
+INSERT INTO AppointmentNurse VALUES (0000000001, 'TI', 7933982639);
+INSERT INTO AppointmentNurse VALUES (0000000002, 'TI', 4252609306);
+INSERT INTO AppointmentNurse VALUES (0000000003, 'CE', 4779118851);
+INSERT INTO AppointmentNurse VALUES (0000000004, 'CC', 4563832319);
+INSERT INTO AppointmentNurse VALUES (0000000005, 'TI', 7933982639);
+INSERT INTO AppointmentNurse VALUES (0000000006, 'TI', 4252609306);
+INSERT INTO AppointmentNurse VALUES (0000000007, 'CE', 4779118851);
+INSERT INTO AppointmentNurse VALUES (0000000008, 'CC', 4563832319);
+INSERT INTO AppointmentNurse VALUES (0000000009, 'TI', 7933982639);
+INSERT INTO AppointmentNurse VALUES (0000000010, 'TI', 4252609306);
+
+--- QUERY ---
+SELECT * FROM AppointmentNurse ORDER BY idAppointment;
+
+
+--- EXAMS ---
+INSERT INTO Exams VALUES (NULL, 'Extirpation of Matter from Right Carotid Body, Perc Approach', 1);
+INSERT INTO Exams VALUES (NULL, 'Bypass R Ureter to Bladder with Nonaut Sub, Open Approach', 2);
+INSERT INTO Exams VALUES (NULL, 'Change Other Device in Neck, External Approach', 3);
+INSERT INTO Exams VALUES (NULL, 'Revision of Radioact Elem in Up Back, Perc Endo Approach', 4);
+INSERT INTO Exams VALUES (NULL, 'Revision of Infusion Dev in Retroperitoneum, Perc Approach', 5);
+INSERT INTO Exams VALUES (NULL, 'Revision of Synth Sub in R Pleural Cav, Perc Endo Approach', 6);
+INSERT INTO Exams VALUES (NULL, 'Replacement of Aortic Valve with Synth Sub, Perc Approach', 7);
+INSERT INTO Exams VALUES (NULL, 'Dilate R Com Carotid, Bifurc, w 4 Drug-elut, Perc Endo', 8);
+INSERT INTO Exams VALUES (NULL, 'Removal of Bandage on Left Lower Leg', 9);
+INSERT INTO Exams VALUES (NULL, 'Replacement of L Up Femur with Autol Sub, Perc Approach', 10);
+ 
+--- QUERY ---
+SELECT * FROM Exams ORDER BY idExams;
+
+
+--- EXAMS LABORATORY ---
+INSERT INTO ExamsLaboratory VALUES (0000000001, 0000000001);
+INSERT INTO ExamsLaboratory VALUES (0000000002, 0000000002);
+INSERT INTO ExamsLaboratory VALUES (0000000003, 0000000003);
+INSERT INTO ExamsLaboratory VALUES (0000000004, 0000000004);
+INSERT INTO ExamsLaboratory VALUES (0000000005, 0000000005);
+INSERT INTO ExamsLaboratory VALUES (0000000006, 0000000006);
+INSERT INTO ExamsLaboratory VALUES (0000000007, 0000000007);
+INSERT INTO ExamsLaboratory VALUES (0000000008, 0000000008);
+INSERT INTO ExamsLaboratory VALUES (0000000009, 0000000009);
+INSERT INTO ExamsLaboratory VALUES (0000000010, 0000000010);
+
+--- QUERY ---
+SELECT * FROM ExamsLaboratory;
+
+
+--- SUPPLY ---
+INSERT INTO Speciality values (NULL, 'Polygonaceae', 150, 1);
+INSERT INTO Speciality values (NULL, 'Poaceae', 1200, 2);
+INSERT INTO Speciality values (NULL, 'Boraginaceae', 12000, 3);
+INSERT INTO Speciality values (NULL, 'Chenopodiaceae', 5, 7);
+INSERT INTO Speciality values (NULL, 'Arthopyreniaceae', 14788, 6);
+INSERT INTO Speciality values (NULL, 'Ranunculaceae', 36895, 5);
+INSERT INTO Speciality values (NULL, 'Brassicaceae', 6187, 8);
+INSERT INTO Speciality values (NULL, 'Orchidaceae', 41282, 9);
+INSERT INTO Speciality values (NULL, 'Rubiaceae', 592, 10);
+INSERT INTO Speciality values (NULL, 'Caryophyllaceae', 66042, 3);
+ 
+--- QUERY ---
+SELECT * FROM Supply ORDER BY idSupply;

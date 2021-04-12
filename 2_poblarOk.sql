@@ -370,3 +370,113 @@ INSERT INTO Laboratory VALUES (0000000010, 'Thompson-Wiza', 10, 10);
 SELECT * FROM Laboratory ORDER BY idLaboratory ;
 
 
+--- MANAGEMENT PLAN ---
+INSERT INTO ManagementPlan VALUES (0000000001, 'Erythema nodosum with hypersensitivity reaction in tuberculosis, bacteriological or histological examination unknown (at present)');
+INSERT INTO ManagementPlan VALUES (0000000002, 'Other venous complications of pregnancy and the puerperium, unspecified as to episode of care or not applicable');
+INSERT INTO ManagementPlan VALUES (0000000003, 'Multiple myeloma, in relapse');
+INSERT INTO ManagementPlan VALUES (0000000004, 'Other forms of progressive coccidioidomycosis');
+INSERT INTO ManagementPlan VALUES (0000000005, 'Pulmonary complications of anesthesia or other sedation in labor and delivery, antepartum condition or complication');
+INSERT INTO ManagementPlan VALUES (0000000006, 'Malignant neoplasm of other specified sites of large intestine');
+INSERT INTO ManagementPlan VALUES (0000000007, 'Sarcoidosis');
+INSERT INTO ManagementPlan VALUES (0000000008, 'Roseola infantum, unspecified');
+INSERT INTO ManagementPlan VALUES (0000000009, 'Dysmenorrhea');
+INSERT INTO ManagementPlan VALUES (0000000010, 'Retroverted and incarcerated gravid uterus, postpartum condition or complication');
+
+--- QUERY ---
+SELECT * FROM ManagementPlan ORDER BY idManagementPlan;
+
+
+--- APPOINTMENT ---
+INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
+INSERT INTO Appointment VALUES (0000000002, 'Machinery accident on board other powered watercraft, initial encounter',TO_DATE( '9/22/2021', 'MM/DD/YYYY'), 2, 3, 3);
+INSERT INTO Appointment VALUES (0000000003, 'Yellow fever', TO_DATE('6/13/2021', 'MM/DD/YYYY'), 3, 1, 9);
+INSERT INTO Appointment VALUES (0000000004, 'Drug-induced folate deficiency anemia', TO_DATE('12/6/2022', 'MM/DD/YYYY'), 4, 1, 1);
+INSERT INTO Appointment VALUES (0000000005, 'Absolute glaucoma, bilateral', TO_DATE('6/17/2024', 'MM/DD/YYYY'), 1, 7, 3);
+INSERT INTO Appointment VALUES (0000000006, 'Laceration with foreign body of unspecified thumb with damage to nail, subsequent encounter', TO_DATE('11/3/2024', 'MM/DD/YYYY'), 3, 2, 1);
+INSERT INTO Appointment VALUES (0000000007, 'Open bite of right thumb without damage to nail, subsequent encounter', TO_DATE('11/10/2022', 'MM/DD/YYYY'), 2, 2, 2);
+INSERT INTO Appointment VALUES (0000000008, 'Nondisplaced avulsion fracture of tuberosity of unspecified calcaneus, initial encounter for open fracture', TO_DATE('6/6/2023', 'MM/DD/YYYY'), 1, 1, 1);
+INSERT INTO Appointment VALUES (0000000009, 'Burn of first degree of right palm', TO_DATE('10/11/2021', 'MM/DD/YYYY'), 3, 2, 3);
+INSERT INTO Appointment VALUES (0000000010, 'Crushing injury of right hand, initial encounter', TO_DATE('11/20/2022', 'MM/DD/YYYY'), 4, 4, 4);
+
+--- QUERY ---
+SELECT * FROM Appointment ORDER BY idAppointment;
+
+
+--- APPOINTMENT DOCTOR ---
+INSERT INTO AppointmentDoctor VALUES (0000000001, 'TI', 1773190621);
+INSERT INTO AppointmentDoctor VALUES (0000000002, 'CC', 2878196529);
+INSERT INTO AppointmentDoctor VALUES (0000000003, 'TI', 9115387117);
+INSERT INTO AppointmentDoctor VALUES (0000000004, 'CC', 7049570787);
+INSERT INTO AppointmentDoctor VALUES (0000000005, 'TI', 1773190621);
+INSERT INTO AppointmentDoctor VALUES (0000000006, 'CC', 2878196529);
+INSERT INTO AppointmentDoctor VALUES (0000000007, 'TI', 9115387117);
+INSERT INTO AppointmentDoctor VALUES (0000000008, 'CC', 7049570787);
+INSERT INTO AppointmentDoctor VALUES (0000000009, 'TI', 1773190621);
+INSERT INTO AppointmentDoctor VALUES (0000000010, 'CC', 2878196529);
+
+--- QUERY ---
+SELECT * FROM AppointmentDoctor ORDER BY idAppointment;
+
+
+--- APPOINTMENT NURSE ---
+INSERT INTO AppointmentNurse VALUES (0000000001, 'TI', 7933982639);
+INSERT INTO AppointmentNurse VALUES (0000000002, 'TI', 4252609306);
+INSERT INTO AppointmentNurse VALUES (0000000003, 'CE', 4779118851);
+INSERT INTO AppointmentNurse VALUES (0000000004, 'CC', 4563832319);
+INSERT INTO AppointmentNurse VALUES (0000000005, 'TI', 7933982639);
+INSERT INTO AppointmentNurse VALUES (0000000006, 'TI', 4252609306);
+INSERT INTO AppointmentNurse VALUES (0000000007, 'CE', 4779118851);
+INSERT INTO AppointmentNurse VALUES (0000000008, 'CC', 4563832319);
+INSERT INTO AppointmentNurse VALUES (0000000009, 'TI', 7933982639);
+INSERT INTO AppointmentNurse VALUES (0000000010, 'TI', 4252609306);
+
+--- QUERY ---
+SELECT * FROM AppointmentNurse ORDER BY idAppointment;
+
+
+--- EXAMS ---
+INSERT INTO Exams VALUES (0000000001, 'Extirpation of Matter from Right Carotid Body, Perc Approach', 1);
+INSERT INTO Exams VALUES (0000000002, 'Bypass R Ureter to Bladder with Nonaut Sub, Open Approach', 2);
+INSERT INTO Exams VALUES (0000000003, 'Change Other Device in Neck, External Approach', 3);
+INSERT INTO Exams VALUES (0000000004, 'Revision of Radioact Elem in Up Back, Perc Endo Approach', 4);
+INSERT INTO Exams VALUES (0000000005, 'Revision of Infusion Dev in Retroperitoneum, Perc Approach', 5);
+INSERT INTO Exams VALUES (0000000006, 'Revision of Synth Sub in R Pleural Cav, Perc Endo Approach', 6);
+INSERT INTO Exams VALUES (0000000007, 'Replacement of Aortic Valve with Synth Sub, Perc Approach', 7);
+INSERT INTO Exams VALUES (0000000008, 'Dilate R Com Carotid, Bifurc, w 4 Drug-elut, Perc Endo', 8);
+INSERT INTO Exams VALUES (0000000009, 'Removal of Bandage on Left Lower Leg', 9);
+INSERT INTO Exams VALUES (0000000010, 'Replacement of L Up Femur with Autol Sub, Perc Approach', 10);
+ 
+--- QUERY ---
+SELECT * FROM Exams ORDER BY idExams;
+
+
+--- EXAMS LABORATORY ---
+INSERT INTO ExamsLaboratory VALUES (0000000001, 0000000001);
+INSERT INTO ExamsLaboratory VALUES (0000000002, 0000000002);
+INSERT INTO ExamsLaboratory VALUES (0000000003, 0000000003);
+INSERT INTO ExamsLaboratory VALUES (0000000004, 0000000004);
+INSERT INTO ExamsLaboratory VALUES (0000000005, 0000000005);
+INSERT INTO ExamsLaboratory VALUES (0000000006, 0000000006);
+INSERT INTO ExamsLaboratory VALUES (0000000007, 0000000007);
+INSERT INTO ExamsLaboratory VALUES (0000000008, 0000000008);
+INSERT INTO ExamsLaboratory VALUES (0000000009, 0000000009);
+INSERT INTO ExamsLaboratory VALUES (0000000010, 0000000010);
+
+--- QUERY ---
+SELECT * FROM ExamsLaboratory;
+
+
+--- SUPPLY ---
+INSERT INTO Speciality values (000000001, 'Polygonaceae', 150, 1);
+INSERT INTO Speciality values (000000002, 'Poaceae', 1200, 2);
+INSERT INTO Speciality values (000000003, 'Boraginaceae', 12000, 3);
+INSERT INTO Speciality values (000000004, 'Chenopodiaceae', 5, 7);
+INSERT INTO Speciality values (000000005, 'Arthopyreniaceae', 14788, 6);
+INSERT INTO Speciality values (000000006, 'Ranunculaceae', 36895, 5);
+INSERT INTO Speciality values (000000007, 'Brassicaceae', 6187, 8);
+INSERT INTO Speciality values (000000008, 'Orchidaceae', 41282, 9);
+INSERT INTO Speciality values (000000009, 'Rubiaceae', 592, 10);
+INSERT INTO Speciality values (000000010, 'Caryophyllaceae', 66042, 3);
+ 
+--- QUERY ---
+SELECT * FROM Supply ORDER BY idSupply;

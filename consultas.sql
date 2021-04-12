@@ -52,5 +52,22 @@ SELECT * FROM DoctorSpeciality;
 SELECT * FROM NurseSpeciality;
 
 --- BACKGROUND ---
-SELECT * FROM Backgound ORDER BY idBackground ;
+SELECT * FROM Background ORDER BY idBackground ;
 
+--- LABORATORY ---
+SELECT * FROM Laboratory ORDER BY idLaboratory ;
+
+--- MANAGEMENT PLAN ---
+SELECT * FROM ManagementPlan ORDER BY idManagementPlan;
+
+--- APPOINTMENT ---
+SELECT * FROM Appointment ORDER BY idAppointment;
+
+--- APPOINTMENT DOCTOR ---
+SELECT * FROM AppointmentDoctor ORDER BY idAppointment;
+
+--- APPOINTMENT NURSE ---
+SELECT * FROM AppointmentNurse ORDER BY idAppointment;
+
+--- EXAMS ---
+SELECT * FROM Exams ORDER BY idExams;

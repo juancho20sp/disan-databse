@@ -10,6 +10,7 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 
 - Si una persona es doctor, los tipos de documento válidos son ('CC', 'CE', 'PS')
 - Si una persona es enfermero/a, los tipos de documento válidos son ('CC', 'CE', 'PS')
+- La fecha de una cita no puede ser menor a la fecha actual, es decir, no puedo agendar 'appointments' en días que YA pasaron
 
 ### POR PROBAR
 
@@ -22,7 +23,9 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 
 ### Summary
 
-- Appointment
+- Appointment <PENDIENTE POR PROBAR>
+- AppointmentDoctor <PENDIENTE POR PROBAR>
+- AppointmentNurse <PENDIENTE POR PROBAR>
 - Background <PENDIENTE POR PROBAR>
 - Battalion (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - Brigade (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
@@ -31,20 +34,23 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 - Disease <PENDIENTE POR PROBAR>
 - Division (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - Doctor <PENDIENTE POR PROBAR>
-- Exams
+- Exams <PENDIENTE POR PROBAR>
 - Hospital (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- Laboratory
+- Laboratory <PENDIENTE POR PROBAR>
 - ExamsLaboratory
-- ManagementPlan
+- ManagementPlan <PENDIENTE POR PROBAR>
 - MedicineComponents
 - MedicationInventory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - MedicationType (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Medicines
 - MilitaryUnit (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Nurse <PENDIENTE POR PROBAR>
+- ExamsNurse
 - Patient (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Person (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- Procedure
+- Procedures
+- ProcedureNurse
+- ProcedureDoctor
 - Specialty <PENDIENTE POR PROBAR>
 - NurseSpeciality <PENDIENTE POR PROBAR>
 - DoctorSpeciality <PENDIENTE POR PROBAR>

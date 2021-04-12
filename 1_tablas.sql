@@ -38,7 +38,7 @@ DROP TABLE ProcedureDoctor CASCADE CONSTRAINTS;
 CREATE TABLE Appointment (
     idAppointment	    NUMBER(10) NOT NULL,
     diagnosis          	VARCHAR2(500) NOT NULL,
-    dateAppointment    	DATE,
+    dateAppointment    	DATE NOT NULL,
 	idClinicalHistory	NUMBER(10) NOT NULL, 
 	idManagementPlan	NUMBER(10) NOT NULL,
 	idHospital			NUMBER(10) NOT NULL
@@ -107,7 +107,7 @@ CREATE TABLE Hospital (
 
 CREATE TABLE Exams (
     idExams			    NUMBER(10) NOT NULL,
-	name				VARCHAR2(50) NOT NULL, 
+	name				VARCHAR2(250) NOT NULL, 
 	idManagementPlan	NUMBER(10) NOT NULL
 ); 
 
@@ -200,7 +200,7 @@ CREATE TABLE SuppliesInventory (
 
 CREATE TABLE Supply (
 	idSupply			NUMBER(10) NOT NULL, 
-	name				VARCHAR2(50) NOT NULL, 
+	name				VARCHAR2(250) NOT NULL, 
 	amount				NUMBER(10) NOT NULL, 
 	idSuppliesInventory	NUMBER(10) NOT NULL
 ); 		

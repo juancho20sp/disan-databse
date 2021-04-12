@@ -484,3 +484,131 @@ INSERT INTO Laboratory VALUES (0000000001, 'Kshlerin-Hilll', 1, 123432145678);
 --- QUERY ---
 SELECT * FROM Laboratory ORDER BY idLaboratory ;
 
+
+
+--- MANAGEMENT PLAN ---
+--- idManagementPlan -> NUMBER(10) NOT NULL
+INSERT INTO ManagementPlan VALUES (NULL, 'Retroverted and incarcerated gravid uterus, postpartum condition or complication');
+INSERT INTO ManagementPlan VALUES (147852369856, 'Retroverted and incarcerated gravid uterus, postpartum condition or complication');
+
+--- instructions -> VARCHAR2(500) NOT NULL
+INSERT INTO ManagementPlan VALUES (0000000010, '');
+INSERT INTO ManagementPlan VALUES (0000000010, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus');
+
+--- QUERY ---
+SELECT * FROM ManagementPlan ORDER BY idManagementPlan;
+
+
+--- APPOINTMENT ---
+--- idAppointment -> NUMBER(10) NOT NULL
+INSERT INTO Appointment VALUES (NULL, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
+INSERT INTO Appointment VALUES (145236547898, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
+
+--- diagnosis -> VARCHAR2(500) NOT NULL
+INSERT INTO Appointment VALUES (0000000001, '', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
+INSERT INTO Appointment VALUES (0000000001, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
+
+--- dateAppointment -> DATE NOT NULL
+INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', NULL, 1, 2, 3);
+
+--- idClinicalHistory -> NUMBER(10) NOT NULL
+INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), NULL, 2, 3);
+INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 123214543212, 2, 3);
+
+--- idManagementPlan -> NUMBER(10) NOT NULL
+INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, NULL, 3);
+INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2312345432312, 3);
+
+--- idHospital -> NUMBER(10) NOT NULL
+INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, NULL);
+INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 123214341231);
+
+--- QUERY ---
+SELECT * FROM Appointment ORDER BY idAppointment;
+
+
+
+--- APPOINTMENT DOCTOR ---
+--- idAppointment -> NUMBER(10) NOT NULL
+INSERT INTO AppointmentDoctor VALUES (NULL, 'TI', 1773190621);
+INSERT INTO AppointmentDoctor VALUES (145236989655, 'TI', 1773190621);
+
+--- documentType -> VARCHAR2(2) NOT NULL
+INSERT INTO AppointmentDoctor VALUES (0000000001, '', 1773190621);
+INSERT INTO AppointmentDoctor VALUES (0000000001, 'TIII', 1773190621);
+
+--- documentNumber -> NUMBER(10) NOT NULL
+INSERT INTO AppointmentDoctor VALUES (0000000001, 'TI', NULL);
+INSERT INTO AppointmentDoctor VALUES (0000000001, 'TI', 1452369874521);
+
+--- QUERY ---
+SELECT * FROM AppointmentDoctor ORDER BY idAppointment;
+
+
+
+--- APPOINTMENT NURSE ---
+--- idAppointment -> NUMBER(10) NOT NULL
+INSERT INTO AppointmentNurse VALUES (NULL, 'TI', 1773190621);
+INSERT INTO AppointmentNurse VALUES (145236989655, 'TI', 1773190621);
+
+--- documentType -> VARCHAR2(2) NOT NULL
+INSERT INTO AppointmentNurse VALUES (0000000001, '', 1773190621);
+INSERT INTO AppointmentNurse VALUES (0000000001, 'TIII', 1773190621);
+
+--- documentNumber -> NUMBER(10) NOT NULL
+INSERT INTO AppointmentNurse VALUES (0000000001, 'TI', NULL);
+INSERT INTO AppointmentNurse VALUES (0000000001, 'TI', 1452369874521);
+
+--- QUERY ---
+SELECT * FROM AppointmentNurse ORDER BY idAppointment;
+
+
+--- EXAMS ---
+--- idExams -> NUMBER(10) NOT NULL
+INSERT INTO Exams VALUES (NULL, 'Removal of Bandage on Left Lower Leg', 9);
+INSERT INTO Exams VALUES (1478523698565, 'Removal of Bandage on Left Lower Leg', 9);
+
+--- name -> VARCHAR2(250) NOT NULL
+INSERT INTO Exams VALUES (0000000009, '', 9);
+INSERT INTO Exams VALUES (0000000009, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium qu', 9);
+
+--- idManagementPlan -> NUMBER(10) NOT NULL
+INSERT INTO Exams VALUES (0000000009, 'Removal of Bandage on Left Lower Leg', NULL);
+INSERT INTO Exams VALUES (0000000009, 'Removal of Bandage on Left Lower Leg', 147852369854);
+
+--- QUERY ---
+SELECT * FROM Exams ORDER BY idExams;
+
+
+--- EXAMS LABORATORY ---
+--- idLaboratory -> NUMBER(10) NOT NULL
+INSERT INTO ExamsLaboratory VALUES (NULL, 0000000001);
+INSERT INTO ExamsLaboratory VALUES (147852365895, 0000000001);
+
+--- idExam -> NUMBER(10) NOT NULL
+INSERT INTO ExamsLaboratory VALUES (0000000001, NULL);
+INSERT INTO ExamsLaboratory VALUES (0000000001, 123654785954);
+
+--- QUERY ---
+SELECT * FROM ExamsLaboratory;
+
+
+--- SUPPLY --- 
+--- idSupply -> NUMBER(10) NOT NULL
+INSERT INTO Speciality values (NULL, 'Poaceae', 1200, 2);
+INSERT INTO Speciality values (123659856321, 'Poaceae', 1200, 2);
+
+--- name -> VARCHAR2(50) NOT NULL
+INSERT INTO Speciality values (000000002, '', 1200, 2);
+INSERT INTO Speciality values (000000002, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium qu', 1200, 2);
+
+--- amount -> NUMBER(10) NOT NULL
+INSERT INTO Speciality values (000000002, 'Poaceae', NULL, 2);
+INSERT INTO Speciality values (000000002, 'Poaceae', 145236987485, 2);
+
+--- idSuppliesInventory -> NUMBER(10) NOT NULL
+INSERT INTO Speciality values (000000002, 'Poaceae', 1200, NULL);
+INSERT INTO Speciality values (000000002, 'Poaceae', 1200, 123654741258);
+
+--- QUERY ---
+SELECT * FROM Supply ORDER BY idSupply;
