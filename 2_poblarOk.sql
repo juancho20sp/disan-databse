@@ -480,3 +480,87 @@ INSERT INTO Speciality values (000000010, 'Caryophyllaceae', 66042, 3);
  
 --- QUERY ---
 SELECT * FROM Supply ORDER BY idSupply;
+
+
+--- MEDICINES ---
+INSERT INTO Medicines VALUES (0000000001, 'bisoprolol fumarate and hydrochlorothiazide', 'Ziac', 'Teva Women''s Health, Inc.', 1, 10, 9);
+INSERT INTO Medicines VALUES (0000000002, 'BENZOYL PEROXIDE', 'Benzoyl peroxide short contact', 'Metacon Labs', 2, 12, 1);
+INSERT INTO Medicines VALUES (0000000003, 'TITANIUM DIOXIDE, ZINC OXIDE', 'Anew Solar Advance', 'Avon Products, Inc.', 3, 3, 3);
+INSERT INTO Medicines VALUES (0000000004, 'fosamprenavir calcium', 'LEXIVA', 'REMEDYREPACK INC.', 1, 1, 3);
+INSERT INTO Medicines VALUES (0000000005, 'Loperamide HCl', 'Anti-Diarrheal', 'GREAT LAKES WHOLESALE, MARKETING, & SALES, INC.', 4, 3, 9);
+INSERT INTO Medicines VALUES (0000000006, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 2, 2, 2);
+INSERT INTO Medicines VALUES (0000000007, 'isopropyl alcohol', 'LENS CLEANER', 'Yuyao Jessie Commodity Co.,Ltd.', 8, 7, 1);
+INSERT INTO Medicines VALUES (0000000008, 'Atropa belladonna, Euphrasia stricta and Calcium sulfide', 'Irritated Eye Relief', 'Similasan Corporation', 10, 10, 10);
+INSERT INTO Medicines VALUES (0000000009, 'Dextromethorphan Hydrobromide, Guaifenesin, and Phenylephrine Hydrochloride', 'Giltuss', 'Gil Pharmaceutical Corp', 5, 3, 1);
+INSERT INTO Medicines VALUES (0000000010, 'Fluoxetine Hydrochloride', 'Fluoxetine', 'Rebel Distributors Corp', 2, 10, 2);
+
+--- QUERY ---
+SELECT * FROM Medicines ORDER BY idMedicines; 
+
+
+--- MEDICATION COMPONENTS ---
+INSERT INTO MedicationComponents VALUES (0000000001, 'JNH Magic BB', 1);
+INSERT INTO MedicationComponents VALUES (0000000002, 'Mirtazapine', 2);
+INSERT INTO MedicationComponents VALUES (0000000003, 'Promethazine Hydrochloride', 3);
+INSERT INTO MedicationComponents VALUES (0000000004, 'Sunmark no drip', 4);
+INSERT INTO MedicationComponents VALUES (0000000005, 'Polyethylene Glycol 3350, NF Powder for Solution, Laxative', 5);
+INSERT INTO MedicationComponents VALUES (0000000006, 'METHADONE HYDROCHLORIDE', 6);
+INSERT INTO MedicationComponents VALUES (0000000007, 'Nadolol', 7);
+INSERT INTO MedicationComponents VALUES (0000000008, 'fexofenadine hydrochloride', 8);
+INSERT INTO MedicationComponents VALUES (0000000009, 'Hydrocortisone anti-itch plus', 9);
+INSERT INTO MedicationComponents VALUES (0000000010, 'Myrbetriq', 10); 
+
+--- QUERY ---
+SELECT * FROM MedicationComponents ORDER BY idMedicationComponent; 
+
+
+--- PROCEDURES ---
+INSERT INTO Procedures VALUES (0000000001, 'Fluoroscopy of Right Hand/Finger Joint using H Osm Contrast', TO_DATE('7/1/2024', 'MM/DD/YYYY'), 4, 10, 4, 10);
+INSERT INTO Procedures VALUES (0000000002, 'Excision of Ileocecal Valve, Via Opening', TO_DATE('6/5/2024', 'MM/DD/YYYY'), 1, 8, 2, 3);
+INSERT INTO Procedures VALUES (0000000003, 'Extirpation of Matter from Cranial Cavity, Open Approach',TO_DATE( '8/27/2021', 'MM/DD/YYYY'), 1, 2, 3, 4);
+INSERT INTO Procedures VALUES (0000000004, 'Replace of L Metatarsophal Jt with Nonaut Sub, Open Approach', TO_DATE('10/30/2021', 'MM/DD/YYYY'), 2, 6, 1, 4);
+INSERT INTO Procedures VALUES (0000000005, 'Drainage of Ileum with Drainage Device, Via Opening', TO_DATE('5/15/2022', 'MM/DD/YYYY'), 4, 10, 2, 1);
+INSERT INTO Procedures VALUES (0000000006, 'Bypass L Com Iliac Art to B Femor A w Autol Art, Perc Endo',TO_DATE( '2/20/2022', 'MM/DD/YYYY'), 3, 2, 2, 2);
+INSERT INTO Procedures VALUES (0000000007, 'Destruction of Left Tibia, Open Approach', TO_DATE('12/25/2022', 'MM/DD/YYYY'), 4, 4, 4, 4);
+INSERT INTO Procedures VALUES (0000000008, 'Bypass Cereb Vent to Periton Cav w Synth Sub, Perc',TO_DATE( '5/26/2024', 'MM/DD/YYYY'), 1, 1, 1, 1);
+INSERT INTO Procedures VALUES (0000000009, 'Release Esophagogastric Junction, Percutaneous Approach',TO_DATE( '5/2/2024', 'MM/DD/YYYY'), 3, 3, 3, 3);
+INSERT INTO Procedures VALUES (0000000010, 'Revise of Infusion Dev in R Temporomandib Jt, Perc Approach', TO_DATE('8/22/2022', 'MM/DD/YYYY'), 1, 2, 3, 4);
+
+--- QUERY ---
+SELECT * FROM Procedures ORDER BY idProcedure; 
+
+
+--- EXAMS NURSE ---
+INSERT INTO ExamsNurse VALUES (0000000001, 'TI', 7933982639);
+INSERT INTO ExamsNurse VALUES (0000000002, 'TI', 4252609306);
+INSERT INTO ExamsNurse VALUES (0000000003, 'CE', 4779118851);
+INSERT INTO ExamsNurse VALUES (0000000004, 'CC', 4563832319);
+INSERT INTO ExamsNurse VALUES (0000000005, 'TI', 7933982639);
+INSERT INTO ExamsNurse VALUES (0000000006, 'TI', 4252609306);
+INSERT INTO ExamsNurse VALUES (0000000007, 'CE', 4779118851);
+INSERT INTO ExamsNurse VALUES (0000000008, 'CC', 4563832319);
+INSERT INTO ExamsNurse VALUES (0000000009, 'TI', 4252609306);
+INSERT INTO ExamsNurse VALUES (0000000010, 'CE', 4779118851);
+
+--- QUERY ---
+SELECT * FROM ExamsNurse ORDER BY idExam; 
+
+
+--- PROCEDURE NURSE ---
+INSERT INTO ProcedureNurse VALUES ('TI', 1773190621, 0000000001);
+INSERT INTO ProcedureNurse VALUES ('CC', 2878196529, 0000000002);
+INSERT INTO ProcedureNurse VALUES ('TI', 9115387117, 0000000003);
+INSERT INTO ProcedureNurse VALUES ('CC', 7049570787, 0000000004);
+
+--- QUERY ---
+SELECT * FROM ProcedureNurse ORDER BY idProcedure;
+
+
+--- PROCEDURE DOCTOR ---
+INSERT INTO ProcedureNurse VALUES ('TI', 1773190621, 0000000001);
+INSERT INTO ProcedureNurse VALUES ('CC', 2878196529, 0000000002);
+INSERT INTO ProcedureNurse VALUES ('TI', 9115387117, 0000000003);
+INSERT INTO ProcedureNurse VALUES ('CC', 7049570787, 0000000004);
+
+--- QUERY ---
+SELECT * FROM ProcedureNurse ORDER BY idProcedure; 

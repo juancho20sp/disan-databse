@@ -475,3 +475,70 @@ INSERT INTO Speciality values (NULL, 'Caryophyllaceae', 66042, 3);
  
 --- QUERY ---
 SELECT * FROM Supply ORDER BY idSupply;
+
+
+--- MEDICINES ---
+INSERT INTO Medicines VALUES (NULL, 'bisoprolol fumarate and hydrochlorothiazide', 'Ziac', 'Teva Women''s Health, Inc.', 1, 10, 9);
+INSERT INTO Medicines VALUES (NULL, 'BENZOYL PEROXIDE', 'Benzoyl peroxide short contact', 'Metacon Labs', 2, 12, 1);
+INSERT INTO Medicines VALUES (NULL, 'TITANIUM DIOXIDE, ZINC OXIDE', 'Anew Solar Advance', 'Avon Products, Inc.', 3, 3, 3);
+INSERT INTO Medicines VALUES (NULL, 'fosamprenavir calcium', 'LEXIVA', 'REMEDYREPACK INC.', 1, 1, 3);
+INSERT INTO Medicines VALUES (NULL, 'Loperamide HCl', 'Anti-Diarrheal', 'GREAT LAKES WHOLESALE, MARKETING, & SALES, INC.', 4, 3, 9);
+INSERT INTO Medicines VALUES (NULL, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 2, 2, 2);
+INSERT INTO Medicines VALUES (NULL, 'isopropyl alcohol', 'LENS CLEANER', 'Yuyao Jessie Commodity Co.,Ltd.', 8, 7, 1);
+INSERT INTO Medicines VALUES (NULL, 'Atropa belladonna, Euphrasia stricta and Calcium sulfide', 'Irritated Eye Relief', 'Similasan Corporation', 10, 10, 10);
+INSERT INTO Medicines VALUES (NULL, 'Dextromethorphan Hydrobromide, Guaifenesin, and Phenylephrine Hydrochloride', 'Giltuss', 'Gil Pharmaceutical Corp', 5, 3, 1);
+INSERT INTO Medicines VALUES (NULL, 'Fluoxetine Hydrochloride', 'Fluoxetine', 'Rebel Distributors Corp', 2, 10, 2);
+
+--- QUERY ---
+SELECT * FROM Medicines ORDER BY idMedicines;
+
+
+--- MEDICATION COMPONENTS ---
+INSERT INTO MedicationComponents VALUES (NULL, 'JNH Magic BB', 1);
+INSERT INTO MedicationComponents VALUES (NULL, 'Mirtazapine', 2);
+INSERT INTO MedicationComponents VALUES (NULL, 'Promethazine Hydrochloride', 3);
+INSERT INTO MedicationComponents VALUES (NULL, 'Sunmark no drip', 4);
+INSERT INTO MedicationComponents VALUES (NULL, 'Polyethylene Glycol 3350, NF Powder for Solution, Laxative', 5);
+INSERT INTO MedicationComponents VALUES (NULL, 'METHADONE HYDROCHLORIDE', 6);
+INSERT INTO MedicationComponents VALUES (NULL, 'Nadolol', 7);
+INSERT INTO MedicationComponents VALUES (NULL, 'fexofenadine hydrochloride', 8);
+INSERT INTO MedicationComponents VALUES (NULL, 'Hydrocortisone anti-itch plus', 9);
+INSERT INTO MedicationComponents VALUES (NULL, 'Myrbetriq', 10); 
+
+--- QUERY ---
+SELECT * FROM MedicationComponents ORDER BY idMedicationComponent;
+
+--- EXAMS NURSE ---
+INSERT INTO ExamsNurse VALUES (0000000001, 'TI', 7933982639);
+INSERT INTO ExamsNurse VALUES (0000000002, 'TI', 4252609306);
+INSERT INTO ExamsNurse VALUES (0000000003, 'CE', 4779118851);
+INSERT INTO ExamsNurse VALUES (0000000004, 'CC', 4563832319);
+INSERT INTO ExamsNurse VALUES (0000000005, 'TI', 7933982639);
+INSERT INTO ExamsNurse VALUES (0000000006, 'TI', 4252609306);
+INSERT INTO ExamsNurse VALUES (0000000007, 'CE', 4779118851);
+INSERT INTO ExamsNurse VALUES (0000000008, 'CC', 4563832319);
+INSERT INTO ExamsNurse VALUES (0000000009, 'TI', 4252609306);
+INSERT INTO ExamsNurse VALUES (0000000010, 'CE', 4779118851);
+
+--- QUERY ---
+SELECT * FROM ExamsNurse ORDER BY idExam; 
+
+
+--- PROCEDURE NURSE ---
+INSERT INTO ProcedureNurse VALUES ('TI', 1773190621, 0000000001);
+INSERT INTO ProcedureNurse VALUES ('CC', 2878196529, 0000000002);
+INSERT INTO ProcedureNurse VALUES ('TI', 9115387117, 0000000003);
+INSERT INTO ProcedureNurse VALUES ('CC', 7049570787, 0000000004);
+
+--- QUERY ---
+SELECT * FROM ProcedureNurse ORDER BY idProcedure;
+
+
+--- PROCEDURE DOCTOR ---
+INSERT INTO ProcedureNurse VALUES ('TI', 1773190621, 0000000001);
+INSERT INTO ProcedureNurse VALUES ('CC', 2878196529, 0000000002);
+INSERT INTO ProcedureNurse VALUES ('TI', 9115387117, 0000000003);
+INSERT INTO ProcedureNurse VALUES ('CC', 7049570787, 0000000004);
+
+--- QUERY ---
+SELECT * FROM ProcedureNurse ORDER BY idProcedure; 

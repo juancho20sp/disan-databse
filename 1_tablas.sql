@@ -125,7 +125,7 @@ CREATE TABLE ManagementPlan (
 
 CREATE TABLE MedicationComponents (
     idMedicationComponent NUMBER(10) NOT NULL,
-	name				  VARCHAR2(50) NOT NULL, 
+	name				  VARCHAR2(250) NOT NULL, 
 	idMedicines			  NUMBER(10) NOT NULL
 ); 
 
@@ -140,9 +140,9 @@ CREATE TABLE MedicationType (
 
 CREATE TABLE Medicines (
     idMedicines			  NUMBER(10) NOT NULL,
-	commercialName		  VARCHAR2(50) NOT NULL, 
+	commercialName		  VARCHAR2(250) NOT NULL, 
 	presentation		  VARCHAR2(50) NOT NULL, 
-	producer			  VARCHAR2(50) NOT NULL, 
+	producer			  VARCHAR2(250) NOT NULL, 
 	idManagementPlan	  NUMBER(10) NOT NULL, 
 	idMedicationType	  NUMBER(10) NOT NULL, 
 	idMedicationInventory NUMBER(10) NOT NULL
@@ -181,7 +181,7 @@ CREATE TABLE Person (
 
 CREATE TABLE Procedures (
     idProcedure			NUMBER(10) NOT NULL,
-	name				VARCHAR2(50) NOT NULL, 
+	name				VARCHAR2(250) NOT NULL, 
 	dateProcedure		DATE NOT NULL,
 	idBackground		NUMBER(10) NOT NULL, 
 	idManagementPlan	NUMBER(10) NOT NULL, 
@@ -212,8 +212,8 @@ CREATE TABLE ExamsLaboratory (
 
 CREATE TABLE ExamsNurse (
 	idExam				NUMBER(10) NOT NULL, 
-	documentType		VARCHAR2(2) NOT NULL,
-	documentNumber		NUMBER(10) NOT NULL
+	documentType		VARCHAR2(2),
+	documentNumber		NUMBER(10)
 );
 
 CREATE TABLE NurseSpeciality (

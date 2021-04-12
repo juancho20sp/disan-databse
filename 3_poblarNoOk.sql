@@ -612,3 +612,138 @@ INSERT INTO Speciality values (000000002, 'Poaceae', 1200, 123654741258);
 
 --- QUERY ---
 SELECT * FROM Supply ORDER BY idSupply;
+
+
+
+--- MEDICINES --- 
+--- idMedicines -> NUMBER(10) NOT NULL
+INSERT INTO Medicines VALUES (NULL, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 2, 2, 2);
+INSERT INTO Medicines VALUES (159874563251, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 2, 2, 2);
+
+--- commercialName -> VARCHAR2(250) NOT NULL
+INSERT INTO Medicines VALUES (0000000006, '', 'Topamax', 'Rebel Distributors Corp', 2, 2, 2);
+INSERT INTO Medicines VALUES (0000000006, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium qu', 'Topamax', 'Rebel Distributors Corp', 2, 2, 2);
+
+--- presentation -> VARCHAR2(50) NOT NULL
+INSERT INTO Medicines VALUES (0000000006, 'topiramate', '', 'Rebel Distributors Corp', 2, 2, 2);
+INSERT INTO Medicines VALUES (0000000006, 'topiramate', 'Lorem ipsum dolor sit amet, consectetuer adipiscing.', 'Rebel Distributors Corp', 2, 2, 2);
+
+--- producer -> VARCHAR2(250) NOT NULL
+INSERT INTO Medicines VALUES (0000000006, 'topiramate', 'Topamax', '', 2, 2, 2);
+INSERT INTO Medicines VALUES (0000000006, 'topiramate', 'Topamax', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium qu', 2, 2, 2);
+
+--- idManagementPlan -> NUMBER(10) NOT NULL 
+INSERT INTO Medicines VALUES (0000000006, 'topiramate', 'Topamax', 'Rebel Distributors Corp', NULL, 2, 2);
+INSERT INTO Medicines VALUES (0000000006, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 24785987562, 2, 2);
+
+--- idMedicationType -> NUMBER(10) NOT NULL
+INSERT INTO Medicines VALUES (0000000006, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 2, NULL, 2);
+INSERT INTO Medicines VALUES (0000000006, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 2, 22369856957, 2);
+
+--- idMedicationInventory -> NUMBER(10) NOT NULL
+INSERT INTO Medicines VALUES (0000000006, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 2, 2, NULL);
+INSERT INTO Medicines VALUES (0000000006, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 2, 2, 159753246821);
+
+--- QUERY ---
+SELECT * FROM Medicines ORDER BY idMedicines; 
+
+
+
+--- MEDICATION COMPONENTS ---
+--- idMedicationComponent -> NUMBER(10) NOT NULL
+INSERT INTO MedicationComponents VALUES (NULL, 'JNH Magic BB', 1);
+INSERT INTO MedicationComponents VALUES (123658965745, 'JNH Magic BB', 1);
+
+--- name -> VARCHAR2(250) NOT NULL
+INSERT INTO MedicationComponents VALUES (0000000001, '', 1);
+INSERT INTO MedicationComponents VALUES (0000000001, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium qu', 1);
+
+--- idMedicines -> NUMBER(10) NOT NULL
+INSERT INTO MedicationComponents VALUES (0000000001, 'JNH Magic BB', NULL);
+INSERT INTO MedicationComponents VALUES (0000000001, 'JNH Magic BB', 158987563212);
+
+--- QUERY ---
+SELECT * FROM MedicationComponents ORDER BY idMedicationComponent;
+
+
+
+--- PROCEDURES ---
+--- idProcedure -> NUMBER(10) NOT NULL
+INSERT INTO Procedures VALUES (NULL, 'Destruction of Left Tibia, Open Approach', TO_DATE('12/25/2022', 'MM/DD/YYYY'), 4, 4, 4, 4);
+INSERT INTO Procedures VALUES (159753468278, 'Destruction of Left Tibia, Open Approach', TO_DATE('12/25/2022', 'MM/DD/YYYY'), 4, 4, 4, 4);
+
+--- name -> VARCHAR2(250) NOT NULL
+INSERT INTO Procedures VALUES (0000000007, '', TO_DATE('12/25/2022', 'MM/DD/YYYY'), 4, 4, 4, 4);
+INSERT INTO Procedures VALUES (0000000007, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium qu', TO_DATE('12/25/2022', 'MM/DD/YYYY'), 4, 4, 4, 4);
+
+--- dateProcedure -> DATE NOT NULL
+INSERT INTO Procedures VALUES (0000000007, 'Destruction of Left Tibia, Open Approach', NULL, 4, 4, 4, 4);
+
+--- idBackground -> NUMBER(10) NOT NULL
+INSERT INTO Procedures VALUES (0000000007, 'Destruction of Left Tibia, Open Approach', TO_DATE('12/25/2022', 'MM/DD/YYYY'), NULL, 4, 4, 4);
+INSERT INTO Procedures VALUES (0000000007, 'Destruction of Left Tibia, Open Approach', TO_DATE('12/25/2022', 'MM/DD/YYYY'), 159753468278, 4, 4, 4);
+
+--- idManagementPlan -> NUMBER(10) NOT NULL
+INSERT INTO Procedures VALUES (0000000007, 'Destruction of Left Tibia, Open Approach', TO_DATE('12/25/2022', 'MM/DD/YYYY'), 4, NULL, 4, 4);
+INSERT INTO Procedures VALUES (0000000007, 'Destruction of Left Tibia, Open Approach', TO_DATE('12/25/2022', 'MM/DD/YYYY'), 4, 159753468278, 4, 4);
+
+--- idClinicalHistory -> NUMBER(10) NOT NULL
+INSERT INTO Procedures VALUES (0000000007, 'Destruction of Left Tibia, Open Approach', TO_DATE('12/25/2022', 'MM/DD/YYYY'), 4, 4, NULL, 4);
+INSERT INTO Procedures VALUES (0000000007, 'Destruction of Left Tibia, Open Approach', TO_DATE('12/25/2022', 'MM/DD/YYYY'), 4, 4, 159753468278, 4);
+
+--- idHospital -> NUMBER(10) NOT NULL
+INSERT INTO Procedures VALUES (0000000007, 'Destruction of Left Tibia, Open Approach', TO_DATE('12/25/2022', 'MM/DD/YYYY'), 4, 4, 4, NULL);
+INSERT INTO Procedures VALUES (0000000007, 'Destruction of Left Tibia, Open Approach', TO_DATE('12/25/2022', 'MM/DD/YYYY'), 4, 4, 4, 159753468278);
+
+--- QUERY ---
+SELECT * FROM Procedures ORDER BY idProcedure; 
+
+
+
+--- EXAMS NURSE ---
+--- idExam -> NUMBER(10) NOT NULL
+INSERT INTO ExamsNurse VALUES (NULL, 'CE', 4779118851);
+INSERT INTO ExamsNurse VALUES (145698752648, 'CE', 4779118851);
+
+--- documentType -> VARCHAR2(2)
+INSERT INTO ExamsNurse VALUES (0000000010, 'CEEEEE', 4779118851);
+
+--- documentNumber -> NUMBER(10)
+INSERT INTO ExamsNurse VALUES (0000000010, 'CE', 14523698759821);
+
+--- QUERY ---
+SELECT * FROM ExamsNurse ORDER BY idExam; 
+
+
+--- PROCEDURE NURSE ---
+--- documentType -> VARCHAR2(2) NOT NULL
+INSERT INTO ProcedureNurse VALUES ('', 1773190621, 0000000001);
+INSERT INTO ProcedureNurse VALUES ('TII', 1773190621, 0000000001);
+
+--- documentNumber -> NUMBER(10) NOT NULL 
+INSERT INTO ProcedureNurse VALUES ('TI', NULL, 0000000001);
+INSERT INTO ProcedureNurse VALUES ('TI', 159789654752, 0000000001);
+
+--- idProcedure -> NUMBER(10) NOT NULL
+INSERT INTO ProcedureNurse VALUES ('TI', 1773190621, NULL);
+INSERT INTO ProcedureNurse VALUES ('TI', 1773190621, 321654987451);
+
+--- QUERY ---
+SELECT * FROM ProcedureNurse ORDER BY idProcedure;
+
+
+--- PROCEDURE DOCTOR ---
+--- documentType -> VARCHAR2(2) NOT NULL
+INSERT INTO ProcedureDoctor VALUES ('', 1773190621, 0000000001);
+INSERT INTO ProcedureDoctor VALUES ('TII', 1773190621, 0000000001);
+
+--- documentNumber -> NUMBER(10) NOT NULL 
+INSERT INTO ProcedureDoctor VALUES ('TI', NULL, 0000000001);
+INSERT INTO ProcedureDoctor VALUES ('TI', 159789654752, 0000000001);
+
+--- idProcedure -> NUMBER(10) NOT NULL
+INSERT INTO ProcedureDoctor VALUES ('TI', 1773190621, NULL);
+INSERT INTO ProcedureDoctor VALUES ('TI', 1773190621, 321654987451);
+
+--- QUERY ---
+SELECT * FROM ProcedureDoctor ORDER BY idProcedure;

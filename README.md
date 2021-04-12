@@ -11,6 +11,7 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 - Si una persona es doctor, los tipos de documento válidos son ('CC', 'CE', 'PS')
 - Si una persona es enfermero/a, los tipos de documento válidos son ('CC', 'CE', 'PS')
 - La fecha de una cita no puede ser menor a la fecha actual, es decir, no puedo agendar 'appointments' en días que YA pasaron
+- No pueden haber 'Medicines' sin componentes ('Medication Components')
 
 ### POR PROBAR
 
@@ -37,25 +38,25 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 - Exams <PENDIENTE POR PROBAR>
 - Hospital (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Laboratory <PENDIENTE POR PROBAR>
-- ExamsLaboratory
+- ExamsLaboratory <PENDIENTE POR PROBAR>
 - ManagementPlan <PENDIENTE POR PROBAR>
-- MedicineComponents
+- MedicationComponents <PENDIENTE POR PROBAR>
 - MedicationInventory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - MedicationType (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- Medicines
+- Medicines <PENDIENTE POR PROBAR>
 - MilitaryUnit (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Nurse <PENDIENTE POR PROBAR>
-- ExamsNurse
+- ExamsNurse <PENDIENTE POR PROBAR>
 - Patient (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Person (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- Procedures
-- ProcedureNurse
-- ProcedureDoctor
+- Procedures <PENDIENTE POR PROBAR>
+- ProcedureNurse <PENDIENTE POR PROBAR>
+- ProcedureDoctor <PENDIENTE POR PROBAR>
 - Specialty <PENDIENTE POR PROBAR>
 - NurseSpeciality <PENDIENTE POR PROBAR>
 - DoctorSpeciality <PENDIENTE POR PROBAR>
 - SuppliesInventory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- Supply
+- Supply <PENDIENTE POR PROBAR>
 
 ## Considerations
 

@@ -71,3 +71,24 @@ SELECT * FROM AppointmentNurse ORDER BY idAppointment;
 
 --- EXAMS ---
 SELECT * FROM Exams ORDER BY idExams;
+
+--- SUPPLY ---
+SELECT * FROM Supply ORDER BY idSupply;
+
+--- MEDICINES ---
+SELECT * FROM Medicines ORDER BY idMedicines; 
+
+--- MEDICATION COMPONENTS ---
+SELECT * FROM MedicationComponents ORDER BY idMedicationComponent;
+
+--- PROCEDURES ---
+SELECT * FROM Procedures ORDER BY idProcedure; 
+
+--- EXAMS NURSE ---
+SELECT * FROM ExamsNurse ORDER BY idExam; 
+
+--- PROCEDURE NURSE ---
+SELECT * FROM ProcedureNurse ORDER BY idProcedure; 
+
+--- PROCEDURE DOCTOR ---
+SELECT * FROM ProcedureDoctor ORDER BY idProcedure; 
