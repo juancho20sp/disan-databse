@@ -6,6 +6,15 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 
 ## TO-DO List
 
+### 11/04/2021
+
+- Si una persona es doctor, los tipos de documento válidos son ('CC', 'CE', 'PS')
+- Si una persona es enfermero/a, los tipos de documento válidos son ('CC', 'CE', 'PS')
+- La fecha de una cita no puede ser menor a la fecha actual, es decir, no puedo agendar 'appointments' en días que YA pasaron
+- No pueden haber 'Medicines' sin componentes ('Medication Components')
+
+### POR PROBAR
+
 - Fuerza militar IN ('Ejército', 'Fuerza Aérea', 'Armada')
 - documentType IN ('CC', 'CE', 'TI', 'RC', 'PS')
 - gender IN ('F', 'M')
@@ -13,67 +22,41 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 - Verificar correo
 - Verificar que la fecha de cumpleaños de un paciente sea mayor a su fecha de registro en el sistema (no hay registros de personas que no han nacido)
 
-### Laura
-
-Create the restrictions for:
-
-- Appointment
-- Background
-- Battalion
-- Brigade
-- City
-- ClinicalHistory
-- Disease
-- Division
-- Doctor
-- Exams
-- Hospital
-- Laboratory
-
-### Juan
-
-Create the restrictions for:
-
-- ManagementPlan
-- MedicineComponents
-- MedicationInventory
-- MedicationType
-- Medicines
-- Nurse
-- Patient
-- Person
-- Procedure
-- Specialty
-- SuppliesInventory
-- Supply
-
 ### Summary
 
-- Appointment
-- Background
+- Appointment (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- AppointmentDoctor (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
+- AppointmentNurse (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
+- Background(POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - Battalion (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - Brigade (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - City (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- ClinicalHistory
-- Disease
+- ClinicalHistory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- Disease (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Division (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
-- Doctor
-- Exams
+- Doctor (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
+- Exams <(POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - Hospital (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- Laboratory
-- ManagementPlan
-- MedicineComponents
+- Laboratory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- ExamsLaboratory (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
+- ManagementPlan(POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- MedicationComponents (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - MedicationInventory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - MedicationType (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- Medicines
+- Medicines (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 - MilitaryUnit (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- Nurse
-- Patient
-- Person
-- Procedure
-- Specialty
+- Nurse (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
+- ExamsNurse (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
+- Patient (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- Person (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- Procedures (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- ProcedureNurse (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
+- ProcedureDoctor (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
+- Specialty (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
+- NurseSpeciality (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
+- DoctorSpeciality (POBLAR OK | POBLAR NO OK | NO NECESITA AUTOMATIZACIÓN)
 - SuppliesInventory (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
-- Supply
+- Supply (POBLAR OK | POBLAR NO OK | AUTOMATIZACIÓN)
 
 ## Considerations
 
