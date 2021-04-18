@@ -1,37 +1,42 @@
 --- X POBLAR ---
-DELETE FROM Appointment; 
-DELETE FROM Background; 
-DELETE FROM Battalion; 
-DELETE FROM Brigade; 
-DELETE FROM City; 
-DELETE FROM ClinicalHistory; 
-DELETE FROM Disease; 
-DELETE FROM Division; 
-DELETE FROM Doctor; 
-DELETE FROM Hospital; 
-DELETE FROM Exams; 
-DELETE FROM Laboratory; 
-DELETE FROM ManagementPlan; 
-DELETE FROM MedicationComponents; 
-DELETE FROM MedicationInventory; 
-DELETE FROM MedicationType; 
-DELETE FROM Medicines;
-DELETE FROM MilitaryUnit;
-DELETE FROM Nurse; 
-DELETE FROM Patient; 
-DELETE FROM Person; 
-DELETE FROM Procedures; 
-DELETE FROM Speciality; 
-DELETE FROM SuppliesInventory; 
-DELETE FROM Supply; 
-DELETE FROM ExamsLaboratory; 
-DELETE FROM ExamsNurse; 
 DELETE FROM NurseSpeciality; 
 DELETE FROM DoctorSpeciality;
 DELETE FROM AppointmentDoctor;
 DELETE FROM AppointmentNurse; 
 DELETE FROM ProcedureNurse;
-DELETE FROM ProcedureDoctor;
+DELETE FROM ProcedureDoctor; 
+DELETE FROM ExamsLaboratory;
+DELETE FROM ExamsNurse; 
+DELETE FROM MedicationComponents; 
+DELETE FROM Medicines;
+DELETE FROM MedicationType;
+DELETE FROM Disease;  
+DELETE FROM Supply; 
+DELETE FROM Appointment;
+DELETE FROM Exams; 
+DELETE FROM Procedures;
+DELETE FROM ManagementPlan;  
+DELETE FROM Laboratory;  
+DELETE FROM Hospital; 
+DELETE FROM MedicationInventory; 
+DELETE FROM SuppliesInventory;  
+DELETE FROM Battalion; 
+DELETE FROM Brigade; 
+DELETE FROM Division;
+DELETE FROM MilitaryUnit; 
+DELETE FROM City; 
+DELETE FROM Speciality; 
+DELETE FROM Background; 
+DELETE FROM ClinicalHistory; 
+DELETE FROM Patient;
+DELETE FROM Doctor; 
+DELETE FROM Nurse; 
+DELETE FROM Person; 
+
+
+
+
+
 
 --- X TABLAS ---
 DROP TABLE Appointment CASCADE CONSTRAINTS;

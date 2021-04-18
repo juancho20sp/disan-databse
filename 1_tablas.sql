@@ -37,6 +37,7 @@ DROP TABLE ProcedureDoctor CASCADE CONSTRAINTS;
 --- TABLAS ---
 CREATE TABLE Appointment (
     idAppointment	    NUMBER(10) NOT NULL,
+	appointmentMotive   VARCHAR2(250) NOT NULL,
     diagnosis          	VARCHAR2(500) NOT NULL,
     dateAppointment    	DATE NOT NULL,
 	idClinicalHistory	NUMBER(10) NOT NULL, 
@@ -231,7 +232,7 @@ CREATE TABLE DoctorSpeciality (
 CREATE TABLE AppointmentDoctor (
 	idAppointment		NUMBER(10) NOT NULL,
 	documentType		VARCHAR2(2) NOT NULL,
-	documentNumber		NUMBER(10) NOT NULL
+	documentNumber		NUMBER(10) NOT NULL	
 );
 
 CREATE TABLE AppointmentNurse (

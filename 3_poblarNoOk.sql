@@ -501,27 +501,27 @@ SELECT * FROM ManagementPlan ORDER BY idManagementPlan;
 
 --- APPOINTMENT ---
 --- idAppointment -> NUMBER(10) NOT NULL
-INSERT INTO Appointment VALUES (NULL, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
+INSERT INTO Appointment VALUES (NULL, 'test', 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
 INSERT INTO Appointment VALUES (145236547898, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
 
 --- diagnosis -> VARCHAR2(500) NOT NULL
-INSERT INTO Appointment VALUES (0000000001, '', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
-INSERT INTO Appointment VALUES (0000000001, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
+INSERT INTO Appointment VALUES (0000000001, 'test','', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
+INSERT INTO Appointment VALUES (0000000001, 'test','Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
 
 --- dateAppointment -> DATE NOT NULL
-INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', NULL, 1, 2, 3);
+INSERT INTO Appointment VALUES (0000000001, 'test','Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', NULL, 1, 2, 3);
 
 --- idClinicalHistory -> NUMBER(10) NOT NULL
-INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), NULL, 2, 3);
-INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 123214543212, 2, 3);
+INSERT INTO Appointment VALUES (0000000001, 'test','Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), NULL, 2, 3);
+INSERT INTO Appointment VALUES (0000000001, 'test','Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 123214543212, 2, 3);
 
 --- idManagementPlan -> NUMBER(10) NOT NULL
-INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, NULL, 3);
-INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2312345432312, 3);
+INSERT INTO Appointment VALUES (0000000001, 'test','Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, NULL, 3);
+INSERT INTO Appointment VALUES (0000000001, 'test','Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2312345432312, 3);
 
 --- idHospital -> NUMBER(10) NOT NULL
-INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, NULL);
-INSERT INTO Appointment VALUES (0000000001, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 123214341231);
+INSERT INTO Appointment VALUES (0000000001, 'test','Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, NULL);
+INSERT INTO Appointment VALUES (0000000001, 'test','Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 123214341231);
 
 --- QUERY ---
 SELECT * FROM Appointment ORDER BY idAppointment;

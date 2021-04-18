@@ -382,16 +382,16 @@ INSERT INTO ManagementPlan VALUES (NULL, 'Retroverted and incarcerated gravid ut
 
 
 --- APPOINTMENT ---
-INSERT INTO Appointment VALUES (NULL, 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
-INSERT INTO Appointment VALUES (NULL, 'Machinery accident on board other powered watercraft, initial encounter',TO_DATE( '9/22/2021', 'MM/DD/YYYY'), 2, 3, 3);
-INSERT INTO Appointment VALUES (NULL, 'Yellow fever', TO_DATE('6/13/2021', 'MM/DD/YYYY'), 3, 1, 9);
-INSERT INTO Appointment VALUES (NULL, 'Drug-induced folate deficiency anemia', TO_DATE('12/6/2022', 'MM/DD/YYYY'), 4, 1, 1);
-INSERT INTO Appointment VALUES (NULL, 'Absolute glaucoma, bilateral', TO_DATE('6/17/2024', 'MM/DD/YYYY'), 1, 7, 3);
-INSERT INTO Appointment VALUES (NULL, 'Laceration with foreign body of unspecified thumb with damage to nail, subsequent encounter', TO_DATE('11/3/2024', 'MM/DD/YYYY'), 3, 2, 1);
-INSERT INTO Appointment VALUES (NULL, 'Open bite of right thumb without damage to nail, subsequent encounter', TO_DATE('11/10/2022', 'MM/DD/YYYY'), 2, 2, 2);
-INSERT INTO Appointment VALUES (NULL, 'Nondisplaced avulsion fracture of tuberosity of unspecified calcaneus, initial encounter for open fracture', TO_DATE('6/6/2023', 'MM/DD/YYYY'), 1, 1, 1);
-INSERT INTO Appointment VALUES (NULL, 'Burn of first degree of right palm', TO_DATE('10/11/2021', 'MM/DD/YYYY'), 3, 2, 3);
-INSERT INTO Appointment VALUES (NULL, 'Crushing injury of right hand, initial encounter', TO_DATE('11/20/2022', 'MM/DD/YYYY'), 4, 4, 4);
+INSERT INTO Appointment VALUES (NULL,'Dolor de cabeza', 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
+INSERT INTO Appointment VALUES (NULL,'Dolor de estómago', 'Machinery accident on board other powered watercraft, initial encounter',TO_DATE( '9/22/2021', 'MM/DD/YYYY'), 2, 3, 3);
+INSERT INTO Appointment VALUES (NULL,'Dolor de cabeza', 'Yellow fever', TO_DATE('6/13/2021', 'MM/DD/YYYY'), 3, 1, 9);
+INSERT INTO Appointment VALUES (NULL,'Dolor de estómago', 'Drug-induced folate deficiency anemia', TO_DATE('12/6/2022', 'MM/DD/YYYY'), 4, 1, 1);
+INSERT INTO Appointment VALUES (NULL,'Dolor de pie', 'Absolute glaucoma, bilateral', TO_DATE('6/17/2024', 'MM/DD/YYYY'), 1, 7, 3);
+INSERT INTO Appointment VALUES (NULL,'Dolor de brazo', 'Laceration with foreign body of unspecified thumb with damage to nail, subsequent encounter', TO_DATE('11/3/2024', 'MM/DD/YYYY'), 3, 2, 1);
+INSERT INTO Appointment VALUES (NULL,'Dolor de cabeza', 'Open bite of right thumb without damage to nail, subsequent encounter', TO_DATE('11/10/2022', 'MM/DD/YYYY'), 2, 2, 2);
+INSERT INTO Appointment VALUES (NULL,'Dolor de estómago', 'Nondisplaced avulsion fracture of tuberosity of unspecified calcaneus, initial encounter for open fracture', TO_DATE('6/6/2023', 'MM/DD/YYYY'), 1, 1, 1);
+INSERT INTO Appointment VALUES (NULL,'Dolor de pierna', 'Burn of first degree of right palm', TO_DATE('10/11/2021', 'MM/DD/YYYY'), 3, 2, 3);
+INSERT INTO Appointment VALUES (NULL,'Dolor de cabeza', 'Crushing injury of right hand, initial encounter', TO_DATE('11/20/2022', 'MM/DD/YYYY'), 4, 4, 4);
 
 --- QUERY ---
 --- SELECT * FROM Appointment ORDER BY idAppointment;
