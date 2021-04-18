@@ -211,16 +211,16 @@ INSERT INTO Battalion VALUES (0000000032, 'Suzi Clue', 'Fuerza Aerea', 21);
 
 
 --- HOSPITAL ---
-INSERT INTO Hospital VALUES (NULL, 'Hospital 1', 150, 48, 23, 1, 1, 1);
-INSERT INTO Hospital VALUES (NULL, 'Hospital 2', 200, 64, 24, 2, 2, 2);
-INSERT INTO Hospital VALUES (NULL, 'Hospital 3', 25, 2, 25, 3, 3, 3);
-INSERT INTO Hospital VALUES (NULL, 'Hospital 4', 140, 20, 26, 4, 4, 4);
-INSERT INTO Hospital VALUES (NULL, 'Hospital 5', 100, 10, 27, 5, 5, 5);
-INSERT INTO Hospital VALUES (NULL, 'Hospital 6', 250, 200, 28, 6, 6, 6);
-INSERT INTO Hospital VALUES (NULL, 'Hospital 7', 135, 15, 29, 7, 7, 7);
-INSERT INTO Hospital VALUES (NULL, 'Hospital 8', 100, 20, 30, 8, 8, 8);
-INSERT INTO Hospital VALUES (NULL, 'Hospital 9', 500, 85, 31, 9, 9, 9);
-INSERT INTO Hospital VALUES (NULL, 'Hospital 10', 9, 1, 32, 10, 10, 10);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 1', 'Calle 111 # 45 - 56',150, 48, 23, 1, 1, 1);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 2', 'Calle 112 # 45 - 56',200, 64, 24, 2, 2, 2);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 3', 'Calle 113 # 45 - 56',25, 2, 25, 3, 3, 3);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 4', 'Calle 114 # 45 - 56',140, 20, 26, 4, 4, 4);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 5', 'Calle 115 # 45 - 56',100, 10, 27, 5, 5, 5);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 6', 'Calle 116 # 45 - 56',250, 200, 28, 6, 6, 6);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 7', 'Calle 117 # 45 - 56',135, 15, 29, 7, 7, 7);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 8', 'Calle 118 # 45 - 56',100, 20, 30, 8, 8, 8);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 9', 'Calle 119 # 45 - 56',500, 85, 31, 9, 9, 9);
+INSERT INTO Hospital VALUES (NULL, 'Hospital 10','Calle 120 # 45 - 56', 9, 1, 32, 10, 10, 10);
 --- QUERY ---
 --- SELECT * FROM Hospital ORDER BY idHospital;
 
