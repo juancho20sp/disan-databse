@@ -6,21 +6,11 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 
 ## TO-DO List
 
-### 11/04/2021
-
 - Si una persona es doctor, los tipos de documento válidos son ('CC', 'CE', 'PS')
 - Si una persona es enfermero/a, los tipos de documento válidos son ('CC', 'CE', 'PS')
-- La fecha de una cita no puede ser menor a la fecha actual, es decir, no puedo agendar 'appointments' en días que YA pasaron
-- No pueden haber 'Medicines' sin componentes ('Medication Components')
+- Verificar que la fecha de cumpleaños de un paciente sea mayor a su fecha de registro en el sistema (no hay registros de personas que no han nacido)
 
 ### POR PROBAR
-
-- Fuerza militar IN ('Ejército', 'Fuerza Aérea', 'Armada')
-- documentType IN ('CC', 'CE', 'TI', 'RC', 'PS')
-- gender IN ('F', 'M')
-- status IN ('A', 'I')
-- Verificar correo
-- Verificar que la fecha de cumpleaños de un paciente sea mayor a su fecha de registro en el sistema (no hay registros de personas que no han nacido)
 
 ### Summary
 

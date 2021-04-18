@@ -77,6 +77,16 @@ BEFORE INSERT ON HOSPITAL
 FOR EACH ROW
 BEGIN
   SELECT ID_HOSPITAL.NEXTVAL INTO :NEW.idHospital FROM DUAL;
+
+  /* Si el número de camillas ingresado es negativo, se asume que no hay disponibles */
+  IF :new.bedNumber < 0
+		THEN :new.bedNumber := 0;
+	END IF;
+
+  /* Si el número de UCI ingresado es negativo, se asume que no hay disponibles */
+  IF :new.UCINumber < 0
+		THEN :new.UCINumber := 0;
+	END IF;
 END;
 
 / 
