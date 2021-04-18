@@ -350,16 +350,16 @@ INSERT INTO Disease VALUES (NULL, 'Liliaceae', 'Other fracture of left patella, 
 
 
 --- LABORATORY ---
-INSERT INTO Laboratory VALUES (NULL, 'Kshlerin-Hilll', 1, 1);
-INSERT INTO Laboratory VALUES (NULL, 'Lang-Hyatt', 2, 2);
-INSERT INTO Laboratory VALUES (NULL, 'Reichert and Sons', 3, 3);
-INSERT INTO Laboratory VALUES (NULL, 'Beer, Jast and Heidenreich', 4, 4);
-INSERT INTO Laboratory VALUES (NULL, 'Metz-Beier', 5, 5);
-INSERT INTO Laboratory VALUES (NULL, 'Runolfsson Inc', 6, 6);
-INSERT INTO Laboratory VALUES (NULL, 'Goodwin-Batz', 7, 7);
-INSERT INTO Laboratory VALUES (NULL, 'Schamberger, Schuppe and McDermott', 8, 8);
-INSERT INTO Laboratory VALUES (NULL, 'Ankunding, Bins and Dach', 9, 9);
-INSERT INTO Laboratory VALUES (NULL, 'Thompson-Wiza', 10, 10);
+INSERT INTO Laboratory VALUES (NULL, 'Kshlerin-Hilll', 'Calle 111 # 45 - 56', 1, 1, 23);
+INSERT INTO Laboratory VALUES (NULL, 'Lang-Hyatt', 'Calle 112 # 45 - 56', 2, 2, 24);
+INSERT INTO Laboratory VALUES (NULL, 'Reichert and Sons', 'Calle 113 # 45 - 56', 3, 3, 25);
+INSERT INTO Laboratory VALUES (NULL, 'Beer, Jast and Heidenreich', 'Calle 114 # 45 - 56', 4, 4, 26);
+INSERT INTO Laboratory VALUES (NULL, 'Metz-Beier', 'Calle 115 # 45 - 56', 5, 5, 27);
+INSERT INTO Laboratory VALUES (NULL, 'Runolfsson Inc', 'Calle 116 # 45 - 56', 6, 6, 28);
+INSERT INTO Laboratory VALUES (NULL, 'Goodwin-Batz', 'Calle 117 # 45 - 56', 7, 7, 29);
+INSERT INTO Laboratory VALUES (NULL, 'Schamberger, Schuppe and McDermott', 'Calle 118 # 45 - 56', 8, 8, 30);
+INSERT INTO Laboratory VALUES (NULL, 'Ankunding, Bins and Dach', 'Calle 119 # 45 - 56', 9, 9, 31);
+INSERT INTO Laboratory VALUES (NULL, 'Thompson-Wiza', 'Calle 120 # 45 - 56', 10, 10, 32);
 
 --- QUERY ---
 --- SELECT * FROM Laboratory ORDER BY idLaboratory ;
