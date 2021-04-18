@@ -356,16 +356,16 @@ INSERT INTO Disease VALUES (0000000010, 'Liliaceae', 'Other fracture of left pat
 
 
 --- LABORATORY ---
-INSERT INTO Laboratory VALUES (0000000001, 'Kshlerin-Hilll', 1, 1);
-INSERT INTO Laboratory VALUES (0000000002, 'Lang-Hyatt', 2, 2);
-INSERT INTO Laboratory VALUES (0000000003, 'Reichert and Sons', 3, 3);
-INSERT INTO Laboratory VALUES (0000000004, 'Beer, Jast and Heidenreich', 4, 4);
-INSERT INTO Laboratory VALUES (0000000005, 'Metz-Beier', 5, 5);
-INSERT INTO Laboratory VALUES (0000000006, 'Runolfsson Inc', 6, 6);
-INSERT INTO Laboratory VALUES (0000000007, 'Goodwin-Batz', 7, 7);
-INSERT INTO Laboratory VALUES (0000000008, 'Schamberger, Schuppe and McDermott', 8, 8);
-INSERT INTO Laboratory VALUES (0000000009, 'Ankunding, Bins and Dach', 9, 9);
-INSERT INTO Laboratory VALUES (0000000010, 'Thompson-Wiza', 10, 10);
+INSERT INTO Laboratory VALUES (0000000001, 'Kshlerin-Hilll', 'Calle 111 # 45 - 56', 1, 1, 23);
+INSERT INTO Laboratory VALUES (0000000002, 'Lang-Hyatt', 'Calle 112 # 45 - 56', 2, 2, 24);
+INSERT INTO Laboratory VALUES (0000000003, 'Reichert and Sons', 'Calle 113 # 45 - 56', 3, 3, 25);
+INSERT INTO Laboratory VALUES (0000000004, 'Beer, Jast and Heidenreich', 'Calle 114 # 45 - 56', 4, 4, 26);
+INSERT INTO Laboratory VALUES (0000000005, 'Metz-Beier', 'Calle 115 # 45 - 56', 5, 5, 27);
+INSERT INTO Laboratory VALUES (0000000006, 'Runolfsson Inc', 'Calle 116 # 45 - 56', 6, 6, 28);
+INSERT INTO Laboratory VALUES (0000000007, 'Goodwin-Batz', 'Calle 117 # 45 - 56', 7, 7, 29);
+INSERT INTO Laboratory VALUES (0000000008, 'Schamberger, Schuppe and McDermott', 'Calle 118 # 45 - 56', 8, 8, 30);
+INSERT INTO Laboratory VALUES (0000000009, 'Ankunding, Bins and Dach', 'Calle 119 # 45 - 56', 9, 9, 31);
+INSERT INTO Laboratory VALUES (0000000010, 'Thompson-Wiza', 'Calle 120 # 45 - 56', 10, 10, 32);
 
 --- QUERY ---
 --- SELECT * FROM Laboratory ORDER BY idLaboratory ;
