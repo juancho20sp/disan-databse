@@ -9,6 +9,8 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 - Si una persona es doctor, los tipos de documento válidos son ('CC', 'CE', 'PS')
 - Si una persona es enfermero/a, los tipos de documento válidos son ('CC', 'CE', 'PS')
 - Verificar que la fecha de cumpleaños de un paciente sea mayor a su fecha de registro en el sistema (no hay registros de personas que no han nacido)
+- REALIZAR TUPLASOK
+- REALIZAR TUPLASNOOK
 
 ### POR PROBAR
 
