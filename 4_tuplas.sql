@@ -16,7 +16,7 @@ ALTER TABLE Division
 --- DOCTOR ---	
 ALTER TABLE Doctor 
 	ADD CONSTRAINT CK_DOCTOR_MILFORCE
-	CHECK (militaryForce IN ('Fuerza Aerea', 'Armada', 'Ejército'));
+	CHECK (militaryForce IN ('Fuerza Aerea', 'Armada', 'Ejercito'));
 
 ALTER TABLE Doctor 
 	ADD CONSTRAINT CK_DOCTOR_DOCUTYPE
