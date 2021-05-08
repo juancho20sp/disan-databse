@@ -1,22 +1,22 @@
 --- BATTALION ---
 ALTER TABLE Battalion 
 	ADD CONSTRAINT CK_BATTALION_MILFORCE 
-	CHECK (militaryForce IN ('Fuerza Aérea', 'Armada', 'Ejército'));
+	CHECK (militaryForce IN ('Fuerza Aerea', 'Armada', 'Ejercito'));
 	
 --- BRIGADE ---
 ALTER TABLE Brigade 
 	ADD CONSTRAINT CK_BRIGADE_MILFORCE
-	CHECK (militaryForce IN ('Fuerza Aérea', 'Armada', 'Ejército'));
+	CHECK (militaryForce IN ('Fuerza Aerea', 'Armada', 'Ejercito'));
 	
 --- DIVISION ---
 ALTER TABLE Division 
 	ADD CONSTRAINT CK_DIVISION_MILFORCE
-	CHECK (militaryForce IN ('Fuerza Aérea', 'Armada', 'Ejército'));	
+	CHECK (militaryForce IN ('Fuerza Aerea', 'Armada', 'Ejercito'));	
 
 --- DOCTOR ---	
 ALTER TABLE Doctor 
 	ADD CONSTRAINT CK_DOCTOR_MILFORCE
-	CHECK (militaryForce IN ('Fuerza Aérea', 'Armada', 'Ejército'));
+	CHECK (militaryForce IN ('Fuerza Aerea', 'Armada', 'Ejercito'));
 
 ALTER TABLE Doctor 
 	ADD CONSTRAINT CK_DOCTOR_DOCUTYPE
@@ -26,7 +26,7 @@ ALTER TABLE Doctor
 --- NURSE ---
 ALTER TABLE Nurse 
 	ADD CONSTRAINT CK_NURSE_MILFORCE
-	CHECK (militaryForce IN ('Fuerza Aérea', 'Armada', 'Ejército'));
+	CHECK (militaryForce IN ('Fuerza Aerea', 'Armada', 'Ejercito'));
 		
 ALTER TABLE Nurse 
 	ADD CONSTRAINT CK_NURSE_DOCUTYPE
@@ -39,7 +39,7 @@ ALTER TABLE Person
 	
 ALTER TABLE Person 
 	ADD CONSTRAINT CK_PERSON_GENDER
-	CHECK (documentType IN ('F', 'M'));
+	CHECK (gender IN ('F', 'M'));
 	
 ALTER TABLE Person 
 	ADD CONSTRAINT CK_PERSON_STATUS
