@@ -50,7 +50,7 @@ END PKG_SUPPLY;
 
 /
 
--- SUPPLY
+-- SUPPLIES INVENTORY
 CREATE OR REPLACE PACKAGE BODY PKG_SUPPLIES_INVENTORY AS
     -- CREATE
     PROCEDURE ADD_SUPPLIES_INVENTORY(xId IN NUMBER) IS
@@ -86,8 +86,8 @@ CREATE OR REPLACE PACKAGE BODY PKG_SUPPLIES_INVENTORY AS
             SET 
                 idSuppliesInventory = xNewId
         WHERE idSuppliesInventory = xOldId;
-
         COMMIT;
+
         EXCEPTION 
         WHEN OTHERS THEN 
             ROLLBACK;
@@ -95,5 +95,62 @@ CREATE OR REPLACE PACKAGE BODY PKG_SUPPLIES_INVENTORY AS
     END;
 
 END PKG_SUPPLIES_INVENTORY;
+
+/
+
+-- MILITARY UNIT
+CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
+    -- MILITARY UNIT
+    -- CREATE
+    PROCEDURE ADD_MILITARY_UNIT(
+        xName IN VARCHAR,
+        xIdCity IN NUMBER,
+        xFullLocation IN VARCHAR) IS
+    BEGIN 
+        INSERT INTO MilitaryUnit VALUES (NULL, xName, xIdCity, xFullLocation);
+        COMMIT;
+        
+      
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR LA UNIDAD MILITAR');
+    END;
+
+
+    -- READ
+    FUNCTION READ_MILITARY_UNIT RETURN SYS_REFCURSOR
+      IS INF_MILITARY_UNIT SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_MILITARY_UNIT FOR
+            SELECT *
+            FROM V_MILITARY_UNIT;
+        RETURN INF_MILITARY_UNIT ;
+    END;
+
+    -- UPDATE
+    PROCEDURE UPDATE_MILITARY_UNIT(
+        xId IN NUMBER,
+        xName IN VARCHAR,
+        xIdCity IN NUMBER,
+        xFullLocation IN VARCHAR
+        ) IS  
+
+    BEGIN
+        UPDATE MilitaryUnit
+            SET 
+                name = xName,
+                city = xIdCity,
+                fullLocation = xFullLocation
+        WHERE idMilitaryUnit = xId;
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA UNIDAD MILITAR');
+    END;
+
+END PKG_MILITARY_UNIT;
 
 /
