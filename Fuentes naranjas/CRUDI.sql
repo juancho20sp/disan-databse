@@ -605,3 +605,100 @@ CREATE OR REPLACE PACKAGE BODY PKG_MEDICATION_INVENTORY AS
 END PKG_MEDICATION_INVENTORY;
 
 /
+
+-- HOSPITAL
+CREATE OR REPLACE PACKAGE BODY PKG_HOSPITAL AS
+    -- CREATE
+    PROCEDURE ADD_HOSPITAL(
+        xName IN VARCHAR,
+        xBeds IN NUMBER,
+        xUCI IN NUMBER,
+        xBattalion IN VARCHAR,
+        xCity IN VARCHAR,
+        xAddress IN VARCHAR) IS
+    BEGIN 
+        DECLARE
+            xIdSuppliesInventory NUMBER;
+            xIdMedicationInventory NUMBER;
+            xIdCity NUMBER;
+            xIdBattalion NUMBER;
+
+        BEGIN    
+            INSERT INTO SuppliesInventory VALUES (NULL);
+            INSERT INTO MedicationInventory VALUES (NULL);
+
+            SELECT idSuppliesInventory INTO xIdSuppliesInventory FROM SuppliesInventory
+            WHERE ROWNUM = 1
+            ORDER BY idSuppliesInventory DESC;
+
+            SELECT idMedicationInventory INTO xIdMedicationInventory FROM MedicationInventory
+            WHERE ROWNUM = 1
+            ORDER BY idMedicationInventory DESC;
+
+            SELECT idCity INTO xIdCity FROM CITY 
+            WHERE name LIKE xCity;
+
+            SELECT idMilitaryUnit INTO xIdBattalion FROM MILITARYUNIT
+            WHERE name LIKE xBattalion;
+
+            INSERT INTO Hospital VALUES (NULL, xName, xAddress, xBeds, xUCI, xIdBattalion, xIdSuppliesInventory, xIdCity, xIdMedicationInventory);
+            COMMIT;
+      
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL HOSPITAL');
+        END;
+    END;
+
+    -- READ
+     FUNCTION READ_HOSPITAL RETURN SYS_REFCURSOR
+      IS INF_HOSPITAL SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_HOSPITAL FOR
+            SELECT *
+            FROM V_HOSPITAL;
+        RETURN INF_HOSPITAL ;
+    END;
+    
+
+    -- UPDATE
+    PROCEDURE UPDATE_HOSPITAL(
+        xName IN VARCHAR,
+        xBeds IN NUMBER,
+        xUCI IN NUMBER,
+        xBattalion IN VARCHAR,
+        xAddress IN VARCHAR
+        ) IS  
+
+    BEGIN
+        DECLARE
+            xIdHospital NUMBER;
+            xIdBattalion NUMBER;
+
+        BEGIN
+            SELECT idHospital INTO xIdHospital FROM Hospital
+            WHERE name LIKE xName;
+
+            SELECT idMilitaryUnit INTO xIdBattalion FROM MILITARYUNIT
+            WHERE name LIKE xBattalion;
+
+            UPDATE Hospital
+                SET 
+                    address = xAddress,
+                    bedNumber = xBeds,
+                    UCINumber = xUCI,
+                    idBattalion = xIdBattalion
+                WHERE idHospital = xIdHospital;
+                COMMIT;
+
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL HOSPITAL');
+        END;
+    END;
+
+END PKG_HOSPITAL;
+
+/
