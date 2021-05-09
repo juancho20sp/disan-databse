@@ -929,6 +929,60 @@ CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
                 RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL ENFERMERO');
         END;
     END;
+
+
+    -- PATIENT
+    -- CREATE
+    PROCEDURE ADD_PATIENT(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xName IN VARCHAR,
+        xLastname IN VARCHAR,
+        xGender IN VARCHAR,
+        xBirthdate IN DATE,
+        xEmail IN VARCHAR
+        ) IS
+    BEGIN       
+        INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
+
+        INSERT INTO Patient VALUES (xDocType, xDocNum, NULL);
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PACIENTE');
+    END;
+
+    -- READ
+     FUNCTION READ_PATIENT RETURN SYS_REFCURSOR
+      IS INF_PATIENT SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_PATIENT FOR
+            SELECT *
+            FROM V_PATIENT;
+        RETURN INF_PATIENT ;
+    END;
+    
+
+    -- UPDATE
+    PROCEDURE UPDATE_PATIENT(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xStatus IN VARCHAR
+        ) IS    
+    BEGIN
+        UPDATE Person
+        SET 
+            status = xStatus
+        WHERE documentType = xDocType AND documentNumber = xDocNum;
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL PACIENTE'); 
+    END;
   
 
 END PKG_PERSON;

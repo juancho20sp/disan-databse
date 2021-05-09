@@ -170,7 +170,7 @@ CREATE OR REPLACE VIEW V_BACKGROUND AS
     PERSON.email AS EMAIL,
     DOCTOR.militaryForce AS MILITARY_FORCE,
     Speciality.name AS SPECIALTY,
-    PERSON.registerDate AS REGISTER_DATEE
+    PERSON.registerDate AS REGISTER_DATE
     FROM DOCTOR
     JOIN PERSON ON DOCTOR.documentType = PERSON.documentType
     AND DOCTOR.documentNumber = PERSON.documentNumber
@@ -193,7 +193,7 @@ CREATE OR REPLACE VIEW V_BACKGROUND AS
     PERSON.email AS EMAIL,
     NURSE.militaryForce AS MILITARY_FORCE,
     Speciality.name AS SPECIALTY,
-    PERSON.registerDate AS REGISTER_DATEE
+    PERSON.registerDate AS REGISTER_DATE
     FROM NURSE
     JOIN PERSON ON NURSE.documentType = PERSON.documentType
     AND NURSE.documentNumber = PERSON.documentNumber
@@ -201,4 +201,23 @@ CREATE OR REPLACE VIEW V_BACKGROUND AS
     AND NURSE.documentNumber = NurseSpeciality.documentNumber
     JOIN Speciality ON NurseSpeciality.idSpeciality = Speciality.idSpeciality
     ORDER BY PERSON.documentType, PERSON.documentNumber;
+
+-- PATIENT
+ CREATE OR REPLACE VIEW V_PATIENT AS
+    SELECT 
+    PERSON.documentType AS DOCUMENT_TYPE,
+    PERSON.documentNumber AS DOCUMENT_NUMBER,
+    PERSON.name AS NAME,
+    PERSON.lastname AS LASTNAME,
+    PERSON.gender AS GENDER,
+    PERSON.birthDate AS BIRTHDATE,
+    PERSON.status AS STATUS,
+    PERSON.email AS EMAIL,
+    PATIENT.disanId AS DISAN_ID,
+    PERSON.registerDate AS REGISTER_DATE
+    FROM PATIENT
+    JOIN PERSON ON PATIENT.documentType = PERSON.documentType
+    AND PATIENT.documentNumber = PERSON.documentNumber
+    ORDER BY PATIENT.disanId, PERSON.documentType, PERSON.documentNumber;
+
 
