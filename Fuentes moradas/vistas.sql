@@ -241,7 +241,7 @@ CREATE OR REPLACE VIEW V_BACKGROUND_PROCEDURE AS
     PROCEDURES.name AS PROCEDURE,
     PROCEDURES.dateProcedure AS DATE_PROCEDURE,
     HOSPITAL.name AS HOSPITAL,
-    MEDICINES.commercialName AS NAME
+    MEDICINES.commercialName AS MEDICINE_NAME
     FROM
     ClinicalHistory
     JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
