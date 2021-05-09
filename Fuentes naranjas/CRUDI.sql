@@ -420,3 +420,140 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
 END PKG_MILITARY_UNIT;
 
 /
+
+-- LABORATORY
+CREATE OR REPLACE PACKAGE BODY PKG_LABORATORY AS
+    -- CREATE
+    PROCEDURE ADD_LABORATORY(
+        xName IN VARCHAR,
+        xCity IN VARCHAR,
+        xBattalion IN VARCHAR,
+        xAddress IN VARCHAR) IS
+    BEGIN 
+        DECLARE
+            lastId NUMBER;
+            xIdCity NUMBER;
+            xIdBattalion NUMBER;
+
+        BEGIN    
+            INSERT INTO SuppliesInventory VALUES (NULL);
+
+            SELECT idSuppliesInventory INTO lastId FROM SuppliesInventory
+            WHERE ROWNUM = 1
+            ORDER BY idSuppliesInventory DESC;
+
+            SELECT idCity INTO xIdCity FROM CITY 
+            WHERE name LIKE xCity;
+
+            SELECT idMilitaryUnit INTO xIdBattalion FROM MILITARYUNIT
+            WHERE name LIKE xBattalion;
+
+            INSERT INTO Laboratory VALUES (NULL, xName, xAddress, xIdCity, lastId, xIdBattalion);
+            COMMIT;
+      
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL LABORATORIO');
+        END;
+    END;
+
+    -- READ
+     FUNCTION READ_LABORATORY RETURN SYS_REFCURSOR
+      IS INF_LABORATORY SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_LABORATORY FOR
+            SELECT *
+            FROM V_LABORATORY;
+        RETURN INF_LABORATORY ;
+    END;
+    
+
+    -- UPDATE
+    PROCEDURE UPDATE_LABORATORY(
+        xName IN VARCHAR,
+        xBattalion IN VARCHAR,
+        xAddress IN VARCHAR
+        ) IS  
+
+    BEGIN
+        DECLARE
+            xIdLaboratory NUMBER;
+            xIdBattalion NUMBER;
+
+        BEGIN
+            SELECT idLaboratory INTO xIdLaboratory FROM LABORATORY
+            WHERE name LIKE xName;
+
+            SELECT idMilitaryUnit INTO xIdBattalion FROM MILITARYUNIT
+            WHERE name LIKE xBattalion;
+
+            UPDATE LABORATORY
+                SET 
+                    idBattalion = xIdBattalion,
+                    address = xAddress
+                WHERE idLaboratory = xIdLaboratory;
+                COMMIT;
+
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL LABORATORIO');
+        END;
+    END;
+
+END PKG_LABORATORY;
+
+/
+
+-- CITY
+CREATE OR REPLACE PACKAGE BODY PKG_CITY AS
+    -- CREATE
+    PROCEDURE ADD_CITY(
+        xName IN VARCHAR,
+        xDepartment IN VARCHAR) IS
+    BEGIN  
+        INSERT INTO City VALUES (NULL, xName, xDepartment);
+        COMMIT;
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA CIUDAD');     
+    END;
+
+    -- READ
+     FUNCTION READ_CITY RETURN SYS_REFCURSOR
+      IS INF_CITY SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_CITY FOR
+            SELECT *
+            FROM CITY;
+        RETURN INF_CITY ;
+    END;
+    
+
+    -- UPDATE
+    PROCEDURE UPDATE_CITY(
+        xIdCity IN NUMBER,
+        xName IN VARCHAR,
+        xDepartment IN VARCHAR
+        ) IS  
+
+    BEGIN
+        UPDATE CITY
+            SET 
+                name = xName,
+                department = xDepartment
+            WHERE idCity = xIdCity;
+            COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA CIUDAD');      
+    END;
+
+END PKG_CITY;
+
+/
