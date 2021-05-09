@@ -151,6 +151,68 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
             RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA UNIDAD MILITAR');
     END;
 
+    -- DIVISION
+    -- CREATE
+    PROCEDURE ADD_DIVISION(
+        xName IN VARCHAR,
+        xIdCity IN NUMBER,
+        xFullLocation IN VARCHAR,
+        xCommander IN VARCHAR,
+        xMilitaryForce IN VARCHAR) IS
+        BEGIN   
+            DECLARE
+                lastId NUMBER; 
+                  
+            BEGIN
+                INSERT INTO MilitaryUnit VALUES (NULL, xName, xIdCity, xFullLocation);
+                COMMIT;
+
+                SELECT idMilitaryUnit INTO lastId FROM MilitaryUnit
+                WHERE ROWNUM = 1
+                ORDER BY idMilitaryUnit DESC;
+
+                INSERT INTO Division VALUES (lastId, xCommander, xMilitaryForce);
+                COMMIT;           
+            
+                EXCEPTION 
+                WHEN OTHERS THEN 
+                    ROLLBACK;
+                    RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR LA DIVISIÓN');
+            END;
+        END;
+
+
+    -- READ
+    FUNCTION READ_DIVISION RETURN SYS_REFCURSOR
+      IS INF_DIVISION  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_DIVISION FOR
+            SELECT *
+            FROM V_DIVISION;
+        RETURN INF_DIVISION ;
+    END;
+
+    -- UPDATE
+    PROCEDURE UPDATE_DIVISION(
+        xId IN NUMBER,
+        xCommander IN VARCHAR,
+        xMilitaryForce IN VARCHAR
+        ) IS  
+
+    BEGIN
+        UPDATE DIVISION
+            SET 
+                commander = xCommander,
+                militaryForce = xMilitaryForce
+        WHERE idDivision = xId;
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA DIVISION');
+    END;
+
 END PKG_MILITARY_UNIT;
 
 /

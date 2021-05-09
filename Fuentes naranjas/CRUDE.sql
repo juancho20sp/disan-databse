@@ -49,4 +49,23 @@ CREATE OR REPLACE PACKAGE PKG_MILITARY_UNIT AS
         xIdCity IN NUMBER,
         xFullLocation IN VARCHAR
         );
+
+    -- DIVISION
+    PROCEDURE ADD_DIVISION(
+        xName IN VARCHAR,
+        xIdCity IN NUMBER,
+        xFullLocation IN VARCHAR,
+        xCommander IN VARCHAR,
+        xMilitaryForce IN VARCHAR);
+
+    FUNCTION READ_DIVISION RETURN SYS_REFCURSOR;
+
+
+    -- UPDATE
+    PROCEDURE UPDATE_DIVISION(
+        xId IN NUMBER,
+        xCommander IN VARCHAR,
+        xMilitaryForce IN VARCHAR
+        );
+
 END PKG_MILITARY_UNIT;
