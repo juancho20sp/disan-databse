@@ -1041,7 +1041,7 @@ END PKG_PERSON;
 
 /
 
--- PERSON
+-- PATIENT
 CREATE OR REPLACE PACKAGE BODY PKG_PATIENT AS
     -- CREATE
     PROCEDURE ADD_PATIENT(
@@ -1106,29 +1106,100 @@ CREATE OR REPLACE PACKAGE BODY PKG_PATIENT AS
             WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
         RETURN INF_BACK_DIS ;
     END;
-    
+END PKG_PATIENT;
 
-    -- UPDATE
-    PROCEDURE UPDATE_PATIENT(
+/
+
+-- DOCTOR
+CREATE OR REPLACE PACKAGE BODY PKG_DOCTOR AS
+    -- CREATE
+    PROCEDURE ADD_DOCTOR(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER,
-        xStatus IN VARCHAR
-        ) IS    
-    BEGIN
-        UPDATE Person
-        SET 
-            status = xStatus
-        WHERE documentType = xDocType AND documentNumber = xDocNum;
-        COMMIT;
+        xName IN VARCHAR,
+        xLastname IN VARCHAR,
+        xGender IN VARCHAR,
+        xBirthdate IN DATE,
+        xEmail IN VARCHAR,
+        xMilitaryForce IN VARCHAR,
+        xSpecialty IN VARCHAR) IS
+    BEGIN 
+        DECLARE
+            xIdSpeciality NUMBER;
 
-        EXCEPTION 
-        WHEN OTHERS THEN 
-            ROLLBACK;
-            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL PACIENTE'); 
+        BEGIN
+            INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
+
+            INSERT INTO DOCTOR VALUES (xDocType, xDocNum, xMilitaryForce);
+
+            SELECT idSpeciality INTO xIdSpeciality FROM Speciality
+            WHERE name LIKE xSpecialty;
+
+            INSERT INTO DoctorSpeciality VALUES (xDocType, xDocNum, xIdSpeciality);
+            COMMIT;
+    
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL DOCTOR');
+        END;
+        
     END;
-  
 
-END PKG_PERSON;
+    -- READ ALL DOCTORS
+     FUNCTION READ_DOCTOR RETURN SYS_REFCURSOR
+      IS INF_DOCTOR SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_DOCTOR FOR
+            SELECT *
+            FROM V_DOCTOR;
+        RETURN INF_DOCTOR ;
+    END;
+
+    -- READ SPECIFIC DOCTOR DATA
+     FUNCTION READ_SPECIFIC_DOCTOR(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR
+      IS INF_DOCTOR SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_DOCTOR FOR
+            SELECT *
+            FROM V_DOCTOR
+            WHERE DOCUMENT_TYPE = xDocType AND DOCUMENT_NUMBER = xDocNum;
+        RETURN INF_DOCTOR ;
+    END;
+
+    -- READ DOCTOR APPOINTMENTS
+    FUNCTION READ_APPOINTMENTS(
+        xDocName IN VARCHAR,
+        xDocLastname IN VARCHAR
+    ) RETURN SYS_REFCURSOR 
+    IS INF_APPOINTMENTS  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_APPOINTMENTS FOR
+            SELECT *
+            -- FROM V_APPOINTMENT;
+            FROM V_APPOINTMENT_DOCTOR
+            WHERE DOCTOR_NAME = xDocName AND DOCTOR_LASTNAME = xDocLastname;
+        RETURN INF_APPOINTMENTS ;
+    END;
+
+    -- READ PATIENT
+    FUNCTION READ_PATIENT(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR 
+    IS INF_PATIENT SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_PATIENT FOR
+            SELECT *
+            FROM V_PATIENT
+            WHERE DOCUMENT_TYPE = xDocType AND DOCUMENT_NUMBER = xDocNum;
+        RETURN INF_PATIENT ;
+    END;
+    
+END PKG_DOCTOR;
 
 /
 

@@ -85,18 +85,26 @@ CREATE OR REPLACE VIEW V_LABORATORY AS
 CREATE OR REPLACE VIEW V_APPOINTMENT AS
     SELECT
     APPOINTMENT.idAppointment AS ID,
+    PATIENT.name AS PATIENT_NAME,
+    PATIENT.lastname AS PATIENT_LASTNAME,
     APPOINTMENT.appointmentMotive AS MOTIVE,
     APPOINTMENT.diagnosis AS DIAGNOSIS,
     APPOINTMENT.dateAppointment AS APP_DATE,
     HOSPITAL.name AS HOSPITAL,
     HOSPITAL.address AS ADDRESS,
     CITY.name AS CITY,
+    PERSON.name AS DOCTOR_NAME,
+    PERSON.lastname AS DOCTOR_LASTNAME,
     MILITARYUNIT.name AS BATTALION
     FROM APPOINTMENT    
     JOIN HOSPITAL ON APPOINTMENT.idHospital = HOSPITAL.idHospital
     JOIN CITY ON HOSPITAL.idCity = CITY.idCity
     JOIN MILITARYUNIT ON HOSPITAL.idBattalion = MILITARYUNIT.idMilitaryUnit
-    ORDER BY idAppointment;
+    JOIN APPOINTMENTDOCTOR ON APPOINTMENT.idAppointment = AppointmentDoctor.idAppointment
+    JOIN PERSON ON AppointmentDoctor.documentType = PERSON.documentType AND AppointmentDoctor.documentNumber = PERSON.documentNumber
+    JOIN CLINICALHISTORY ON APPOINTMENT.idClinicalHistory = ClinicalHistory.idClinicalHistory
+    JOIN PERSON PATIENT ON ClinicalHistory.documentType = PATIENT.documentType AND ClinicalHistory.documentNumber = PATIENT.documentNumber
+    ORDER BY APPOINTMENT.idAppointment;
 
 -- APPOINTMENT DOCTOR
 CREATE OR REPLACE VIEW V_APPOINTMENT_DOCTOR AS
@@ -116,7 +124,7 @@ CREATE OR REPLACE VIEW V_APPOINTMENT_DOCTOR AS
     JOIN HOSPITAL ON APPOINTMENT.idHospital = HOSPITAL.idHospital
     JOIN CITY ON HOSPITAL.idCity = CITY.idCity
     JOIN MILITARYUNIT ON HOSPITAL.idBattalion = MILITARYUNIT.idMilitaryUnit
-    ORDER BY idAppointment;
+    ORDER BY AppointmentDoctor.idAppointment;
 
 -- BACKGROUNDS
 CREATE OR REPLACE VIEW V_BACKGROUND AS
