@@ -98,6 +98,26 @@ CREATE OR REPLACE VIEW V_APPOINTMENT AS
     JOIN MILITARYUNIT ON HOSPITAL.idBattalion = MILITARYUNIT.idMilitaryUnit
     ORDER BY idAppointment;
 
+-- APPOINTMENT DOCTOR
+CREATE OR REPLACE VIEW V_APPOINTMENT_DOCTOR AS
+    SELECT
+    AppointmentDoctor.idAppointment AS ID,
+    APPOINTMENT.appointmentMotive AS MOTIVE,
+    APPOINTMENT.dateAppointment AS APP_DATE,
+    HOSPITAL.name AS HOSPITAL,
+    HOSPITAL.address AS ADDRESS,
+    CITY.name AS CITY,
+    PERSON.name AS DOCTOR_NAME,
+    PERSON.lastname AS DOCTOR_LASTNAME,
+    MILITARYUNIT.name AS BATTALION
+    FROM AppointmentDoctor
+    JOIN APPOINTMENT ON AppointmentDoctor.idAppointment = APPOINTMENT.idAppointment
+    JOIN PERSON ON AppointmentDoctor.documentType = PERSON.documentType AND AppointmentDoctor.documentNumber = PERSON.documentNumber
+    JOIN HOSPITAL ON APPOINTMENT.idHospital = HOSPITAL.idHospital
+    JOIN CITY ON HOSPITAL.idCity = CITY.idCity
+    JOIN MILITARYUNIT ON HOSPITAL.idBattalion = MILITARYUNIT.idMilitaryUnit
+    ORDER BY idAppointment;
+
 -- BACKGROUNDS
 CREATE OR REPLACE VIEW V_BACKGROUND AS
     SELECT
@@ -239,7 +259,7 @@ CREATE OR REPLACE VIEW V_BACKGROUND_PROCEDURE AS
     PROCEDURES.name AS PROCEDURE,
     PROCEDURES.dateProcedure AS DATE_PROCEDURE,
     HOSPITAL.name AS HOSPITAL,
-    MANAGEMENTPLAN.instructions AS MANAGEMENT_PLAN
+    MANAGEMENTPLAN.instructions AS MANAGEMENT_PLAN,
     MEDICINES.commercialName AS MEDICINE_NAME
     FROM
     ClinicalHistory
