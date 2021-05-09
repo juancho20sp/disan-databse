@@ -333,6 +333,90 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
         END;
     END;
 
+
+    -- BATTALION
+    -- CREATE
+    PROCEDURE ADD_BATTALION(
+        xName IN VARCHAR,
+        xCity IN VARCHAR,
+        xFullLocation IN VARCHAR,
+        xCommander IN VARCHAR,
+        xBrigade IN VARCHAR,
+        xMilitaryForce IN VARCHAR) IS
+        BEGIN   
+            DECLARE
+                lastId NUMBER; 
+                xIdCity NUMBER;
+                xIdBrigade NUMBER;
+                  
+            BEGIN
+                SELECT idCity INTO xIdCity FROM CITY 
+                WHERE name LIKE xCity;
+
+                SELECT idMilitaryUnit INTO xIdBrigade FROM MILITARYUNIT
+                WHERE name LIKE xBrigade;
+
+                INSERT INTO MilitaryUnit VALUES (NULL, xName, xIdCity, xFullLocation);               
+
+                SELECT idMilitaryUnit INTO lastId FROM MilitaryUnit
+                WHERE ROWNUM = 1
+                ORDER BY idMilitaryUnit DESC;
+
+                INSERT INTO Battalion VALUES (lastId, xCommander, xMilitaryForce,xIdBrigade);
+                COMMIT;           
+            
+                EXCEPTION 
+                WHEN OTHERS THEN 
+                    ROLLBACK;
+                    RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR EL BATALLÓN');
+            END;
+        END;
+    
+    
+    -- READ
+    FUNCTION READ_BATTALION RETURN SYS_REFCURSOR
+      IS INF_BATTALION  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_BATTALION FOR
+            SELECT *
+            FROM V_BATTALION;
+        RETURN INF_BATTALION ;
+    END;
+
+    -- UPDATE
+    PROCEDURE UPDATE_BATTALION(
+        xName IN VARCHAR,
+        xCommander IN VARCHAR,
+        xBrigade IN VARCHAR,
+        xMilitaryForce IN VARCHAR
+        ) IS  
+
+    BEGIN
+        DECLARE
+            xId NUMBER;
+            xIdBrigade NUMBER;
+        BEGIN
+            SELECT idMilitaryUnit INTO xId FROM MILITARYUNIT
+            WHERE name LIKE xName;
+
+            SELECT idMilitaryUnit INTO xIdBrigade FROM MILITARYUNIT
+                WHERE name LIKE xBrigade;
+
+            UPDATE BATTALION
+                SET 
+                    commander = xCommander,
+                    militaryForce = xMilitaryForce,
+                    idBrigade = xIdBrigade
+            WHERE idBattalion = xId;
+            COMMIT;
+
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL BATALLÓN');
+        END;
+    END;
+
 END PKG_MILITARY_UNIT;
 
 /

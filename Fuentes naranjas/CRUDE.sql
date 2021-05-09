@@ -87,4 +87,24 @@ CREATE OR REPLACE PACKAGE PKG_MILITARY_UNIT AS
         xMilitaryForce IN VARCHAR
         );
 
+    -- BATTALION
+    PROCEDURE ADD_BATTALION(
+        xName IN VARCHAR,
+        xCity IN VARCHAR,
+        xFullLocation IN VARCHAR,
+        xCommander IN VARCHAR,
+        xBrigade IN VARCHAR,
+        xMilitaryForce IN VARCHAR);
+
+    FUNCTION READ_BATTALION RETURN SYS_REFCURSOR;
+
+
+    -- UPDATE
+    PROCEDURE UPDATE_BATTALION(
+        xName IN VARCHAR,
+        xCommander IN VARCHAR,
+        xBrigade IN VARCHAR,
+        xMilitaryForce IN VARCHAR
+        );
+
 END PKG_MILITARY_UNIT;

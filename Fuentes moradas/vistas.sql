@@ -138,3 +138,20 @@ CREATE OR REPLACE VIEW V_BACKGROUND AS
     JOIN CITY ON MILITARYUNIT.city = CITY.idCity
     ORDER BY idBrigade;
 
+-- BATTALION
+ CREATE OR REPLACE VIEW V_BATTALION AS
+    SELECT 
+    Battalion.idBattalion AS ID,
+    M1.name AS NAME,
+    Battalion.commander AS COMMANDER,
+    MilitaryUnit.name AS BRIGADE,
+    CITY.name AS CITY,
+    MilitaryUnit.fullLocation AS LOCATION,
+    Battalion.militaryForce AS MILITARY_FORCE
+    FROM BATTALION
+    JOIN MILITARYUNIT M1 ON Battalion.idBattalion = M1.idMilitaryUnit
+    JOIN MILITARYUNIT ON Battalion.idBrigade = MILITARYUNIT.idMilitaryUnit
+    JOIN CITY ON M1.city = CITY.idCity
+    ORDER BY idBrigade;
+
+
