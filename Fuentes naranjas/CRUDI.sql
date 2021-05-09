@@ -195,7 +195,7 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
                 WHERE name LIKE xCity;
 
                 INSERT INTO MilitaryUnit VALUES (NULL, xName, xIdCity, xFullLocation);
-                COMMIT;
+
 
                 SELECT idMilitaryUnit INTO lastId FROM MilitaryUnit
                 WHERE ROWNUM = 1
@@ -247,6 +247,89 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
             WHEN OTHERS THEN 
                 ROLLBACK;
                 RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA DIVISION');
+        END;
+    END;
+
+    -- BRIGADE
+    -- CREATE
+    PROCEDURE ADD_BRIGADE(
+        xName IN VARCHAR,
+        xCity IN VARCHAR,
+        xFullLocation IN VARCHAR,
+        xCommander IN VARCHAR,
+        xDivision IN VARCHAR,
+        xMilitaryForce IN VARCHAR) IS
+        BEGIN   
+            DECLARE
+                lastId NUMBER; 
+                xIdCity NUMBER;
+                xIdDivision NUMBER;
+                  
+            BEGIN
+                SELECT idCity INTO xIdCity FROM CITY 
+                WHERE name LIKE xCity;
+
+                SELECT idMilitaryUnit INTO xIdDivision FROM MILITARYUNIT
+                WHERE name LIKE xDivision;
+
+                INSERT INTO MilitaryUnit VALUES (NULL, xName, xIdCity, xFullLocation);               
+
+                SELECT idMilitaryUnit INTO lastId FROM MilitaryUnit
+                WHERE ROWNUM = 1
+                ORDER BY idMilitaryUnit DESC;
+
+                INSERT INTO Brigade VALUES (lastId, xCommander, xMilitaryForce,xIdDivision);
+                COMMIT;           
+            
+                EXCEPTION 
+                WHEN OTHERS THEN 
+                    ROLLBACK;
+                    RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR LA BRIGADA');
+            END;
+        END;
+    
+    
+    -- READ
+    FUNCTION READ_BRIGADE RETURN SYS_REFCURSOR
+      IS INF_BRIGADE  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_BRIGADE FOR
+            SELECT *
+            FROM V_BRIGADE;
+        RETURN INF_BRIGADE ;
+    END;
+
+    -- UPDATE
+    PROCEDURE UPDATE_BRIGADE(
+        xName IN VARCHAR,
+        xCommander IN VARCHAR,
+        xDivision IN VARCHAR,
+        xMilitaryForce IN VARCHAR
+        ) IS  
+
+    BEGIN
+        DECLARE
+            xId NUMBER;
+            xIdDivision NUMBER;
+        BEGIN
+            SELECT idMilitaryUnit INTO xId FROM MILITARYUNIT
+            WHERE name LIKE xName;
+
+            SELECT idMilitaryUnit INTO xIdDivision FROM MILITARYUNIT
+                WHERE name LIKE xDivision;
+
+            UPDATE BRIGADE
+                SET 
+                    commander = xCommander,
+                    militaryForce = xMilitaryForce,
+                    idDivision = xIdDivision
+            WHERE idBrigade = xId;
+            COMMIT;
+
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA BRIGADA');
         END;
     END;
 
