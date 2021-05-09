@@ -803,6 +803,16 @@ CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
             FROM V_DOCTOR;
         RETURN INF_DOCTOR ;
     END;
+
+    -- READ DOCTOR APPOINTMENTS
+    FUNCTION READ_APPOINTMENTS RETURN SYS_REFCURSOR 
+    IS INF_APPOINTMENTS  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_APPOINTMENTS FOR
+            SELECT *
+            FROM V_APPOINTMENT;
+        RETURN INF_APPOINTMENTS ;
+    END;
     
 
     -- UPDATE
@@ -1004,6 +1014,97 @@ CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
             FROM V_BACKGROUND_DISEASE
             WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
         RETURN INF_PATIENT_BACK_DIS ;
+    END;
+    
+
+    -- UPDATE
+    PROCEDURE UPDATE_PATIENT(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xStatus IN VARCHAR
+        ) IS    
+    BEGIN
+        UPDATE Person
+        SET 
+            status = xStatus
+        WHERE documentType = xDocType AND documentNumber = xDocNum;
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL PACIENTE'); 
+    END;
+  
+
+END PKG_PERSON;
+
+/
+
+-- PERSON
+CREATE OR REPLACE PACKAGE BODY PKG_PATIENT AS
+    -- CREATE
+    PROCEDURE ADD_PATIENT(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xName IN VARCHAR,
+        xLastname IN VARCHAR,
+        xGender IN VARCHAR,
+        xBirthdate IN DATE,
+        xEmail IN VARCHAR
+        ) IS
+    BEGIN       
+        INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
+
+        INSERT INTO Patient VALUES (xDocType, xDocNum, NULL);
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PACIENTE');
+    END;
+
+    -- READ PATIENT
+    FUNCTION READ_PATIENT(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR 
+    IS INF_PATIENT SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_PATIENT FOR
+            SELECT *
+            FROM V_PATIENT
+            WHERE DOCUMENT_TYPE = xDocType AND DOCUMENT_NUMBER = xDocNum;
+        RETURN INF_PATIENT ;
+    END;
+
+    -- READ PATIENT BACKGROUND PROCEDURES
+    FUNCTION READ_BACK_PROC(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR 
+    IS INF_BACK_PROC SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_BACK_PROC FOR
+            SELECT *
+            FROM V_BACKGROUND_PROCEDURE
+            WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
+        RETURN INF_BACK_PROC ;
+    END;
+
+    -- READ PATIENT BACKGROUND DISEASES
+    FUNCTION READ_BACK_DIS(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR 
+    IS INF_BACK_DIS SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_BACK_DIS FOR
+            SELECT *
+            FROM V_BACKGROUND_DISEASE
+            WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
+        RETURN INF_BACK_DIS ;
     END;
     
 
