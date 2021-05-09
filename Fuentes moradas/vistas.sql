@@ -180,3 +180,25 @@ CREATE OR REPLACE VIEW V_BACKGROUND AS
     ORDER BY PERSON.documentType, PERSON.documentNumber;
 
 
+-- NURSE
+ CREATE OR REPLACE VIEW V_NURSE AS
+    SELECT 
+    PERSON.documentType AS DOCUMENT_TYPE,
+    PERSON.documentNumber AS DOCUMENT_NUMBER,
+    PERSON.name AS NAME,
+    PERSON.lastname AS LASTNAME,
+    PERSON.gender AS GENDER,
+    PERSON.birthDate AS BIRTHDATE,
+    PERSON.status AS STATUS,
+    PERSON.email AS EMAIL,
+    NURSE.militaryForce AS MILITARY_FORCE,
+    Speciality.name AS SPECIALTY,
+    PERSON.registerDate AS REGISTER_DATEE
+    FROM NURSE
+    JOIN PERSON ON NURSE.documentType = PERSON.documentType
+    AND NURSE.documentNumber = PERSON.documentNumber
+    JOIN NurseSpeciality ON NURSE.documentType = NurseSpeciality.documentType
+    AND NURSE.documentNumber = NurseSpeciality.documentNumber
+    JOIN Speciality ON NurseSpeciality.idSpeciality = Speciality.idSpeciality
+    ORDER BY PERSON.documentType, PERSON.documentNumber;
+

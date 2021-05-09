@@ -46,3 +46,8 @@ EXECUTE PKG_PERSON.UPDATE_PERSON('CC', '1235478965', 'F', 'lapruebaeditada@mail.
 -- DOCTOR
 EXECUTE PKG_PERSON.ADD_DOCTOR('CC', '1236547859', NULL, 'DE PRUEBA', 'M', TO_DATE('06/26/1980', 'MM/DD/YYYY'), 'doctor1@mail.com', 'Armada', 'Dermatologia');
 EXECUTE PKG_PERSON.UPDATE_DOCTOR('CC', NULL, 'I', 'Ejercito', 'Neurocirugia');
+
+-- NURSE
+EXECUTE PKG_PERSON.ADD_NURSE('CC', NULL, 'ENFERMERO', 'DE PRUEBA', 'M', TO_DATE('06/26/1980', 'MM/DD/YYYY'), 'enfermero1@mail.com', 'Armada', 'Dermatologia');
+--SELECT PKG_PERSON.READ_NURSE FROM DUAL;
+EXECUTE PKG_PERSON.UPDATE_NURSE('CC', '1458758965', 'F', 'Ejercito', 'Neurocirugia');

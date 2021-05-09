@@ -252,6 +252,33 @@ CREATE OR REPLACE PACKAGE PKG_PERSON AS
         xSpecialty IN VARCHAR
         );
 
+
+    -- NURSE
+    -- CREATE
+    PROCEDURE ADD_NURSE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xName IN VARCHAR,
+        xLastname IN VARCHAR,
+        xGender IN VARCHAR,
+        xBirthdate IN DATE,
+        xEmail IN VARCHAR,
+        xMilitaryForce IN VARCHAR,
+        xSpecialty IN VARCHAR);
+
+    -- READ
+     FUNCTION READ_NURSE RETURN SYS_REFCURSOR;
+    
+
+    -- UPDATE
+    PROCEDURE UPDATE_NURSE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xStatus IN VARCHAR,
+        xMilitaryForce IN VARCHAR,
+        xSpecialty IN VARCHAR
+        );
+
 END PKG_PERSON;
 
 /

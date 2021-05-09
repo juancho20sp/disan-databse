@@ -843,6 +843,92 @@ CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
                 RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL DOCTOR');
         END;
     END;
+
+
+    -- NURSE
+    -- CREATE
+    PROCEDURE ADD_NURSE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xName IN VARCHAR,
+        xLastname IN VARCHAR,
+        xGender IN VARCHAR,
+        xBirthdate IN DATE,
+        xEmail IN VARCHAR,
+        xMilitaryForce IN VARCHAR,
+        xSpecialty IN VARCHAR) IS
+    BEGIN 
+        DECLARE
+            xIdSpeciality NUMBER;
+
+        BEGIN
+            INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
+
+            INSERT INTO Nurse VALUES (xDocType, xDocNum, xMilitaryForce);
+
+            SELECT idSpeciality INTO xIdSpeciality FROM Speciality
+            WHERE name LIKE xSpecialty;
+
+            INSERT INTO NurseSpeciality VALUES (xDocType, xDocNum, xIdSpeciality);
+            COMMIT;
+    
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ENFERMERO');
+        END;
+        
+    END;
+
+    -- READ
+     FUNCTION READ_NURSE RETURN SYS_REFCURSOR
+      IS READ_NURSE SYS_REFCURSOR;
+    BEGIN
+        OPEN READ_NURSE FOR
+            SELECT *
+            FROM V_NURSE;
+        RETURN READ_NURSE ;
+    END;
+    
+
+    -- UPDATE
+    PROCEDURE UPDATE_NURSE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xStatus IN VARCHAR,
+        xMilitaryForce IN VARCHAR,
+        xSpecialty IN VARCHAR
+        ) IS    
+    BEGIN
+        DECLARE
+            xIdSpeciality NUMBER;
+
+        BEGIN
+            UPDATE Person
+            SET 
+                status = xStatus
+            WHERE documentType = xDocType AND documentNumber = xDocNum;
+
+            UPDATE Nurse
+            SET
+                militaryForce = xMilitaryForce
+            WHERE documentType = xDocType AND documentNumber = xDocNum;
+
+            SELECT idSpeciality INTO xIdSpeciality FROM Speciality
+            WHERE name LIKE xSpecialty;
+
+            UPDATE NurseSpeciality
+            SET
+                idSpeciality = xIdSpeciality
+            WHERE documentType = xDocType AND documentNumber = xDocNum;
+            COMMIT;
+
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL ENFERMERO');
+        END;
+    END;
   
 
 END PKG_PERSON;
