@@ -157,4 +157,26 @@ CREATE OR REPLACE VIEW V_BACKGROUND AS
     JOIN CITY ON M1.city = CITY.idCity
     ORDER BY idBattalion;
 
+-- DOCTOR
+ CREATE OR REPLACE VIEW V_DOCTOR AS
+    SELECT 
+    PERSON.documentType AS DOCUMENT_TYPE,
+    PERSON.documentNumber AS DOCUMENT_NUMBER,
+    PERSON.name AS NAME,
+    PERSON.lastname AS LASTNAME,
+    PERSON.gender AS GENDER,
+    PERSON.birthDate AS BIRTHDATE,
+    PERSON.status AS STATUS,
+    PERSON.email AS EMAIL,
+    DOCTOR.militaryForce AS MILITARY_FORCE,
+    Speciality.name AS SPECIALTY,
+    PERSON.registerDate AS REGISTER_DATEE
+    FROM DOCTOR
+    JOIN PERSON ON DOCTOR.documentType = PERSON.documentType
+    AND DOCTOR.documentNumber = PERSON.documentNumber
+    JOIN DoctorSpeciality ON DOCTOR.documentType = DoctorSpeciality.documentType
+    AND DOCTOR.documentNumber = DoctorSpeciality.documentNumber
+    JOIN Speciality ON DoctorSpeciality.idSpeciality = Speciality.idSpeciality
+    ORDER BY PERSON.documentType, PERSON.documentNumber;
+
 

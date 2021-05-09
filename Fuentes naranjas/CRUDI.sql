@@ -705,6 +705,7 @@ END PKG_HOSPITAL;
 
 -- PERSON
 CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
+    -- PERSON
     -- CREATE
     PROCEDURE ADD_PERSON(
         xDocType IN VARCHAR,
@@ -755,6 +756,92 @@ CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
         WHEN OTHERS THEN 
             ROLLBACK;
             RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA PERSONA');
+    END;
+
+
+    -- DOCTOR
+    -- CREATE
+    PROCEDURE ADD_DOCTOR(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xName IN VARCHAR,
+        xLastname IN VARCHAR,
+        xGender IN VARCHAR,
+        xBirthdate IN DATE,
+        xEmail IN VARCHAR,
+        xMilitaryForce IN VARCHAR,
+        xSpecialty IN VARCHAR) IS
+    BEGIN 
+        DECLARE
+            xIdSpeciality NUMBER;
+
+        BEGIN
+            INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
+
+            INSERT INTO DOCTOR VALUES (xDocType, xDocNum, xMilitaryForce);
+
+            SELECT idSpeciality INTO xIdSpeciality FROM Speciality
+            WHERE name LIKE xSpecialty;
+
+            INSERT INTO DoctorSpeciality VALUES (xDocType, xDocNum, xIdSpeciality);
+            COMMIT;
+    
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL DOCTOR');
+        END;
+        
+    END;
+
+    -- READ
+     FUNCTION READ_DOCTOR RETURN SYS_REFCURSOR
+      IS INF_DOCTOR SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_DOCTOR FOR
+            SELECT *
+            FROM V_DOCTOR;
+        RETURN INF_DOCTOR ;
+    END;
+    
+
+    -- UPDATE
+    PROCEDURE UPDATE_DOCTOR(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xStatus IN VARCHAR,
+        xMilitaryForce IN VARCHAR,
+        xSpecialty IN VARCHAR
+        ) IS    
+    BEGIN
+        DECLARE
+            xIdSpeciality NUMBER;
+
+        BEGIN
+            UPDATE Person
+            SET 
+                status = xStatus
+            WHERE documentType = xDocType AND documentNumber = xDocNum;
+
+            UPDATE DOCTOR
+            SET
+                militaryForce = xMilitaryForce
+            WHERE documentType = xDocType AND documentNumber = xDocNum;
+
+            SELECT idSpeciality INTO xIdSpeciality FROM Speciality
+            WHERE name LIKE xSpecialty;
+
+            UPDATE DoctorSpeciality
+            SET
+                idSpeciality = xIdSpeciality
+            WHERE documentType = xDocType AND documentNumber = xDocNum;
+            COMMIT;
+
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL DOCTOR');
+        END;
     END;
   
 
