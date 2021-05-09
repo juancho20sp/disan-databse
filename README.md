@@ -8,6 +8,7 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 
 - Agregar funciones para seguir poblando las relaciones de muchos a muchos y de uno a muchos
 - Agregar el módulo de citas
+- Agregar enfermeras a las citas y procedimientos
 
 - Si una persona es doctor, los tipos de documento válidos son ('CC', 'CE', 'PS')
 - Si una persona es enfermero/a, los tipos de documento válidos son ('CC', 'CE', 'PS')

@@ -954,14 +954,56 @@ CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
             RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PACIENTE');
     END;
 
-    -- READ
-     FUNCTION READ_PATIENT RETURN SYS_REFCURSOR
-      IS INF_PATIENT SYS_REFCURSOR;
+    -- READ ALL PATIENTS
+     FUNCTION READ_PATIENTS RETURN SYS_REFCURSOR
+      IS INF_PATIENTS SYS_REFCURSOR;
     BEGIN
-        OPEN INF_PATIENT FOR
+        OPEN INF_PATIENTS FOR
             SELECT *
             FROM V_PATIENT;
-        RETURN INF_PATIENT ;
+        RETURN INF_PATIENTS ;
+    END;
+
+    -- READ SPECIFIC PATIENT
+    FUNCTION READ_SPECIFIC_PATIENT(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR 
+    IS INF_SPECIFIC_PATIENT SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_SPECIFIC_PATIENT FOR
+            SELECT *
+            FROM V_PATIENT
+            WHERE DOCUMENT_TYPE = xDocType AND DOCUMENT_NUMBER = xDocNum;
+        RETURN INF_SPECIFIC_PATIENT ;
+    END;
+
+    -- READ SPECIFIC PATIENT BACKGROUND PROCEDURES
+    FUNCTION READ_PATIENT_BACK_PROC(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR 
+    IS INF_PATIENT_BACK_PROC SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_PATIENT_BACK_PROC FOR
+            SELECT *
+            FROM V_BACKGROUND_PROCEDURE
+            WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
+        RETURN INF_PATIENT_BACK_PROC ;
+    END;
+
+    -- READ PECIFIC PATIENT BACKGROUND DISEASES
+    FUNCTION READ_PATIENT_BACK_DIS(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR 
+    IS INF_PATIENT_BACK_DIS SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_PATIENT_BACK_DIS FOR
+            SELECT *
+            FROM V_BACKGROUND_DISEASE
+            WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
+        RETURN INF_PATIENT_BACK_DIS ;
     END;
     
 
@@ -1001,11 +1043,14 @@ CREATE OR REPLACE PACKAGE BODY PKG_CLINICAL_HISTORY AS
         DECLARE
             xIdClinicalHistory NUMBER;
         BEGIN
-            SELECT idClinicalHistory INTO xIdClinicalHistory FROM ClinicalHistory
-            WHERE ROWNUM = 1
-            ORDER BY idClinicalHistory DESC;
-
             INSERT INTO ClinicalHistory VALUES (NULL, xDocType, xDocNum);
+
+            SELECT idClinicalHistory INTO xIdClinicalHistory FROM ClinicalHistory
+           -- WHERE ROWNUM = 1
+            --ORDER BY idClinicalHistory DESC;
+            WHERE documentType = xDocType AND documentNumber = xDocNum;
+
+            
 
             INSERT INTO Background VALUES (NULL, xIdClinicalHistory);
             COMMIT;
@@ -1152,6 +1197,78 @@ CREATE OR REPLACE PACKAGE BODY PKG_CLINICAL_HISTORY AS
             WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
         RETURN INF_BACKGROUND_PROCEDURE ;
     END;
+
+
+    -- APPOINTMENT
+     -- CREATE
+    PROCEDURE ADD_APPOINTMENT(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xAppointmentMotive IN VARCHAR,
+        xDate IN DATE,
+        xDoctorEmail IN VARCHAR,
+        xHospital IN VARCHAR
+        ) IS
+    BEGIN 
+        DECLARE
+            xIdClinicalHistory NUMBER;
+            xIdHospital NUMBER;
+            xDoctorDocType VARCHAR(2);
+            xDoctorDocNumber NUMBER;
+            xIdAppointment NUMBER;
+
+
+        BEGIN
+            SELECT documentType INTO xDoctorDocType FROM PERSON
+            WHERE email LIKE xDoctorEmail;
+
+            SELECT documentNumber INTO xDoctorDocNumber FROM PERSON
+            WHERE email LIKE xDoctorEmail;
+
+            SELECT idHospital INTO xIdHospital FROM HOSPITAL
+            WHERE name LIKE xHospital;
+
+            SELECT idClinicalHistory INTO xIdClinicalHistory FROM
+            ClinicalHistory 
+            WHERE ROWNUM = 1 AND
+            documentType = xDocType AND documentNumber = xDocNum;
+
+            INSERT INTO Appointment VALUES (NULL, xAppointmentMotive, NULL, xDate,  xIdClinicalHistory, NULL, xIdHospital);
+            
+
+            SELECT idAppointment INTO xIdAppointment FROM
+            Appointment 
+            WHERE ROWNUM = 1 AND
+            idClinicalHistory = xIdClinicalHistory
+            ORDER BY idAppointment DESC;
+
+
+            INSERT INTO AppointmentDoctor VALUES (xIdAppointment, xDoctorDocType, xDoctorDocNumber);
+
+            COMMIT;
+
+      
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA CITA MÉDICA');
+        END;
+    END;
+
+    -- READ
+    FUNCTION READ_APPOINTMENTS RETURN SYS_REFCURSOR 
+    IS INF_APPOINTMENTS  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_APPOINTMENTS FOR
+            SELECT *
+            FROM V_APPOINTMENT;
+        RETURN INF_APPOINTMENTS ;
+    END;
+
+
+
+
+
 
     
 

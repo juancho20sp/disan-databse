@@ -38,10 +38,10 @@ DROP TABLE ProcedureDoctor CASCADE CONSTRAINTS;
 CREATE TABLE Appointment (
     idAppointment	    NUMBER(10) NOT NULL,
 	appointmentMotive   VARCHAR2(250) NOT NULL,
-    diagnosis          	VARCHAR2(500) NOT NULL,
+    diagnosis          	VARCHAR2(500),
     dateAppointment    	DATE NOT NULL,
 	idClinicalHistory	NUMBER(10) NOT NULL, 
-	idManagementPlan	NUMBER(10) NOT NULL,
+	idManagementPlan	NUMBER(10),
 	idHospital			NUMBER(10) NOT NULL
 ); 
 
@@ -148,7 +148,7 @@ CREATE TABLE Medicines (
 	commercialName		  VARCHAR2(250) NOT NULL, 
 	presentation		  VARCHAR2(50) NOT NULL, 
 	producer			  VARCHAR2(250) NOT NULL, 
-	idManagementPlan	  NUMBER(10) NOT NULL, 
+	idManagementPlan	  NUMBER(10), 
 	idMedicationType	  NUMBER(10) NOT NULL, 
 	idMedicationInventory NUMBER(10) NOT NULL
 ); 
