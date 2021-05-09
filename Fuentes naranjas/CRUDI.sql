@@ -1158,48 +1158,106 @@ CREATE OR REPLACE PACKAGE BODY PKG_DOCTOR AS
 
     -- READ SPECIFIC DOCTOR DATA
      FUNCTION READ_SPECIFIC_DOCTOR(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER
+        xDoctorEmail IN VARCHAR
     ) RETURN SYS_REFCURSOR
       IS INF_DOCTOR SYS_REFCURSOR;
     BEGIN
         OPEN INF_DOCTOR FOR
             SELECT *
             FROM V_DOCTOR
-            WHERE DOCUMENT_TYPE = xDocType AND DOCUMENT_NUMBER = xDocNum;
+            WHERE EMAIL = xDoctorEmail;
         RETURN INF_DOCTOR ;
     END;
 
     -- READ DOCTOR APPOINTMENTS
     FUNCTION READ_APPOINTMENTS(
-        xDocName IN VARCHAR,
-        xDocLastname IN VARCHAR
+        xDoctorEmail IN VARCHAR
     ) RETURN SYS_REFCURSOR 
     IS INF_APPOINTMENTS  SYS_REFCURSOR;
     BEGIN
         OPEN INF_APPOINTMENTS FOR
             SELECT *
-            -- FROM V_APPOINTMENT;
             FROM V_APPOINTMENT_DOCTOR
-            WHERE DOCTOR_NAME = xDocName AND DOCTOR_LASTNAME = xDocLastname;
+            WHERE DOCTOR_EMAIL = xDoctorEmail;
         RETURN INF_APPOINTMENTS ;
-    END;
-
-    -- READ PATIENT
-    FUNCTION READ_PATIENT(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER
-    ) RETURN SYS_REFCURSOR 
-    IS INF_PATIENT SYS_REFCURSOR;
-    BEGIN
-        OPEN INF_PATIENT FOR
-            SELECT *
-            FROM V_PATIENT
-            WHERE DOCUMENT_TYPE = xDocType AND DOCUMENT_NUMBER = xDocNum;
-        RETURN INF_PATIENT ;
     END;
     
 END PKG_DOCTOR;
+
+/
+
+-- NURSE
+CREATE OR REPLACE PACKAGE BODY PKG_NURSE AS
+    -- CREATE
+    PROCEDURE ADD_NURSE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xName IN VARCHAR,
+        xLastname IN VARCHAR,
+        xGender IN VARCHAR,
+        xBirthdate IN DATE,
+        xEmail IN VARCHAR,
+        xMilitaryForce IN VARCHAR,
+        xSpecialty IN VARCHAR) IS
+    BEGIN 
+        DECLARE
+            xIdSpeciality NUMBER;
+
+        BEGIN
+            INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
+
+            INSERT INTO Nurse VALUES (xDocType, xDocNum, xMilitaryForce);
+
+            SELECT idSpeciality INTO xIdSpeciality FROM Speciality
+            WHERE name LIKE xSpecialty;
+
+            INSERT INTO NurseSpeciality VALUES (xDocType, xDocNum, xIdSpeciality);
+            COMMIT;
+    
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ENFERMERO');
+        END;
+        
+    END;
+
+    -- READ ALL NURSES
+     FUNCTION READ_NURSE RETURN SYS_REFCURSOR
+      IS READ_NURSE SYS_REFCURSOR;
+    BEGIN
+        OPEN READ_NURSE FOR
+            SELECT *
+            FROM V_NURSE;
+        RETURN READ_NURSE ;
+    END;
+
+    -- READ SPECIFIC NURSE DATA
+     FUNCTION READ_SPECIFIC_NURSE(
+        xNurseEmail IN VARCHAR
+    ) RETURN SYS_REFCURSOR
+      IS INF_NURSE SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_NURSE FOR
+            SELECT *
+            FROM V_NURSE
+            WHERE EMAIL = xNurseEmail;
+        RETURN INF_NURSE ;
+    END;
+
+    -- READ NURSE APPOINTMENTS
+    FUNCTION READ_APPOINTMENTS(
+        xNurseEmail IN VARCHAR
+    ) RETURN SYS_REFCURSOR 
+    IS INF_APPOINTMENTS  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_APPOINTMENTS FOR
+            SELECT *
+            FROM V_APPOINTMENT_NURSE
+            WHERE NURSE_EMAIL = xNurseEmail;
+        RETURN INF_APPOINTMENTS ;
+    END;
+END PKG_NURSE;
 
 /
 
@@ -1372,7 +1430,7 @@ CREATE OR REPLACE PACKAGE BODY PKG_CLINICAL_HISTORY AS
 
 
     -- APPOINTMENT
-     -- CREATE
+    -- CREATE
     PROCEDURE ADD_APPOINTMENT(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER,
@@ -1388,8 +1446,6 @@ CREATE OR REPLACE PACKAGE BODY PKG_CLINICAL_HISTORY AS
             xDoctorDocType VARCHAR(2);
             xDoctorDocNumber NUMBER;
             xIdAppointment NUMBER;
-
-
         BEGIN
             SELECT documentType INTO xDoctorDocType FROM PERSON
             WHERE email LIKE xDoctorEmail;
@@ -1427,6 +1483,36 @@ CREATE OR REPLACE PACKAGE BODY PKG_CLINICAL_HISTORY AS
         END;
     END;
 
+
+    -- CREATE
+    PROCEDURE ADD_APPOINTMENT_NURSE(
+        xNurseEmail IN VARCHAR,
+        xIdAppointment IN NUMBER
+        ) IS
+    BEGIN 
+        DECLARE
+            xNurseDocType VARCHAR(2);
+            xNurseDocNumber NUMBER;
+        BEGIN
+            SELECT documentType INTO xNurseDocType FROM PERSON
+            WHERE email LIKE xNurseEmail;
+
+            SELECT documentNumber INTO xNurseDocNumber FROM PERSON
+            WHERE email LIKE xNurseEmail;
+
+
+            INSERT INTO AppointmentNurse VALUES (xIdAppointment, xNurseDocType, xNurseDocNumber);
+
+            COMMIT;
+
+      
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA ENFERMERA EN LA CITA MÉDICA');
+        END;
+    END;
+
     -- READ
     FUNCTION READ_APPOINTMENTS RETURN SYS_REFCURSOR 
     IS INF_APPOINTMENTS  SYS_REFCURSOR;
@@ -1438,12 +1524,141 @@ CREATE OR REPLACE PACKAGE BODY PKG_CLINICAL_HISTORY AS
     END;
 
 
-
-
-
-
-    
-
 END PKG_CLINICAL_HISTORY;
 
 /
+
+-- APPOINTMENTS
+CREATE OR REPLACE PACKAGE BODY PKG_APPOINTMENT AS
+    -- CREATE WITH DOCTOR
+    PROCEDURE ADD_APPOINTMENT(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xAppointmentMotive IN VARCHAR,
+        xDate IN DATE,
+        xDoctorEmail IN VARCHAR,
+        xHospital IN VARCHAR
+        ) IS
+    BEGIN 
+        DECLARE
+            xIdClinicalHistory NUMBER;
+            xIdHospital NUMBER;
+            xDoctorDocType VARCHAR(2);
+            xDoctorDocNumber NUMBER;
+            xIdAppointment NUMBER;
+        BEGIN
+            SELECT documentType INTO xDoctorDocType FROM PERSON
+            WHERE email LIKE xDoctorEmail;
+
+            SELECT documentNumber INTO xDoctorDocNumber FROM PERSON
+            WHERE email LIKE xDoctorEmail;
+
+            SELECT idHospital INTO xIdHospital FROM HOSPITAL
+            WHERE name LIKE xHospital;
+
+            SELECT idClinicalHistory INTO xIdClinicalHistory FROM
+            ClinicalHistory 
+            WHERE ROWNUM = 1 AND
+            documentType = xDocType AND documentNumber = xDocNum;
+
+            INSERT INTO Appointment VALUES (NULL, xAppointmentMotive, NULL, xDate,  xIdClinicalHistory, NULL, xIdHospital);
+            
+
+            SELECT idAppointment INTO xIdAppointment FROM
+            Appointment 
+            WHERE ROWNUM = 1 AND
+            idClinicalHistory = xIdClinicalHistory
+            ORDER BY idAppointment DESC;
+
+
+            INSERT INTO AppointmentDoctor VALUES (xIdAppointment, xDoctorDocType, xDoctorDocNumber);
+
+            COMMIT;
+
+      
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA CITA MÉDICA');
+        END;
+    END;
+
+
+    -- ADD A NURSE TO THE APPOINTMENT
+    PROCEDURE ADD_APPOINTMENT_NURSE(
+        xNurseEmail IN VARCHAR,
+        xIdAppointment IN NUMBER
+        ) IS
+    BEGIN 
+        DECLARE
+            xNurseDocType VARCHAR(2);
+            xNurseDocNumber NUMBER;
+        BEGIN
+            SELECT documentType INTO xNurseDocType FROM PERSON
+            WHERE email LIKE xNurseEmail;
+
+            SELECT documentNumber INTO xNurseDocNumber FROM PERSON
+            WHERE email LIKE xNurseEmail;
+
+
+            INSERT INTO AppointmentNurse VALUES (xIdAppointment, xNurseDocType, xNurseDocNumber);
+
+            COMMIT;
+
+      
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA ENFERMERA EN LA CITA MÉDICA');
+        END;
+    END;
+
+    -- READ ALL APPOINTMENTS
+    FUNCTION READ_APPOINTMENTS RETURN SYS_REFCURSOR 
+    IS INF_APPOINTMENTS  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_APPOINTMENTS FOR
+            SELECT *
+            FROM V_APPOINTMENT;
+        RETURN INF_APPOINTMENTS ;
+    END;
+
+    -- READ DOCTOR APPOINTMENTS
+    FUNCTION READ_DOC_APPOINTMENTS(
+        xDoctorEmail IN VARCHAR
+    ) RETURN SYS_REFCURSOR 
+    IS INF_APPOINTMENTS  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_APPOINTMENTS FOR
+            SELECT *
+            FROM V_APPOINTMENT_DOCTOR
+            WHERE DOCTOR_EMAIL = xDoctorEmail;
+        RETURN INF_APPOINTMENTS ;
+    END;
+
+    -- READ NURSE APPOINTMENTS
+    FUNCTION READ_NUR_APPOINTMENTS(
+        xNurseEmail IN VARCHAR
+    ) RETURN SYS_REFCURSOR 
+    IS INF_APPOINTMENTS  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_APPOINTMENTS FOR
+            SELECT *
+            FROM V_APPOINTMENT_NURSE
+            WHERE NURSE_EMAIL = xNurseEmail;
+        RETURN INF_APPOINTMENTS ;
+    END;
+
+    -- READ PATIENT APPOINTMENTS
+    FUNCTION READ_PAT_APPOINTMENTS(
+        xPatientEmail IN VARCHAR
+    ) RETURN SYS_REFCURSOR 
+    IS INF_APPOINTMENTS  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_APPOINTMENTS FOR
+            SELECT *
+            FROM V_APPOINTMENT
+            WHERE PATIENT_EMAIL = xPatientEmail;
+        RETURN INF_APPOINTMENTS ;
+    END;
+END PKG_APPOINTMENT;

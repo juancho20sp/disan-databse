@@ -87,6 +87,7 @@ CREATE OR REPLACE VIEW V_APPOINTMENT AS
     APPOINTMENT.idAppointment AS ID,
     PATIENT.name AS PATIENT_NAME,
     PATIENT.lastname AS PATIENT_LASTNAME,
+    PATIENT.email AS PATIENT_EMAIL,
     APPOINTMENT.appointmentMotive AS MOTIVE,
     APPOINTMENT.diagnosis AS DIAGNOSIS,
     APPOINTMENT.dateAppointment AS APP_DATE,
@@ -117,6 +118,7 @@ CREATE OR REPLACE VIEW V_APPOINTMENT_DOCTOR AS
     CITY.name AS CITY,
     PERSON.name AS DOCTOR_NAME,
     PERSON.lastname AS DOCTOR_LASTNAME,
+    PERSON.email AS DOCTOR_EMAIL,
     MILITARYUNIT.name AS BATTALION
     FROM AppointmentDoctor
     JOIN APPOINTMENT ON AppointmentDoctor.idAppointment = APPOINTMENT.idAppointment
@@ -125,6 +127,28 @@ CREATE OR REPLACE VIEW V_APPOINTMENT_DOCTOR AS
     JOIN CITY ON HOSPITAL.idCity = CITY.idCity
     JOIN MILITARYUNIT ON HOSPITAL.idBattalion = MILITARYUNIT.idMilitaryUnit
     ORDER BY AppointmentDoctor.idAppointment;
+
+-- APPOINTMENT NURSE
+CREATE OR REPLACE VIEW V_APPOINTMENT_NURSE AS
+    SELECT
+    AppointmentNurse.idAppointment AS ID,
+    APPOINTMENT.appointmentMotive AS MOTIVE,
+    APPOINTMENT.dateAppointment AS APP_DATE,
+    HOSPITAL.name AS HOSPITAL,
+    HOSPITAL.address AS ADDRESS,
+    CITY.name AS CITY,
+    PERSON.name AS NURSE_NAME,
+    PERSON.lastname AS NURSE_LASTNAME,
+    PERSON.email AS NURSE_EMAIL,
+    MILITARYUNIT.name AS BATTALION
+    FROM AppointmentNurse
+    JOIN APPOINTMENT ON AppointmentNurse.idAppointment = APPOINTMENT.idAppointment
+    JOIN PERSON ON AppointmentNurse.documentType = PERSON.documentType AND AppointmentNurse.documentNumber = PERSON.documentNumber
+    JOIN HOSPITAL ON APPOINTMENT.idHospital = HOSPITAL.idHospital
+    JOIN CITY ON HOSPITAL.idCity = CITY.idCity
+    JOIN MILITARYUNIT ON HOSPITAL.idBattalion = MILITARYUNIT.idMilitaryUnit
+    ORDER BY AppointmentNurse.idAppointment;
+
 
 -- BACKGROUNDS
 CREATE OR REPLACE VIEW V_BACKGROUND AS
