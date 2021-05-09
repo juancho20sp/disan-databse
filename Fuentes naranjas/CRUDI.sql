@@ -28,22 +28,29 @@ CREATE OR REPLACE PACKAGE BODY PKG_SUPPLY AS
 
     -- UPDATE
     PROCEDURE UPDATE_SUPPLY(
-        xId IN NUMBER,
         xName IN VARCHAR, 
         xAmount IN NUMBER,
          xInventory IN NUMBER
         ) IS  
 
     BEGIN
-        UPDATE Supply
-            SET name = xName, amount = xAmount, idSuppliesInventory = xInventory
-        WHERE idSupply = xId;
+        DECLARE
+            xId NUMBER;
+        BEGIN
+            SELECT idSupply INTO xId FROM SUPPLY
+                WHERE name LIKE xName;
+                
 
-        COMMIT;
-        EXCEPTION 
-        WHEN OTHERS THEN 
-            ROLLBACK;
-            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL SUMINISTRO');
+            UPDATE Supply
+                SET amount = xAmount, idSuppliesInventory = xInventory
+            WHERE idSupply = xId;
+
+            COMMIT;
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL SUMINISTRO');
+        END;
     END;
 
 END PKG_SUPPLY;
