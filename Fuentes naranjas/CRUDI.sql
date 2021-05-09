@@ -702,3 +702,62 @@ CREATE OR REPLACE PACKAGE BODY PKG_HOSPITAL AS
 END PKG_HOSPITAL;
 
 /
+
+-- PERSON
+CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
+    -- CREATE
+    PROCEDURE ADD_PERSON(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xName IN VARCHAR,
+        xLastname IN VARCHAR,
+        xGender IN VARCHAR,
+        xBirthdate IN DATE,
+        xEmail IN VARCHAR) IS
+    BEGIN 
+
+        INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
+        COMMIT;
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA PERSONA');
+    END;
+
+    -- READ
+     FUNCTION READ_PERSON RETURN SYS_REFCURSOR
+      IS INF_PERSON SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_PERSON FOR
+            SELECT *
+            FROM Person;
+        RETURN INF_PERSON ;
+    END;
+    
+
+    -- UPDATE
+    PROCEDURE UPDATE_PERSON(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xStatus IN VARCHAR,
+        xEmail IN VARCHAR
+        ) IS    
+    BEGIN
+        UPDATE Person
+            SET 
+                status = xStatus,
+                email = xEmail
+            WHERE documentType = xDocType AND documentNumber = xDocNum;
+            COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA PERSONA');
+    END;
+  
+
+END PKG_PERSON;
+
+/

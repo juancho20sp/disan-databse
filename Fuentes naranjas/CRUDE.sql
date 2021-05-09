@@ -199,3 +199,32 @@ CREATE OR REPLACE PACKAGE PKG_HOSPITAL AS
 END PKG_HOSPITAL;
 
 /
+
+--- PERSON
+CREATE OR REPLACE PACKAGE PKG_PERSON AS
+    -- CREATE
+    PROCEDURE ADD_PERSON(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xName IN VARCHAR,
+        xLastname IN VARCHAR,
+        xGender IN VARCHAR,
+        xBirthdate IN DATE,
+        xEmail IN VARCHAR
+   );
+
+    -- READ
+     FUNCTION READ_PERSON RETURN SYS_REFCURSOR;
+    
+
+    -- UPDATE
+    PROCEDURE UPDATE_PERSON(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xStatus IN VARCHAR,
+        xEmail IN VARCHAR
+        );
+
+END PKG_PERSON;
+
+/
