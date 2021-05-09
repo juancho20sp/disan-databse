@@ -9,7 +9,6 @@ CREATE OR REPLACE PACKAGE PKG_SUPPLY AS
     FUNCTION READ_SUPPLY RETURN SYS_REFCURSOR;
 
     PROCEDURE UPDATE_SUPPLY(
-        xId IN NUMBER,
         xName IN VARCHAR, 
         xAmount IN NUMBER,
          xInventory IN NUMBER
@@ -37,7 +36,7 @@ CREATE OR REPLACE PACKAGE PKG_MILITARY_UNIT AS
     -- MILITARY UNIT
     PROCEDURE ADD_MILITARY_UNIT(
         xName IN VARCHAR,
-        xIdCity IN NUMBER,
+        XCity IN VARCHAR,
         xFullLocation IN VARCHAR
         );
 
@@ -46,14 +45,14 @@ CREATE OR REPLACE PACKAGE PKG_MILITARY_UNIT AS
     PROCEDURE UPDATE_MILITARY_UNIT(
         xId IN NUMBER,
         xName IN VARCHAR,
-        xIdCity IN NUMBER,
+        xCity IN VARCHAR,
         xFullLocation IN VARCHAR
         );
 
     -- DIVISION
     PROCEDURE ADD_DIVISION(
         xName IN VARCHAR,
-        xIdCity IN NUMBER,
+        xCity IN VARCHAR,
         xFullLocation IN VARCHAR,
         xCommander IN VARCHAR,
         xMilitaryForce IN VARCHAR);
@@ -63,7 +62,7 @@ CREATE OR REPLACE PACKAGE PKG_MILITARY_UNIT AS
 
     -- UPDATE
     PROCEDURE UPDATE_DIVISION(
-        xId IN NUMBER,
+        xName IN VARCHAR,
         xCommander IN VARCHAR,
         xMilitaryForce IN VARCHAR
         );

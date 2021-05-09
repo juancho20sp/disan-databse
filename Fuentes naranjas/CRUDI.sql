@@ -111,17 +111,27 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
     -- CREATE
     PROCEDURE ADD_MILITARY_UNIT(
         xName IN VARCHAR,
-        xIdCity IN NUMBER,
+        xCity IN VARCHAR,
         xFullLocation IN VARCHAR) IS
     BEGIN 
-        INSERT INTO MilitaryUnit VALUES (NULL, xName, xIdCity, xFullLocation);
-        COMMIT;
+        DECLARE
+            xIdCity NUMBER;
+
+        BEGIN
+            SELECT idCity INTO xIdCity FROM CITY 
+            WHERE name LIKE xCity;
+
+            INSERT INTO MilitaryUnit VALUES (NULL, xName, xIdCity, xFullLocation);
+            COMMIT;
         
       
-        EXCEPTION 
-        WHEN OTHERS THEN 
-            ROLLBACK;
-            RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR LA UNIDAD MILITAR');
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR LA UNIDAD MILITAR');
+        END;
+
+        
     END;
 
 
@@ -139,38 +149,51 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
     PROCEDURE UPDATE_MILITARY_UNIT(
         xId IN NUMBER,
         xName IN VARCHAR,
-        xIdCity IN NUMBER,
+        xCity IN VARCHAR,
         xFullLocation IN VARCHAR
         ) IS  
 
     BEGIN
-        UPDATE MilitaryUnit
+        DECLARE
+            xIdCity NUMBER;
+
+        BEGIN
+            SELECT idCity INTO xIdCity FROM CITY 
+            WHERE name LIKE xCity;
+
+
+            UPDATE MilitaryUnit
             SET 
                 name = xName,
                 city = xIdCity,
                 fullLocation = xFullLocation
-        WHERE idMilitaryUnit = xId;
-        COMMIT;
+            WHERE idMilitaryUnit = xId;
+            COMMIT;
 
-        EXCEPTION 
-        WHEN OTHERS THEN 
-            ROLLBACK;
-            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA UNIDAD MILITAR');
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA UNIDAD MILITAR');
+        END;
     END;
 
     -- DIVISION
     -- CREATE
     PROCEDURE ADD_DIVISION(
         xName IN VARCHAR,
-        xIdCity IN NUMBER,
+        xCity IN VARCHAR,
         xFullLocation IN VARCHAR,
         xCommander IN VARCHAR,
         xMilitaryForce IN VARCHAR) IS
         BEGIN   
             DECLARE
                 lastId NUMBER; 
+                xIdCity NUMBER;
                   
             BEGIN
+                SELECT idCity INTO xIdCity FROM CITY 
+                WHERE name LIKE xCity;
+
                 INSERT INTO MilitaryUnit VALUES (NULL, xName, xIdCity, xFullLocation);
                 COMMIT;
 
@@ -187,8 +210,8 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
                     RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR LA DIVISIÓN');
             END;
         END;
-
-
+    
+    
     -- READ
     FUNCTION READ_DIVISION RETURN SYS_REFCURSOR
       IS INF_DIVISION  SYS_REFCURSOR;
@@ -201,23 +224,30 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
 
     -- UPDATE
     PROCEDURE UPDATE_DIVISION(
-        xId IN NUMBER,
+        xName IN VARCHAR,
         xCommander IN VARCHAR,
         xMilitaryForce IN VARCHAR
         ) IS  
 
     BEGIN
-        UPDATE DIVISION
-            SET 
-                commander = xCommander,
-                militaryForce = xMilitaryForce
-        WHERE idDivision = xId;
-        COMMIT;
+        DECLARE
+            xId NUMBER;
+        BEGIN
+            SELECT idMilitaryUnit INTO xId FROM MILITARYUNIT
+            WHERE name LIKE xName;
 
-        EXCEPTION 
-        WHEN OTHERS THEN 
-            ROLLBACK;
-            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA DIVISION');
+            UPDATE DIVISION
+                SET 
+                    commander = xCommander,
+                    militaryForce = xMilitaryForce
+            WHERE idDivision = xId;
+            COMMIT;
+
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA DIVISION');
+        END;
     END;
 
 END PKG_MILITARY_UNIT;
