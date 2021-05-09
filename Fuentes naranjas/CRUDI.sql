@@ -988,3 +988,173 @@ CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
 END PKG_PERSON;
 
 /
+
+-- CLINICAL HISTORY
+CREATE OR REPLACE PACKAGE BODY PKG_CLINICAL_HISTORY AS
+    -- CLINICAL HISTORY
+    -- CREATE
+    PROCEDURE ADD_CLINICAL_HISTORY(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+        ) IS
+    BEGIN 
+        DECLARE
+            xIdClinicalHistory NUMBER;
+        BEGIN
+            SELECT idClinicalHistory INTO xIdClinicalHistory FROM ClinicalHistory
+            WHERE ROWNUM = 1
+            ORDER BY idClinicalHistory DESC;
+
+            INSERT INTO ClinicalHistory VALUES (NULL, xDocType, xDocNum);
+
+            INSERT INTO Background VALUES (NULL, xIdClinicalHistory);
+            COMMIT;
+      
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA HISTORIA CLÍNICA');
+        END;
+    END;
+
+    -- READ
+    FUNCTION READ_CLINICAL_HISTORY(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+        ) RETURN SYS_REFCURSOR 
+    IS INF_CLINICAL_HISTORY SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_CLINICAL_HISTORY FOR
+            SELECT *
+            FROM V_CLINICAL_HISTORY
+            WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
+        RETURN INF_CLINICAL_HISTORY ;
+    END;
+
+    -- BACKGROUND DISEASE
+    -- CREATE
+    PROCEDURE ADD_BACKGROUND_DISEASE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xName IN VARCHAR,
+        xDescription IN VARCHAR
+        ) IS
+    BEGIN 
+        DECLARE
+            xIdClinicalHistory NUMBER;
+            xIdBackground NUMBER;
+
+        BEGIN
+            SELECT idClinicalHistory INTO xIdClinicalHistory FROM
+            ClinicalHistory 
+            WHERE ROWNUM = 1 AND
+            documentType = xDocType AND documentNumber = xDocNum;
+
+            SELECT idBackground INTO xIdBackground FROM Background
+            WHERE idClinicalHistory = xIdClinicalHistory;
+
+            INSERT INTO Disease VALUES (NULL, xName, xDescription, xIdBackground);
+            COMMIT;
+      
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ANTECEDENTE MÉDICO');
+        END;
+    END;
+
+    -- READ
+    FUNCTION READ_BACKGROUND_DISEASE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR 
+    IS INF_BACKGROUND_DISEASE SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_BACKGROUND_DISEASE FOR
+            SELECT *
+            FROM V_BACKGROUND_DISEASE
+            WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
+        RETURN INF_BACKGROUND_DISEASE ;
+    END;
+
+
+    -- BACKGROUND PROCEDURE
+    -- CREATE
+    PROCEDURE ADD_BACKGROUND_PROCEDURE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xName IN VARCHAR,
+        xDateProcedure IN DATE,
+        xManagementPlan IN VARCHAR,
+        xHospital IN VARCHAR,
+        xMedName IN VARCHAR,
+        xMedPresentation IN VARCHAR,
+        xMedProducer IN VARCHAR,
+        xMedType IN VARCHAR
+        ) IS
+    BEGIN 
+        DECLARE
+            xIdClinicalHistory NUMBER;
+            xIdBackground NUMBER;
+            xIdManagementPlan NUMBER;
+            xIdHospital NUMBER;
+            xIdMedicationInventory NUMBER;
+            xIdMedicationType NUMBER;
+
+        BEGIN
+            SELECT idMedicationType INTO xIdMedicationType FROM MedicationType
+            WHERE name LIKE xMedType;
+
+            SELECT idHospital INTO xIdHospital FROM HOSPITAL
+            WHERE name LIKE xHospital;
+
+            SELECT idMedicationInventory INTO xIdMedicationInventory FROM HOSPITAL
+            WHERE name LIKE xHospital;
+
+            INSERT INTO ManagementPlan VALUES(NULL, xManagementPlan);
+
+            SELECT idManagementPlan INTO xIdManagementPlan FROM ManagementPlan
+            WHERE ROWNUM = 1
+            ORDER BY idManagementPlan DESC;
+
+            INSERT INTO Medicines VALUES(NULL, xMedName, xMedPresentation, xMedProducer, xIdManagementPlan, xIdMedicationType, xIdMedicationInventory);
+            
+            SELECT idClinicalHistory INTO xIdClinicalHistory FROM
+            ClinicalHistory 
+            WHERE ROWNUM = 1 AND
+            documentType = xDocType AND documentNumber = xDocNum;
+
+            SELECT idBackground INTO xIdBackground FROM Background
+            WHERE idClinicalHistory = xIdClinicalHistory;
+
+            INSERT INTO Procedures VALUES (NULL, xName, xDateProcedure, xIdBackground, xIdManagementPlan, xIdClinicalHistory, xIdHospital);
+            COMMIT;
+
+
+      
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ANTECEDENTE QUIÚRGICO');
+        END;
+    END;
+
+    -- READ
+    FUNCTION READ_BACKGROUND_PROCEDURE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR 
+    IS INF_BACKGROUND_PROCEDURE SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_BACKGROUND_PROCEDURE FOR
+            SELECT *
+            FROM V_BACKGROUND_PROCEDURE
+            WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
+        RETURN INF_BACKGROUND_PROCEDURE ;
+    END;
+
+    
+
+END PKG_CLINICAL_HISTORY;
+
+/

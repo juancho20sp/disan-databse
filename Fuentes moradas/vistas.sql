@@ -220,4 +220,34 @@ CREATE OR REPLACE VIEW V_BACKGROUND AS
     AND PATIENT.documentNumber = PERSON.documentNumber
     ORDER BY PATIENT.disanId, PERSON.documentType, PERSON.documentNumber;
 
+-- BACKGROUND DISEASE
+CREATE OR REPLACE VIEW V_BACKGROUND_DISEASE AS
+    SELECT 
+    ClinicalHistory.documentType AS PATIENT_DOC_TYPE,
+    ClinicalHistory.documentNumber AS PATIENT_DOC_NUMBER,
+    DISEASE.name AS DISEASE,
+    DISEASE.description AS DISEASE_DESCRIPTION
+    FROM
+    ClinicalHistory
+    JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
+    JOIN DISEASE ON BACKGROUND.idBackground = DISEASE.idBackground
+    ORDER BY ClinicalHistory.documentType, ClinicalHistory.documentNumber;
+
+-- BACKGROUND PROCEDURE
+CREATE OR REPLACE VIEW V_BACKGROUND_PROCEDURE AS
+    SELECT 
+    ClinicalHistory.documentType AS PATIENT_DOC_TYPE,
+    ClinicalHistory.documentNumber AS PATIENT_DOC_NUMBER,
+    PROCEDURES.name AS PROCEDURE,
+    PROCEDURES.dateProcedure AS DATE_PROCEDURE,
+    HOSPITAL.name AS HOSPITAL,
+    MEDICINES.commercialName AS NAME
+    FROM
+    ClinicalHistory
+    JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
+    JOIN PROCEDURES ON ClinicalHistory.idClinicalHistory = PROCEDURES.idClinicalHistory
+    JOIN HOSPITAL ON PROCEDURES.idHospital = HOSPITAL.idHospital
+    JOIN MEDICINES ON MEDICINES.idManagementPlan = PROCEDURES.idManagementPlan
+    ORDER BY ClinicalHistory.documentType, ClinicalHistory.documentNumber;
+    
 

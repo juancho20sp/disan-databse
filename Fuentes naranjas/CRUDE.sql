@@ -297,7 +297,7 @@ CREATE OR REPLACE PACKAGE PKG_PERSON AS
     
 
     -- UPDATE
-    PROCEDURE UPDATE_NURSE(
+    PROCEDURE UPDATE_PATIENT(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER,
         xStatus IN VARCHAR
@@ -305,5 +305,60 @@ CREATE OR REPLACE PACKAGE PKG_PERSON AS
 
 
 END PKG_PERSON;
+
+/
+
+--- CLINICAL HISTORY
+CREATE OR REPLACE PACKAGE PKG_CLINICAL_HISTORY AS
+    -- CLINICAL HISTORY
+    -- CREATE
+    PROCEDURE ADD_CLINICAL_HISTORY(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+        );
+
+    -- READ
+    FUNCTION READ_CLINICAL_HISTORY(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR;
+
+    -- BACKGROUND
+    -- CREATE
+    PROCEDURE ADD_BACKGROUND_DISEASE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xName IN VARCHAR,
+        xDescription IN VARCHAR
+        );
+
+    -- READ
+    FUNCTION READ_BACKGROUND_DISEASE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR;
+
+    -- BACKGROUND PROCEDURE
+    -- CREATE
+    PROCEDURE ADD_BACKGROUND_PROCEDURE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xName IN VARCHAR,
+        xDateProcedure IN DATE,
+        xManagementPlan IN VARCHAR,
+        xHospital IN VARCHAR,
+        xMedName IN VARCHAR,
+        xMedPresentation IN VARCHAR,
+        xMedProducer IN VARCHAR,
+        xMedType IN VARCHAR
+        );
+
+    -- READ
+    FUNCTION READ_BACKGROUND_PROCEDURE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR;
+
+END PKG_CLINICAL_HISTORY;
 
 /
