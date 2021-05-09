@@ -6,8 +6,10 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 
 ## TO-DO List
 
-- Agregar funciones para seguir poblando las relaciones de muchos a muchos y de uno a muchos
-- Agregar el módulo de citas
+- Módulo de procedimientos
+- Módulo de especialidades
+- Módulo de exámenes (Exams, exams nurse)
+- Módulo de medicinas
 - Agregar enfermeras a las citas y procedimientos
 
 - Si una persona es doctor, los tipos de documento válidos son ('CC', 'CE', 'PS')
