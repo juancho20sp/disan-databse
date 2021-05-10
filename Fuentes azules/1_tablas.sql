@@ -188,8 +188,8 @@ CREATE TABLE Procedures (
     idProcedure			NUMBER(10) NOT NULL,
 	name				VARCHAR2(250) NOT NULL, 
 	dateProcedure		DATE NOT NULL,
-	idBackground		NUMBER(10) NOT NULL, 
-	idManagementPlan	NUMBER(10) NOT NULL, 
+	idBackground		NUMBER(10), 
+	idManagementPlan	NUMBER(10), 
 	idClinicalHistory	NUMBER(10) NOT NULL, 
 	idHospital			NUMBER(10) NOT NULL
 );
