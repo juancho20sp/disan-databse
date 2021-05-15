@@ -180,9 +180,11 @@ CREATE OR REPLACE PACKAGE PKG_HOSPITAL AS
         xName IN VARCHAR,
         xBeds IN NUMBER,
         xUCI IN NUMBER,
-        xBattalion IN VARCHAR,
-        xCity IN VARCHAR,
-        xAddress IN VARCHAR);
+        xIdBattalion IN NUMBER,
+        xIdCity IN NUMBER,
+        xAddress IN VARCHAR,
+        xIdSuppliesInventory IN NUMBER,
+        xIdMedicationInventory IN NUMBER);
 
     -- READ
      FUNCTION READ_HOSPITAL RETURN SYS_REFCURSOR;
@@ -190,10 +192,11 @@ CREATE OR REPLACE PACKAGE PKG_HOSPITAL AS
 
     -- UPDATE
     PROCEDURE UPDATE_HOSPITAL(
+        xIdHospital IN NUMBER,
         xName IN VARCHAR,
         xBeds IN NUMBER,
         xUCI IN NUMBER,
-        xBattalion IN VARCHAR,
+        xIdBattalion IN VARCHAR,
         xAddress IN VARCHAR
         );
 
@@ -232,13 +235,7 @@ CREATE OR REPLACE PACKAGE PKG_PERSON AS
     PROCEDURE ADD_DOCTOR(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xLastname IN VARCHAR,
-        xGender IN VARCHAR,
-        xBirthdate IN DATE,
-        xEmail IN VARCHAR,
-        xMilitaryForce IN VARCHAR,
-        xSpecialty IN VARCHAR);
+        xMilitaryForce IN VARCHAR);
 
     -- READ
      FUNCTION READ_DOCTOR RETURN SYS_REFCURSOR;
@@ -248,9 +245,7 @@ CREATE OR REPLACE PACKAGE PKG_PERSON AS
     PROCEDURE UPDATE_DOCTOR(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER,
-        xStatus IN VARCHAR,
-        xMilitaryForce IN VARCHAR,
-        xSpecialty IN VARCHAR
+        xMilitaryForce IN VARCHAR
         );
 
 
@@ -258,14 +253,8 @@ CREATE OR REPLACE PACKAGE PKG_PERSON AS
     -- CREATE
     PROCEDURE ADD_NURSE(
         xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xLastname IN VARCHAR,
-        xGender IN VARCHAR,
-        xBirthdate IN DATE,
-        xEmail IN VARCHAR,
-        xMilitaryForce IN VARCHAR,
-        xSpecialty IN VARCHAR);
+        xDocNum IN NUMBER,        
+        xMilitaryForce IN VARCHAR);
 
     -- READ
      FUNCTION READ_NURSE RETURN SYS_REFCURSOR;
@@ -275,9 +264,7 @@ CREATE OR REPLACE PACKAGE PKG_PERSON AS
     PROCEDURE UPDATE_NURSE(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER,
-        xStatus IN VARCHAR,
-        xMilitaryForce IN VARCHAR,
-        xSpecialty IN VARCHAR
+        xMilitaryForce IN VARCHAR
         );
 
 
@@ -285,12 +272,7 @@ CREATE OR REPLACE PACKAGE PKG_PERSON AS
     -- CREATE
     PROCEDURE ADD_PATIENT(
         xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xLastname IN VARCHAR,
-        xGender IN VARCHAR,
-        xBirthdate IN DATE,
-        xEmail IN VARCHAR
+        xDocNum IN NUMBER
         );
 
     -- READ ALL PATIENTS
@@ -315,12 +297,7 @@ CREATE OR REPLACE PACKAGE PKG_PERSON AS
     ) RETURN SYS_REFCURSOR;
     
 
-    -- UPDATE
-    PROCEDURE UPDATE_PATIENT(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xStatus IN VARCHAR
-        );
+   
 
 
 END PKG_PERSON;

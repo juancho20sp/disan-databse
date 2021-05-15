@@ -31,6 +31,7 @@ CREATE OR REPLACE VIEW V_BACKGROUND_DISEASE AS
 -- HOSPITAL
 CREATE OR REPLACE VIEW V_HOSPITAL AS
     SELECT
+    HOSPITAL.idHospital AS ID,
     HOSPITAL.name AS NAME,
     HOSPITAL.address AS ADDRESS,
     HOSPITAL.bedNumber AS BED_NUMBER,
@@ -239,9 +240,9 @@ CREATE OR REPLACE VIEW V_BACKGROUND AS
     FROM DOCTOR
     JOIN PERSON ON DOCTOR.documentType = PERSON.documentType
     AND DOCTOR.documentNumber = PERSON.documentNumber
-    JOIN DoctorSpeciality ON DOCTOR.documentType = DoctorSpeciality.documentType
+    left JOIN DoctorSpeciality ON DOCTOR.documentType = DoctorSpeciality.documentType
     AND DOCTOR.documentNumber = DoctorSpeciality.documentNumber
-    JOIN Speciality ON DoctorSpeciality.idSpeciality = Speciality.idSpeciality
+    left JOIN Speciality ON DoctorSpeciality.idSpeciality = Speciality.idSpeciality
     ORDER BY PERSON.documentType, PERSON.documentNumber;
 
 

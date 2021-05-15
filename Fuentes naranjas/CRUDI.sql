@@ -481,42 +481,20 @@ CREATE OR REPLACE PACKAGE BODY PKG_HOSPITAL AS
         xName IN VARCHAR,
         xBeds IN NUMBER,
         xUCI IN NUMBER,
-        xBattalion IN VARCHAR,
-        xCity IN VARCHAR,
-        xAddress IN VARCHAR) IS
+        xIdBattalion IN NUMBER,
+        xIdCity IN NUMBER,
+        xAddress IN VARCHAR,
+        xIdSuppliesInventory IN NUMBER,
+        xIdMedicationInventory IN NUMBER) IS
     BEGIN 
-        DECLARE
-            xIdSuppliesInventory NUMBER;
-            xIdMedicationInventory NUMBER;
-            xIdCity NUMBER;
-            xIdBattalion NUMBER;
-
-        BEGIN    
-            INSERT INTO SuppliesInventory VALUES (NULL);
-            INSERT INTO MedicationInventory VALUES (NULL);
-
-            SELECT idSuppliesInventory INTO xIdSuppliesInventory FROM SuppliesInventory
-            WHERE ROWNUM = 1
-            ORDER BY idSuppliesInventory DESC;
-
-            SELECT idMedicationInventory INTO xIdMedicationInventory FROM MedicationInventory
-            WHERE ROWNUM = 1
-            ORDER BY idMedicationInventory DESC;
-
-            SELECT idCity INTO xIdCity FROM CITY 
-            WHERE name LIKE xCity;
-
-            SELECT idMilitaryUnit INTO xIdBattalion FROM MILITARYUNIT
-            WHERE name LIKE xBattalion;
-
-            INSERT INTO Hospital VALUES (NULL, xName, xAddress, xBeds, xUCI, xIdBattalion, xIdSuppliesInventory, xIdCity, xIdMedicationInventory);
-            COMMIT;
-      
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL HOSPITAL');
-        END;
+        INSERT INTO Hospital VALUES (NULL, xName, xAddress, xBeds, xUCI, xIdBattalion, xIdSuppliesInventory, xIdCity, xIdMedicationInventory);
+        COMMIT;
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL HOSPITAL');
+        
     END;
 
     -- READ
@@ -532,39 +510,28 @@ CREATE OR REPLACE PACKAGE BODY PKG_HOSPITAL AS
 
     -- UPDATE
     PROCEDURE UPDATE_HOSPITAL(
+        xIdHospital IN NUMBER,
         xName IN VARCHAR,
         xBeds IN NUMBER,
         xUCI IN NUMBER,
-        xBattalion IN VARCHAR,
+        xIdBattalion IN VARCHAR,
         xAddress IN VARCHAR
         ) IS  
 
-    BEGIN
-        DECLARE
-            xIdHospital NUMBER;
-            xIdBattalion NUMBER;
+    BEGIN     
+        UPDATE Hospital
+            SET 
+                address = xAddress,
+                bedNumber = xBeds,
+                UCINumber = xUCI,
+                idBattalion = xIdBattalion
+            WHERE idHospital = xIdHospital;
+            COMMIT;
 
-        BEGIN
-            SELECT idHospital INTO xIdHospital FROM Hospital
-            WHERE name LIKE xName;
-
-            SELECT idMilitaryUnit INTO xIdBattalion FROM MILITARYUNIT
-            WHERE name LIKE xBattalion;
-
-            UPDATE Hospital
-                SET 
-                    address = xAddress,
-                    bedNumber = xBeds,
-                    UCINumber = xUCI,
-                    idBattalion = xIdBattalion
-                WHERE idHospital = xIdHospital;
-                COMMIT;
-
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL HOSPITAL');
-        END;
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL HOSPITAL'); 
     END;
 
 END PKG_HOSPITAL;
@@ -632,26 +599,14 @@ CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
     PROCEDURE ADD_DOCTOR(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xLastname IN VARCHAR,
-        xGender IN VARCHAR,
-        xBirthdate IN DATE,
-        xEmail IN VARCHAR,
-        xMilitaryForce IN VARCHAR,
-        xSpecialty IN VARCHAR) IS
+        xMilitaryForce IN VARCHAR
+        ) IS
     BEGIN 
         DECLARE
             xIdSpeciality NUMBER;
 
         BEGIN
-            INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
-
             INSERT INTO DOCTOR VALUES (xDocType, xDocNum, xMilitaryForce);
-
-            SELECT idSpeciality INTO xIdSpeciality FROM Speciality
-            WHERE name LIKE xSpecialty;
-
-            INSERT INTO DoctorSpeciality VALUES (xDocType, xDocNum, xIdSpeciality);
             COMMIT;
     
             EXCEPTION 
@@ -687,39 +642,20 @@ CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
     PROCEDURE UPDATE_DOCTOR(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER,
-        xStatus IN VARCHAR,
-        xMilitaryForce IN VARCHAR,
-        xSpecialty IN VARCHAR
+        xMilitaryForce IN VARCHAR
         ) IS    
-    BEGIN
-        DECLARE
-            xIdSpeciality NUMBER;
+    BEGIN        
+        UPDATE DOCTOR
+        SET
+            militaryForce = xMilitaryForce
+        WHERE documentType = xDocType AND documentNumber = xDocNum;
 
-        BEGIN
-            UPDATE Person
-            SET 
-                status = xStatus
-            WHERE documentType = xDocType AND documentNumber = xDocNum;
+        COMMIT;
 
-            UPDATE DOCTOR
-            SET
-                militaryForce = xMilitaryForce
-            WHERE documentType = xDocType AND documentNumber = xDocNum;
-
-            SELECT idSpeciality INTO xIdSpeciality FROM Speciality
-            WHERE name LIKE xSpecialty;
-
-            UPDATE DoctorSpeciality
-            SET
-                idSpeciality = xIdSpeciality
-            WHERE documentType = xDocType AND documentNumber = xDocNum;
-            COMMIT;
-
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL DOCTOR');
-        END;
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL DOCTOR'); 
     END;
 
 
@@ -727,35 +663,16 @@ CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
     -- CREATE
     PROCEDURE ADD_NURSE(
         xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xLastname IN VARCHAR,
-        xGender IN VARCHAR,
-        xBirthdate IN DATE,
-        xEmail IN VARCHAR,
-        xMilitaryForce IN VARCHAR,
-        xSpecialty IN VARCHAR) IS
-    BEGIN 
-        DECLARE
-            xIdSpeciality NUMBER;
+        xDocNum IN NUMBER,        
+        xMilitaryForce IN VARCHAR) IS
+    BEGIN     
+        INSERT INTO Nurse VALUES (xDocType, xDocNum, xMilitaryForce);
+        COMMIT;
 
-        BEGIN
-            INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
-
-            INSERT INTO Nurse VALUES (xDocType, xDocNum, xMilitaryForce);
-
-            SELECT idSpeciality INTO xIdSpeciality FROM Speciality
-            WHERE name LIKE xSpecialty;
-
-            INSERT INTO NurseSpeciality VALUES (xDocType, xDocNum, xIdSpeciality);
-            COMMIT;
-    
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ENFERMERO');
-        END;
-        
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ENFERMERO');        
     END;
 
     -- READ
@@ -773,39 +690,19 @@ CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
     PROCEDURE UPDATE_NURSE(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER,
-        xStatus IN VARCHAR,
-        xMilitaryForce IN VARCHAR,
-        xSpecialty IN VARCHAR
+        xMilitaryForce IN VARCHAR
         ) IS    
     BEGIN
-        DECLARE
-            xIdSpeciality NUMBER;
+        UPDATE Nurse
+        SET
+            militaryForce = xMilitaryForce
+        WHERE documentType = xDocType AND documentNumber = xDocNum;
+        COMMIT;
 
-        BEGIN
-            UPDATE Person
-            SET 
-                status = xStatus
-            WHERE documentType = xDocType AND documentNumber = xDocNum;
-
-            UPDATE Nurse
-            SET
-                militaryForce = xMilitaryForce
-            WHERE documentType = xDocType AND documentNumber = xDocNum;
-
-            SELECT idSpeciality INTO xIdSpeciality FROM Speciality
-            WHERE name LIKE xSpecialty;
-
-            UPDATE NurseSpeciality
-            SET
-                idSpeciality = xIdSpeciality
-            WHERE documentType = xDocType AND documentNumber = xDocNum;
-            COMMIT;
-
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL ENFERMERO');
-        END;
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL ENFERMERO'); 
     END;
 
 
@@ -813,16 +710,9 @@ CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
     -- CREATE
     PROCEDURE ADD_PATIENT(
         xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xLastname IN VARCHAR,
-        xGender IN VARCHAR,
-        xBirthdate IN DATE,
-        xEmail IN VARCHAR
+        xDocNum IN NUMBER
         ) IS
-    BEGIN       
-        INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
-
+    BEGIN    
         INSERT INTO Patient VALUES (xDocType, xDocNum, NULL);
         COMMIT;
 
@@ -883,28 +773,6 @@ CREATE OR REPLACE PACKAGE BODY PKG_PERSON AS
             WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
         RETURN INF_PATIENT_BACK_DIS ;
     END;
-    
-
-    -- UPDATE
-    PROCEDURE UPDATE_PATIENT(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xStatus IN VARCHAR
-        ) IS    
-    BEGIN
-        UPDATE Person
-        SET 
-            status = xStatus
-        WHERE documentType = xDocType AND documentNumber = xDocNum;
-        COMMIT;
-
-        EXCEPTION 
-        WHEN OTHERS THEN 
-            ROLLBACK;
-            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL PACIENTE'); 
-    END;
-  
-
 END PKG_PERSON;
 
 /
