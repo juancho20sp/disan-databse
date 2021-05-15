@@ -484,6 +484,11 @@ CREATE OR REPLACE PACKAGE PKG_PROCEDURE AS
         xIdHospital IN NUMBER
         );
 
+    PROCEDURE ADD_MANAGEMENT_PLAN (
+        xIdProcedure IN NUMBER,
+        xIdManagementPlan IN NUMBER
+        );
+
 
     -- READ
     FUNCTION READ_PROCEDURES RETURN SYS_REFCURSOR; 
