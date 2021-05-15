@@ -263,9 +263,9 @@ CREATE OR REPLACE VIEW V_BACKGROUND AS
     FROM NURSE
     JOIN PERSON ON NURSE.documentType = PERSON.documentType
     AND NURSE.documentNumber = PERSON.documentNumber
-    JOIN NurseSpeciality ON NURSE.documentType = NurseSpeciality.documentType
+    LEFT JOIN NurseSpeciality ON NURSE.documentType = NurseSpeciality.documentType
     AND NURSE.documentNumber = NurseSpeciality.documentNumber
-    JOIN Speciality ON NurseSpeciality.idSpeciality = Speciality.idSpeciality
+    LEFT JOIN Speciality ON NurseSpeciality.idSpeciality = Speciality.idSpeciality
     ORDER BY PERSON.documentType, PERSON.documentNumber;
 
 -- PATIENT
