@@ -559,32 +559,23 @@ CREATE OR REPLACE PACKAGE PKG_CLINICAL_HISTORY AS
         xIdBackground IN NUMBER
         );
 
-    -- -- READ
-    -- FUNCTION READ_BACKGROUND_DISEASE(
-    --     xDocType IN VARCHAR,
-    --     xDocNum IN NUMBER
-    -- ) RETURN SYS_REFCURSOR;
+    -- READ
+    FUNCTION READ_BACKGROUND_DISEASE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR;
 
     -- BACKGROUND PROCEDURE
-    -- CREATE
-    -- PROCEDURE ADD_BACKGROUND_PROCEDURE(
-    --     xDocType IN VARCHAR,
-    --     xDocNum IN NUMBER,
-    --     xName IN VARCHAR,
-    --     xDateProcedure IN DATE,
-    --     xManagementPlan IN VARCHAR,
-    --     xHospital IN VARCHAR,
-    --     xMedName IN VARCHAR,
-    --     xMedPresentation IN VARCHAR,
-    --     xMedProducer IN VARCHAR,
-    --     xMedType IN VARCHAR
-    --     );
+    PROCEDURE ADD_BACKGROUND_PROCEDURE(
+        xIdProcedure IN NUMBER,
+        xIdBackground IN NUMBER
+        );
 
-    -- READ
-    -- FUNCTION READ_BACKGROUND_PROCEDURE(
-    --     xDocType IN VARCHAR,
-    --     xDocNum IN NUMBER
-    -- ) RETURN SYS_REFCURSOR;
+    --READ
+    FUNCTION READ_BACKGROUND_PROCEDURE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR;
 
     -- APPOINTMENT
      -- CREATE
