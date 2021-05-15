@@ -42,7 +42,8 @@ CREATE TABLE Appointment (
     dateAppointment    	DATE NOT NULL,
 	idClinicalHistory	NUMBER(10) NOT NULL, 
 	idManagementPlan	NUMBER(10),
-	idHospital			NUMBER(10) NOT NULL
+	idHospital			NUMBER(10) NOT NULL,
+	active				NUMBER(1)
 ); 
 
 CREATE TABLE Background (

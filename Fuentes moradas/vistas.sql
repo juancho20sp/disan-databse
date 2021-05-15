@@ -87,8 +87,9 @@ CREATE OR REPLACE VIEW V_LABORATORY AS
 -- APPOINTMENT
 CREATE OR REPLACE VIEW V_APPOINTMENT AS
     SELECT
-    -- AGREGAR DOCUMENTO DEL PACIENTE
     APPOINTMENT.idAppointment AS ID,
+    PATIENT.documentType AS PATIENT_DOC_TYPE,
+    PATIENT.documentNumber AS PATIENT_DOC_NUMBER,
     PATIENT.name AS PATIENT_NAME,
     PATIENT.lastname AS PATIENT_LASTNAME,
     PATIENT.email AS PATIENT_EMAIL,
@@ -98,17 +99,19 @@ CREATE OR REPLACE VIEW V_APPOINTMENT AS
     HOSPITAL.name AS HOSPITAL,
     HOSPITAL.address AS ADDRESS,
     CITY.name AS CITY,
+    PERSON.documentType AS DOCTOR_DOC_TYPE,
+    PERSON.documentNumber AS DOCTOR_DOC_NUMBER,
     PERSON.name AS DOCTOR_NAME,
     PERSON.lastname AS DOCTOR_LASTNAME,
     MILITARYUNIT.name AS BATTALION
     FROM APPOINTMENT    
-    JOIN HOSPITAL ON APPOINTMENT.idHospital = HOSPITAL.idHospital
-    JOIN CITY ON HOSPITAL.idCity = CITY.idCity
-    JOIN MILITARYUNIT ON HOSPITAL.idBattalion = MILITARYUNIT.idMilitaryUnit
-    FULL JOIN APPOINTMENTDOCTOR ON APPOINTMENT.idAppointment = AppointmentDoctor.idAppointment
-    JOIN PERSON ON AppointmentDoctor.documentType = PERSON.documentType AND AppointmentDoctor.documentNumber = PERSON.documentNumber
-    JOIN CLINICALHISTORY ON APPOINTMENT.idClinicalHistory = ClinicalHistory.idClinicalHistory
-    JOIN PERSON PATIENT ON ClinicalHistory.documentType = PATIENT.documentType AND ClinicalHistory.documentNumber = PATIENT.documentNumber
+    LEFT JOIN HOSPITAL ON APPOINTMENT.idHospital = HOSPITAL.idHospital
+    LEFT JOIN CITY ON HOSPITAL.idCity = CITY.idCity
+    LEFT JOIN MILITARYUNIT ON HOSPITAL.idBattalion = MILITARYUNIT.idMilitaryUnit
+    LEFT JOIN APPOINTMENTDOCTOR ON APPOINTMENT.idAppointment = AppointmentDoctor.idAppointment
+    LEFT JOIN PERSON ON AppointmentDoctor.documentType = PERSON.documentType AND AppointmentDoctor.documentNumber = PERSON.documentNumber
+    LEFT JOIN CLINICALHISTORY ON APPOINTMENT.idClinicalHistory = ClinicalHistory.idClinicalHistory
+    LEFT JOIN PERSON PATIENT ON ClinicalHistory.documentType = PATIENT.documentType AND ClinicalHistory.documentNumber = PATIENT.documentNumber
     ORDER BY APPOINTMENT.idAppointment;
 
 -- APPOINTMENT DOCTOR
@@ -128,6 +131,7 @@ CREATE OR REPLACE VIEW V_APPOINTMENT_DOCTOR AS
     MILITARYUNIT.name AS BATTALION
     FROM AppointmentDoctor
     JOIN APPOINTMENT ON AppointmentDoctor.idAppointment = APPOINTMENT.idAppointment
+    LEFT JOIN CLINICALHISTORY ON APPOINTMENT.idClinicalHistory = ClinicalHistory.idClinicalHistory
     JOIN PERSON ON AppointmentDoctor.documentType = PERSON.documentType AND AppointmentDoctor.documentNumber = PERSON.documentNumber
     JOIN HOSPITAL ON APPOINTMENT.idHospital = HOSPITAL.idHospital
     JOIN CITY ON HOSPITAL.idCity = CITY.idCity
@@ -137,38 +141,46 @@ CREATE OR REPLACE VIEW V_APPOINTMENT_DOCTOR AS
 -- APPOINTMENT NURSE
 CREATE OR REPLACE VIEW V_APPOINTMENT_NURSE AS
     SELECT
-    AppointmentNurse.idAppointment AS ID,
+    APPOINTMENT.idAppointment AS ID,
+    PATIENT.documentType AS PATIENT_DOC_TYPE,
+    PATIENT.documentNumber AS PATIENT_DOC_NUMBER,
+    PATIENT.name AS PATIENT_NAME,
+    PATIENT.lastname AS PATIENT_LASTNAME,
+    PATIENT.email AS PATIENT_EMAIL,
     APPOINTMENT.appointmentMotive AS MOTIVE,
+    APPOINTMENT.diagnosis AS DIAGNOSIS,
     APPOINTMENT.dateAppointment AS APP_DATE,
     HOSPITAL.name AS HOSPITAL,
     HOSPITAL.address AS ADDRESS,
     CITY.name AS CITY,
-    PERSON.documentType AS NURSE_DOCUMENT_TYPE,
-    PERSON.documentNumber AS NURSE_DOCUMENT_NUMBER,
+    PERSON.documentType AS NURSE_DOC_TYPE,
+    PERSON.documentNumber AS NURSE_DOC_NUMBER,
     PERSON.name AS NURSE_NAME,
     PERSON.lastname AS NURSE_LASTNAME,
-    PERSON.email AS NURSE_EMAIL,
     MILITARYUNIT.name AS BATTALION
-    FROM AppointmentNurse
-    JOIN APPOINTMENT ON AppointmentNurse.idAppointment = APPOINTMENT.idAppointment
-    JOIN PERSON ON AppointmentNurse.documentType = PERSON.documentType AND AppointmentNurse.documentNumber = PERSON.documentNumber
-    JOIN HOSPITAL ON APPOINTMENT.idHospital = HOSPITAL.idHospital
-    JOIN CITY ON HOSPITAL.idCity = CITY.idCity
-    JOIN MILITARYUNIT ON HOSPITAL.idBattalion = MILITARYUNIT.idMilitaryUnit
-    ORDER BY AppointmentNurse.idAppointment;
+    FROM APPOINTMENT    
+    LEFT JOIN HOSPITAL ON APPOINTMENT.idHospital = HOSPITAL.idHospital
+    LEFT JOIN CITY ON HOSPITAL.idCity = CITY.idCity
+    LEFT JOIN MILITARYUNIT ON HOSPITAL.idBattalion = MILITARYUNIT.idMilitaryUnit
+    LEFT JOIN AppointmentNurse ON APPOINTMENT.idAppointment = AppointmentNurse.idAppointment
+    LEFT JOIN PERSON ON AppointmentNurse.documentType = PERSON.documentType AND AppointmentNurse.documentNumber = PERSON.documentNumber
+    LEFT JOIN CLINICALHISTORY ON APPOINTMENT.idClinicalHistory = ClinicalHistory.idClinicalHistory
+    LEFT JOIN PERSON PATIENT ON ClinicalHistory.documentType = PATIENT.documentType AND ClinicalHistory.documentNumber = PATIENT.documentNumber
+    ORDER BY APPOINTMENT.idAppointment;
 
 
 -- BACKGROUNDS
 CREATE OR REPLACE VIEW V_BACKGROUND AS
     SELECT
+    BACKGROUND.idBackground AS ID_BACKGROUND,
     Disease.name AS DISEASE_NAME,
     Disease.description AS DISEASE_DESCRIPTION,
     Procedures.name AS PROCEDURE,
     Procedures.dateProcedure AS PROCEDURE_DATE
     FROM BACKGROUND    
-    JOIN DISEASE ON BACKGROUND.idBackground = DISEASE.idBackground
-    JOIN PROCEDURES ON BACKGROUND.idBackground = PROCEDURES.idBackground
-    ORDER BY BACKGROUND.idBackground;
+    LEFT JOIN DISEASE ON BACKGROUND.idBackground = DISEASE.idBackground
+    LEFT JOIN PROCEDURES ON BACKGROUND.idBackground = PROCEDURES.idBackground
+    ORDER BY ID_BACKGROUND;
 
 
  -- MILITARY UNIT   
@@ -331,15 +343,15 @@ CREATE OR REPLACE VIEW V_PROCEDURES AS
     DOCTOR.lastname AS DOCTOR_LASTNAME,
     DOCTOR.email AS DOCTOR_EMAIL
     FROM PROCEDURES    
-    FULL JOIN ClinicalHistory ON ClinicalHistory.idClinicalHistory = PROCEDURES.idClinicalHistory
-    FULL JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
+    JOIN ClinicalHistory ON ClinicalHistory.idClinicalHistory = PROCEDURES.idClinicalHistory
+    LEFT JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
     LEFT JOIN PERSON ON ClinicalHistory.documentType = PERSON.documentType AND ClinicalHistory.documentNumber = PERSON.documentNumber
     LEFT JOIN ProcedureDoctor ON PROCEDURES.idProcedure = ProcedureDoctor.idProcedure
     LEFT JOIN PERSON DOCTOR ON ProcedureDoctor.documentType = DOCTOR.documentType AND ProcedureDoctor.documentNumber = DOCTOR.documentNumber
     LEFT JOIN HOSPITAL ON PROCEDURES.idHospital = HOSPITAL.idHospital
     LEFT JOIN MANAGEMENTPLAN ON PROCEDURES.idManagementPlan = ManagementPlan.idManagementPlan
     LEFT JOIN MEDICINES ON MEDICINES.idManagementPlan = PROCEDURES.idManagementPlan
-    ORDER BY PROCEDURES.idProcedure;
+    ORDER BY ID_PROCEDURE;
 
 
  -- PROCEDURE  

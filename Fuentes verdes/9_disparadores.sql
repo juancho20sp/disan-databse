@@ -210,7 +210,9 @@ BEGIN
 
   IF  SYSDATE > :new.dateAppointment   THEN 
         RAISE_APPLICATION_ERROR(-20005,'No se puede generar una cita en una fecha anterior a la actual');
-    END IF;
+  END IF;
+
+  :NEW.active := 1;
 END;
 
 /

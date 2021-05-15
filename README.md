@@ -6,6 +6,8 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 
 ## TO-DO List
 
+- CORREGIR EL BUG DE ANTECEDENTES
+
 - Módulo de procedimientos
 - Módulo de especialidades
 - Módulo de exámenes (Exams, exams nurse)

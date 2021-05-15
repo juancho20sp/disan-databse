@@ -1069,6 +1069,37 @@ END PKG_DISEASE;
 
 /
 
+-- MANAGEMENT PLAN
+CREATE OR REPLACE PACKAGE BODY PKG_MANAGEMENT_PLAN AS
+    -- CREATE
+    PROCEDURE ADD_MANAGEMENT_PLAN(
+        xInstructions IN VARCHAR
+        ) IS
+    BEGIN 
+        INSERT INTO ManagementPlan VALUES (NULL, xInstructions);
+        COMMIT;
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PLAN DE MANEJO');   
+    END;
+
+    -- READ
+    FUNCTION READ_MANAGEMENT_PLAN RETURN SYS_REFCURSOR 
+    IS INF_MANAGEMENT SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_MANAGEMENT FOR
+            SELECT *
+            FROM ManagementPlan
+            ORDER BY idManagementPlan;
+        RETURN INF_MANAGEMENT ;
+    END;
+
+END PKG_MANAGEMENT_PLAN;
+
+/
+
 -- PROCEDURE
 CREATE OR REPLACE PACKAGE BODY PKG_PROCEDURE AS
     -- CREATE
@@ -1088,6 +1119,24 @@ CREATE OR REPLACE PACKAGE BODY PKG_PROCEDURE AS
             ROLLBACK;
             RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PROCEDIMIENTO');   
     END;
+
+    PROCEDURE ADD_MANAGEMENT_PLAN (
+        xIdProcedure IN NUMBER,
+        xIdManagementPlan IN NUMBER
+        ) IS
+    BEGIN
+        UPDATE Procedures
+        SET
+            idManagementPlan = xIdManagementPlan
+        WHERE idProcedure = xIdProcedure;
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PLAN DE MANEJO AL PROCEDIMIENTO');  
+    END;
+
 
     -- READ
     FUNCTION READ_PROCEDURES RETURN SYS_REFCURSOR 
@@ -1129,40 +1178,127 @@ CREATE OR REPLACE PACKAGE BODY PKG_BACKGROUND AS
         RETURN INF_BACKGROUNDS ;
     END;
 
+    -- READ PATIENT BACKGROUND
+    FUNCTION READ_PATIENT_BACKGROUNDS(
+        xIdClinicalHistory IN NUMBER
+    ) RETURN SYS_REFCURSOR
+    IS INF_BACKGROUNDS SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_BACKGROUNDS FOR
+            SELECT *
+            FROM V_BACKGROUND
+            WHERE ID_BACKGROUND = xIdClinicalHistory;
+        RETURN INF_BACKGROUNDS ;
+    END;
+
 END PKG_BACKGROUND;
 
 /
 
--- MANAGEMENT PLAN
-CREATE OR REPLACE PACKAGE BODY PKG_MANAGEMENT_PLAN AS
+-- APPOINTMENT
+CREATE OR REPLACE PACKAGE BODY PKG_APPOINTMENT AS
+-- APPOINTMENT
     -- CREATE
-    PROCEDURE ADD_MANAGEMENT_PLAN(
-        xInstructions IN VARCHAR
+    PROCEDURE ADD_APPOINTMENT(
+        xIdClinicalHistory IN NUMBER,
+        xAppointmentMotive IN VARCHAR,
+        xDate IN DATE,
+        xIdHospital IN NUMBER
         ) IS
-    BEGIN 
-        INSERT INTO ManagementPlan VALUES (NULL, xInstructions);
+    BEGIN        
+        INSERT INTO Appointment VALUES (
+            NULL,
+            xAppointmentMotive, 
+            NULL, 
+            xDate,  
+            xIdClinicalHistory, 
+            NULL, 
+            xIdHospital);
         COMMIT;
+
     
         EXCEPTION 
         WHEN OTHERS THEN 
             ROLLBACK;
-            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PLAN DE MANEJO');   
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA CITA MÉDICA');
+    END;
+
+    -- ADD DOCTOR TO APPOINTMENT
+    PROCEDURE ADD_APPOINTMENT_DOCTOR(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xIdAppointment IN NUMBER
+        ) IS
+    BEGIN   
+        INSERT INTO AppointmentDoctor VALUES (xIdAppointment, xDocType, xDocNum);
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL DOCTOR EN LA CITA MÉDICA');
+    END;
+
+    -- CREATE
+    PROCEDURE ADD_APPOINTMENT_NURSE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xIdAppointment IN NUMBER
+        ) IS
+    BEGIN
+        INSERT INTO AppointmentNurse VALUES (xIdAppointment, xNurseDocType, xNurseDocNumber);
+        COMMIT;
+
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA ENFERMERA EN LA CITA MÉDICA');
     END;
 
     -- READ
-    FUNCTION READ_MANAGEMENT_PLAN RETURN SYS_REFCURSOR 
-    IS INF_MANAGEMENT SYS_REFCURSOR;
+    FUNCTION READ_APPOINTMENTS RETURN SYS_REFCURSOR 
+    IS INF_APPOINTMENTS  SYS_REFCURSOR;
     BEGIN
-        OPEN INF_MANAGEMENT FOR
+        OPEN INF_APPOINTMENTS FOR
             SELECT *
-            FROM ManagementPlan
-            ORDER BY idManagementPlan;
-        RETURN INF_MANAGEMENT ;
+            FROM V_APPOINTMENT;
+        RETURN INF_APPOINTMENTS ;
     END;
 
-END PKG_MANAGEMENT_PLAN;
+    -- READ DOCTOR APPOINTMENTS
+    FUNCTION READ_DOC_APPOINTMENTS(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR 
+    IS INF_APPOINTMENTS  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_APPOINTMENTS FOR
+            SELECT *
+            FROM V_APPOINTMENT
+            WHERE DOCTOR_DOC_TYPE = xDocType AND DOCTOR_DOC_NUMBER = xDocNum;
+        RETURN INF_APPOINTMENTS ;
+    END;
+
+    -- READ NURSE APPOINTMENTS
+    FUNCTION READ_NUR_APPOINTMENTS(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR 
+    IS INF_APPOINTMENTS  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_APPOINTMENTS FOR
+            SELECT *
+            FROM V_APPOINTMENT_NURSE
+            WHERE NURSE_DOC_TYPE = xDocType AND NURSE_DOC_NUMBER = xDocNum;
+        RETURN INF_APPOINTMENTS ;
+    END;
+
+
+END PKG_APPOINTMENT;
 
 /
+
 
 -- CLINICAL HISTORY
 CREATE OR REPLACE PACKAGE BODY PKG_CLINICAL_HISTORY AS
@@ -1271,103 +1407,6 @@ CREATE OR REPLACE PACKAGE BODY PKG_CLINICAL_HISTORY AS
             WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
         RETURN INF_BACKGROUND_PROCEDURE ;
     END;
-
-
-    -- -- APPOINTMENT
-    -- -- CREATE
-    -- PROCEDURE ADD_APPOINTMENT(
-    --     xDocType IN VARCHAR,
-    --     xDocNum IN NUMBER,
-    --     xAppointmentMotive IN VARCHAR,
-    --     xDate IN DATE,
-    --     xDoctorEmail IN VARCHAR,
-    --     xHospital IN VARCHAR
-    --     ) IS
-    -- BEGIN 
-    --     DECLARE
-    --         xIdClinicalHistory NUMBER;
-    --         xIdHospital NUMBER;
-    --         xDoctorDocType VARCHAR(2);
-    --         xDoctorDocNumber NUMBER;
-    --         xIdAppointment NUMBER;
-    --     BEGIN
-    --         SELECT documentType INTO xDoctorDocType FROM PERSON
-    --         WHERE email LIKE xDoctorEmail;
-
-    --         SELECT documentNumber INTO xDoctorDocNumber FROM PERSON
-    --         WHERE email LIKE xDoctorEmail;
-
-    --         SELECT idHospital INTO xIdHospital FROM HOSPITAL
-    --         WHERE name LIKE xHospital;
-
-    --         SELECT idClinicalHistory INTO xIdClinicalHistory FROM
-    --         ClinicalHistory 
-    --         WHERE ROWNUM = 1 AND
-    --         documentType = xDocType AND documentNumber = xDocNum;
-
-    --         INSERT INTO Appointment VALUES (NULL, xAppointmentMotive, NULL, xDate,  xIdClinicalHistory, NULL, xIdHospital);
-            
-
-    --         SELECT idAppointment INTO xIdAppointment FROM
-    --         Appointment 
-    --         WHERE ROWNUM = 1 AND
-    --         idClinicalHistory = xIdClinicalHistory
-    --         ORDER BY idAppointment DESC;
-
-
-    --         INSERT INTO AppointmentDoctor VALUES (xIdAppointment, xDoctorDocType, xDoctorDocNumber);
-
-    --         COMMIT;
-
-      
-    --         EXCEPTION 
-    --         WHEN OTHERS THEN 
-    --             ROLLBACK;
-    --             RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA CITA MÉDICA');
-    --     END;
-    -- END;
-
-
-    -- -- CREATE
-    -- PROCEDURE ADD_APPOINTMENT_NURSE(
-    --     xNurseEmail IN VARCHAR,
-    --     xIdAppointment IN NUMBER
-    --     ) IS
-    -- BEGIN 
-    --     DECLARE
-    --         xNurseDocType VARCHAR(2);
-    --         xNurseDocNumber NUMBER;
-    --     BEGIN
-    --         SELECT documentType INTO xNurseDocType FROM PERSON
-    --         WHERE email LIKE xNurseEmail;
-
-    --         SELECT documentNumber INTO xNurseDocNumber FROM PERSON
-    --         WHERE email LIKE xNurseEmail;
-
-
-    --         INSERT INTO AppointmentNurse VALUES (xIdAppointment, xNurseDocType, xNurseDocNumber);
-
-    --         COMMIT;
-
-      
-    --         EXCEPTION 
-    --         WHEN OTHERS THEN 
-    --             ROLLBACK;
-    --             RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA ENFERMERA EN LA CITA MÉDICA');
-    --     END;
-    -- END;
-
-    -- -- READ
-    -- FUNCTION READ_APPOINTMENTS RETURN SYS_REFCURSOR 
-    -- IS INF_APPOINTMENTS  SYS_REFCURSOR;
-    -- BEGIN
-    --     OPEN INF_APPOINTMENTS FOR
-    --         SELECT *
-    --         FROM V_APPOINTMENT;
-    --     RETURN INF_APPOINTMENTS ;
-    -- END;
-
-
 END PKG_CLINICAL_HISTORY;
 
 /
