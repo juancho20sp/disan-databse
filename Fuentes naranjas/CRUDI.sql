@@ -46,8 +46,6 @@ END PKG_SUPPLIES_INVENTORY;
 
 /
 
-
-
 -- SUPPLY
 CREATE OR REPLACE PACKAGE BODY PKG_SUPPLY AS
     -- CREATE
@@ -108,6 +106,58 @@ CREATE OR REPLACE PACKAGE BODY PKG_SUPPLY AS
     END;
 
 END PKG_SUPPLY;
+
+/
+
+-- CITY
+CREATE OR REPLACE PACKAGE BODY PKG_CITY AS
+    -- CREATE
+    PROCEDURE ADD_CITY(
+        xName IN VARCHAR,
+        xDepartment IN VARCHAR) IS
+    BEGIN  
+        INSERT INTO City VALUES (NULL, xName, xDepartment);
+        COMMIT;
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA CIUDAD');     
+    END;
+
+    -- READ
+     FUNCTION READ_CITY RETURN SYS_REFCURSOR
+      IS INF_CITY SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_CITY FOR
+            SELECT *
+            FROM CITY;
+        RETURN INF_CITY ;
+    END;
+    
+
+    -- UPDATE
+    PROCEDURE UPDATE_CITY(
+        xIdCity IN NUMBER,
+        xName IN VARCHAR,
+        xDepartment IN VARCHAR
+        ) IS  
+
+    BEGIN
+        UPDATE CITY
+            SET 
+                name = xName,
+                department = xDepartment
+            WHERE idCity = xIdCity;
+            COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA CIUDAD');      
+    END;
+
+END PKG_CITY;
 
 /
 
