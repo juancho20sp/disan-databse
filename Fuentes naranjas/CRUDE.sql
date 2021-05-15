@@ -45,8 +45,7 @@ CREATE OR REPLACE PACKAGE PKG_CITY AS
         xDepartment IN VARCHAR);
 
     -- READ
-    FUNCTION READ_CITY RETURN SYS_REFCURSOR;
-    
+    FUNCTION READ_CITY RETURN SYS_REFCURSOR; 
 
     -- UPDATE
     PROCEDURE UPDATE_CITY(
@@ -64,7 +63,7 @@ CREATE OR REPLACE PACKAGE PKG_MILITARY_UNIT AS
     -- MILITARY UNIT
     PROCEDURE ADD_MILITARY_UNIT(
         xName IN VARCHAR,
-        XCity IN VARCHAR,
+        XCity IN NUMBER,
         xFullLocation IN VARCHAR
         );
 
@@ -73,15 +72,13 @@ CREATE OR REPLACE PACKAGE PKG_MILITARY_UNIT AS
     PROCEDURE UPDATE_MILITARY_UNIT(
         xId IN NUMBER,
         xName IN VARCHAR,
-        xCity IN VARCHAR,
+        xCity IN NUMBER,
         xFullLocation IN VARCHAR
         );
 
     -- DIVISION
     PROCEDURE ADD_DIVISION(
-        xName IN VARCHAR,
-        xCity IN VARCHAR,
-        xFullLocation IN VARCHAR,
+        xMilitaryUnit IN NUMBER,
         xCommander IN VARCHAR,
         xMilitaryForce IN VARCHAR);
 
@@ -90,18 +87,16 @@ CREATE OR REPLACE PACKAGE PKG_MILITARY_UNIT AS
 
     -- UPDATE
     PROCEDURE UPDATE_DIVISION(
-        xName IN VARCHAR,
+        xId IN NUMBER,
         xCommander IN VARCHAR,
         xMilitaryForce IN VARCHAR
         );
 
     -- BRIGADE
     PROCEDURE ADD_BRIGADE(
-        xName IN VARCHAR,
-        xCity IN VARCHAR,
-        xFullLocation IN VARCHAR,
+        xMilitaryUnit IN NUMBER,
         xCommander IN VARCHAR,
-        xDivision IN VARCHAR,
+        xDivision IN NUMBER,
         xMilitaryForce IN VARCHAR);
 
     FUNCTION READ_BRIGADE RETURN SYS_REFCURSOR;
@@ -109,19 +104,17 @@ CREATE OR REPLACE PACKAGE PKG_MILITARY_UNIT AS
 
     -- UPDATE
     PROCEDURE UPDATE_BRIGADE(
-        xName IN VARCHAR,
+        xId IN NUMBER,
         xCommander IN VARCHAR,
-        xDivision IN VARCHAR,
+        xIdDivision IN NUMBER,
         xMilitaryForce IN VARCHAR
         );
 
     -- BATTALION
     PROCEDURE ADD_BATTALION(
-        xName IN VARCHAR,
-        xCity IN VARCHAR,
-        xFullLocation IN VARCHAR,
+        xMilitaryUnit IN NUMBER,
         xCommander IN VARCHAR,
-        xBrigade IN VARCHAR,
+        xBrigade IN NUMBER,
         xMilitaryForce IN VARCHAR);
 
     FUNCTION READ_BATTALION RETURN SYS_REFCURSOR;
@@ -129,9 +122,9 @@ CREATE OR REPLACE PACKAGE PKG_MILITARY_UNIT AS
 
     -- UPDATE
     PROCEDURE UPDATE_BATTALION(
-        xName IN VARCHAR,
+        xId IN NUMBER,
         xCommander IN VARCHAR,
-        xBrigade IN VARCHAR,
+        xIdBrigade IN NUMBER,
         xMilitaryForce IN VARCHAR
         );
 
@@ -143,16 +136,17 @@ END PKG_MILITARY_UNIT;
 CREATE OR REPLACE PACKAGE PKG_LABORATORY AS
     PROCEDURE ADD_LABORATORY(
         xName IN VARCHAR,
-        xCity IN VARCHAR,
-        xBattalion IN VARCHAR,
-        xAddress IN VARCHAR
+        xIdCity IN NUMBER,
+        xIdBattalion IN NUMBER,
+        xAddress IN VARCHAR,
+        xIdSuppliesInventory IN NUMBER
         );
 
     FUNCTION READ_LABORATORY RETURN SYS_REFCURSOR;
 
     PROCEDURE UPDATE_LABORATORY(
-        xName IN VARCHAR,
-        xBattalion IN VARCHAR,
+        xIdLaboratory IN NUMBER,
+        xIdBattalion IN NUMBER,
         xAddress IN VARCHAR
         );
 END PKG_LABORATORY;
@@ -160,11 +154,10 @@ END PKG_LABORATORY;
 /
 
 
-
 --- MEDICATION INVENTORY
 CREATE OR REPLACE PACKAGE PKG_MEDICATION_INVENTORY AS
     -- CREATE
-    PROCEDURE ADD_MEDICATION_INVENTORY(xId IN NUMBER);
+    PROCEDURE ADD_MEDICATION_INVENTORY;
 
     -- READ
     FUNCTION READ_MEDICATION_INVENTORY RETURN SYS_REFCURSOR;

@@ -168,27 +168,17 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
     -- CREATE
     PROCEDURE ADD_MILITARY_UNIT(
         xName IN VARCHAR,
-        xCity IN VARCHAR,
+        xCity IN NUMBER,
         xFullLocation IN VARCHAR) IS
     BEGIN 
-        DECLARE
-            xIdCity NUMBER;
-
-        BEGIN
-            SELECT idCity INTO xIdCity FROM CITY 
-            WHERE name LIKE xCity;
-
-            INSERT INTO MilitaryUnit VALUES (NULL, xName, xIdCity, xFullLocation);
-            COMMIT;
-        
-      
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR LA UNIDAD MILITAR');
-        END;
-
-        
+        INSERT INTO MilitaryUnit VALUES (NULL, xName, xCity, xFullLocation);
+        COMMIT;
+    
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR LA UNIDAD MILITAR');
     END;
 
 
@@ -206,66 +196,39 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
     PROCEDURE UPDATE_MILITARY_UNIT(
         xId IN NUMBER,
         xName IN VARCHAR,
-        xCity IN VARCHAR,
+        xCity IN NUMBER,
         xFullLocation IN VARCHAR
         ) IS  
 
-    BEGIN
-        DECLARE
-            xIdCity NUMBER;
+    BEGIN   
+        UPDATE MilitaryUnit
+        SET 
+            name = xName,
+            city = xCity,
+            fullLocation = xFullLocation
+        WHERE idMilitaryUnit = xId;
+        COMMIT;
 
-        BEGIN
-            SELECT idCity INTO xIdCity FROM CITY 
-            WHERE name LIKE xCity;
-
-
-            UPDATE MilitaryUnit
-            SET 
-                name = xName,
-                city = xIdCity,
-                fullLocation = xFullLocation
-            WHERE idMilitaryUnit = xId;
-            COMMIT;
-
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA UNIDAD MILITAR');
-        END;
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA UNIDAD MILITAR');    
     END;
 
     -- DIVISION
     -- CREATE
     PROCEDURE ADD_DIVISION(
-        xName IN VARCHAR,
-        xCity IN VARCHAR,
-        xFullLocation IN VARCHAR,
+        xMilitaryUnit IN NUMBER,
         xCommander IN VARCHAR,
         xMilitaryForce IN VARCHAR) IS
         BEGIN   
-            DECLARE
-                lastId NUMBER; 
-                xIdCity NUMBER;
-                  
-            BEGIN
-                SELECT idCity INTO xIdCity FROM CITY 
-                WHERE name LIKE xCity;
-
-                INSERT INTO MilitaryUnit VALUES (NULL, xName, xIdCity, xFullLocation);
-
-
-                SELECT idMilitaryUnit INTO lastId FROM MilitaryUnit
-                WHERE ROWNUM = 1
-                ORDER BY idMilitaryUnit DESC;
-
-                INSERT INTO Division VALUES (lastId, xCommander, xMilitaryForce);
-                COMMIT;           
-            
-                EXCEPTION 
-                WHEN OTHERS THEN 
-                    ROLLBACK;
-                    RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR LA DIVISIÓN');
-            END;
+            INSERT INTO Division VALUES (xMilitaryUnit, xCommander, xMilitaryForce);
+            COMMIT;           
+        
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR LA DIVISIÓN');     
         END;
     
     
@@ -281,68 +244,41 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
 
     -- UPDATE
     PROCEDURE UPDATE_DIVISION(
-        xName IN VARCHAR,
+        xId IN NUMBER,
         xCommander IN VARCHAR,
         xMilitaryForce IN VARCHAR
         ) IS  
 
     BEGIN
-        DECLARE
-            xId NUMBER;
-        BEGIN
-            SELECT idMilitaryUnit INTO xId FROM MILITARYUNIT
-            WHERE name LIKE xName;
+        UPDATE DIVISION
+            SET 
+                commander = xCommander,
+                militaryForce = xMilitaryForce
+        WHERE idDivision = xId;
+        COMMIT;
 
-            UPDATE DIVISION
-                SET 
-                    commander = xCommander,
-                    militaryForce = xMilitaryForce
-            WHERE idDivision = xId;
-            COMMIT;
-
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA DIVISION');
-        END;
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA DIVISION'); 
     END;
 
     -- BRIGADE
     -- CREATE
     PROCEDURE ADD_BRIGADE(
-        xName IN VARCHAR,
-        xCity IN VARCHAR,
-        xFullLocation IN VARCHAR,
+        xMilitaryUnit IN NUMBER,
         xCommander IN VARCHAR,
-        xDivision IN VARCHAR,
+        xDivision IN NUMBER,
         xMilitaryForce IN VARCHAR) IS
-        BEGIN   
-            DECLARE
-                lastId NUMBER; 
-                xIdCity NUMBER;
-                xIdDivision NUMBER;
-                  
-            BEGIN
-                SELECT idCity INTO xIdCity FROM CITY 
-                WHERE name LIKE xCity;
-
-                SELECT idMilitaryUnit INTO xIdDivision FROM MILITARYUNIT
-                WHERE name LIKE xDivision;
-
-                INSERT INTO MilitaryUnit VALUES (NULL, xName, xIdCity, xFullLocation);               
-
-                SELECT idMilitaryUnit INTO lastId FROM MilitaryUnit
-                WHERE ROWNUM = 1
-                ORDER BY idMilitaryUnit DESC;
-
-                INSERT INTO Brigade VALUES (lastId, xCommander, xMilitaryForce,xIdDivision);
-                COMMIT;           
+        BEGIN  
+            INSERT INTO Brigade VALUES (xMilitaryUnit, xCommander, xMilitaryForce,xDivision);
+            COMMIT;           
+        
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR LA BRIGADA');
             
-                EXCEPTION 
-                WHEN OTHERS THEN 
-                    ROLLBACK;
-                    RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR LA BRIGADA');
-            END;
         END;
     
     
@@ -358,75 +294,43 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
 
     -- UPDATE
     PROCEDURE UPDATE_BRIGADE(
-        xName IN VARCHAR,
+        xId IN NUMBER,
         xCommander IN VARCHAR,
-        xDivision IN VARCHAR,
+        xIdDivision IN NUMBER,
         xMilitaryForce IN VARCHAR
         ) IS  
 
     BEGIN
-        DECLARE
-            xId NUMBER;
-            xIdDivision NUMBER;
-        BEGIN
-            SELECT idMilitaryUnit INTO xId FROM MILITARYUNIT
-            WHERE name LIKE xName;
+        UPDATE BRIGADE
+            SET 
+                commander = xCommander,
+                militaryForce = xMilitaryForce,
+                idDivision = xIdDivision
+        WHERE idBrigade = xId;
+        COMMIT;
 
-            SELECT idMilitaryUnit INTO xIdDivision FROM MILITARYUNIT
-                WHERE name LIKE xDivision;
-
-            UPDATE BRIGADE
-                SET 
-                    commander = xCommander,
-                    militaryForce = xMilitaryForce,
-                    idDivision = xIdDivision
-            WHERE idBrigade = xId;
-            COMMIT;
-
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA BRIGADA');
-        END;
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA BRIGADA');
     END;
 
 
     -- BATTALION
     -- CREATE
     PROCEDURE ADD_BATTALION(
-        xName IN VARCHAR,
-        xCity IN VARCHAR,
-        xFullLocation IN VARCHAR,
+        xMilitaryUnit IN NUMBER,
         xCommander IN VARCHAR,
-        xBrigade IN VARCHAR,
+        xBrigade IN NUMBER,
         xMilitaryForce IN VARCHAR) IS
-        BEGIN   
-            DECLARE
-                lastId NUMBER; 
-                xIdCity NUMBER;
-                xIdBrigade NUMBER;
-                  
-            BEGIN
-                SELECT idCity INTO xIdCity FROM CITY 
-                WHERE name LIKE xCity;
-
-                SELECT idMilitaryUnit INTO xIdBrigade FROM MILITARYUNIT
-                WHERE name LIKE xBrigade;
-
-                INSERT INTO MilitaryUnit VALUES (NULL, xName, xIdCity, xFullLocation);               
-
-                SELECT idMilitaryUnit INTO lastId FROM MilitaryUnit
-                WHERE ROWNUM = 1
-                ORDER BY idMilitaryUnit DESC;
-
-                INSERT INTO Battalion VALUES (lastId, xCommander, xMilitaryForce,xIdBrigade);
-                COMMIT;           
-            
-                EXCEPTION 
-                WHEN OTHERS THEN 
-                    ROLLBACK;
-                    RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR EL BATALLÓN');
-            END;
+        BEGIN              
+            INSERT INTO Battalion VALUES (xMilitaryUnit, xCommander, xMilitaryForce, xBrigade);
+            COMMIT;           
+        
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20003,'ERROR AL INSERTAR EL BATALLÓN');
         END;
     
     
@@ -442,36 +346,25 @@ CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
 
     -- UPDATE
     PROCEDURE UPDATE_BATTALION(
-        xName IN VARCHAR,
+        xId IN NUMBER,
         xCommander IN VARCHAR,
-        xBrigade IN VARCHAR,
+        xIdBrigade IN NUMBER,
         xMilitaryForce IN VARCHAR
         ) IS  
 
-    BEGIN
-        DECLARE
-            xId NUMBER;
-            xIdBrigade NUMBER;
-        BEGIN
-            SELECT idMilitaryUnit INTO xId FROM MILITARYUNIT
-            WHERE name LIKE xName;
+    BEGIN 
+        UPDATE BATTALION
+            SET 
+                commander = xCommander,
+                militaryForce = xMilitaryForce,
+                idBrigade = xIdBrigade
+        WHERE idBattalion = xId;
+        COMMIT;
 
-            SELECT idMilitaryUnit INTO xIdBrigade FROM MILITARYUNIT
-                WHERE name LIKE xBrigade;
-
-            UPDATE BATTALION
-                SET 
-                    commander = xCommander,
-                    militaryForce = xMilitaryForce,
-                    idBrigade = xIdBrigade
-            WHERE idBattalion = xId;
-            COMMIT;
-
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL BATALLÓN');
-        END;
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL BATALLÓN');        
     END;
 
 END PKG_MILITARY_UNIT;
@@ -483,36 +376,18 @@ CREATE OR REPLACE PACKAGE BODY PKG_LABORATORY AS
     -- CREATE
     PROCEDURE ADD_LABORATORY(
         xName IN VARCHAR,
-        xCity IN VARCHAR,
-        xBattalion IN VARCHAR,
-        xAddress IN VARCHAR) IS
+        xIdCity IN NUMBER,
+        xIdBattalion IN NUMBER,
+        xAddress IN VARCHAR,
+        xIdSuppliesInventory IN NUMBER) IS
     BEGIN 
-        DECLARE
-            lastId NUMBER;
-            xIdCity NUMBER;
-            xIdBattalion NUMBER;
-
-        BEGIN    
-            INSERT INTO SuppliesInventory VALUES (NULL);
-
-            SELECT idSuppliesInventory INTO lastId FROM SuppliesInventory
-            WHERE ROWNUM = 1
-            ORDER BY idSuppliesInventory DESC;
-
-            SELECT idCity INTO xIdCity FROM CITY 
-            WHERE name LIKE xCity;
-
-            SELECT idMilitaryUnit INTO xIdBattalion FROM MILITARYUNIT
-            WHERE name LIKE xBattalion;
-
-            INSERT INTO Laboratory VALUES (NULL, xName, xAddress, xIdCity, lastId, xIdBattalion);
-            COMMIT;
-      
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL LABORATORIO');
-        END;
+        INSERT INTO Laboratory VALUES (NULL, xName, xAddress, xIdCity, xIdSuppliesInventory, xIdBattalion);
+        COMMIT;
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL LABORATORIO');
     END;
 
     -- READ
@@ -528,97 +403,33 @@ CREATE OR REPLACE PACKAGE BODY PKG_LABORATORY AS
 
     -- UPDATE
     PROCEDURE UPDATE_LABORATORY(
-        xName IN VARCHAR,
-        xBattalion IN VARCHAR,
+        xIdLaboratory IN NUMBER,
+        xIdBattalion IN NUMBER,
         xAddress IN VARCHAR
         ) IS  
 
     BEGIN
-        DECLARE
-            xIdLaboratory NUMBER;
-            xIdBattalion NUMBER;
+        UPDATE LABORATORY
+            SET 
+                idBattalion = xIdBattalion,
+                address = xAddress
+            WHERE idLaboratory = xIdLaboratory;
+            COMMIT;
 
-        BEGIN
-            SELECT idLaboratory INTO xIdLaboratory FROM LABORATORY
-            WHERE name LIKE xName;
-
-            SELECT idMilitaryUnit INTO xIdBattalion FROM MILITARYUNIT
-            WHERE name LIKE xBattalion;
-
-            UPDATE LABORATORY
-                SET 
-                    idBattalion = xIdBattalion,
-                    address = xAddress
-                WHERE idLaboratory = xIdLaboratory;
-                COMMIT;
-
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL LABORATORIO');
-        END;
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL LABORATORIO');     
     END;
 
 END PKG_LABORATORY;
 
 /
 
--- CITY
-CREATE OR REPLACE PACKAGE BODY PKG_CITY AS
-    -- CREATE
-    PROCEDURE ADD_CITY(
-        xName IN VARCHAR,
-        xDepartment IN VARCHAR) IS
-    BEGIN  
-        INSERT INTO City VALUES (NULL, xName, xDepartment);
-        COMMIT;
-    
-        EXCEPTION 
-        WHEN OTHERS THEN 
-            ROLLBACK;
-            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA CIUDAD');     
-    END;
-
-    -- READ
-     FUNCTION READ_CITY RETURN SYS_REFCURSOR
-      IS INF_CITY SYS_REFCURSOR;
-    BEGIN
-        OPEN INF_CITY FOR
-            SELECT *
-            FROM CITY;
-        RETURN INF_CITY ;
-    END;
-    
-
-    -- UPDATE
-    PROCEDURE UPDATE_CITY(
-        xIdCity IN NUMBER,
-        xName IN VARCHAR,
-        xDepartment IN VARCHAR
-        ) IS  
-
-    BEGIN
-        UPDATE CITY
-            SET 
-                name = xName,
-                department = xDepartment
-            WHERE idCity = xIdCity;
-            COMMIT;
-
-        EXCEPTION 
-        WHEN OTHERS THEN 
-            ROLLBACK;
-            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA CIUDAD');      
-    END;
-
-END PKG_CITY;
-
-/
-
 -- MEDICATION INVENTORY
 CREATE OR REPLACE PACKAGE BODY PKG_MEDICATION_INVENTORY AS
     -- CREATE
-    PROCEDURE ADD_MEDICATION_INVENTORY(xId IN NUMBER) IS
+    PROCEDURE ADD_MEDICATION_INVENTORY IS
     BEGIN 
         INSERT INTO MedicationInventory VALUES (null);
         COMMIT;
