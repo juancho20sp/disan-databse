@@ -855,7 +855,7 @@ CREATE OR REPLACE PACKAGE BODY PKG_SPECIALTY AS
             RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA ESPECIALIDAD');
     END;
 
-   -- READ SPECIFIC PATIENT
+   -- READ ALL SPECIALTIES
     FUNCTION READ_SPECIALTIES RETURN SYS_REFCURSOR 
     IS INF_SPECIALTIES SYS_REFCURSOR;
     BEGIN
@@ -865,6 +865,26 @@ CREATE OR REPLACE PACKAGE BODY PKG_SPECIALTY AS
             ORDER BY idSpeciality;
         RETURN INF_SPECIALTIES ;
     END;
+
+
+    -- UPDATE
+     PROCEDURE UPDATE_SPECIALTY(
+        xIdSpeciality IN NUMBER,
+        xName IN VARCHAR
+        ) IS    
+    BEGIN
+        UPDATE Speciality
+        SET
+            name = xName
+        WHERE idSpeciality = xIdSpeciality;
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR LA ESPECIALIDAD'); 
+    END;
+
 
     
 END PKG_SPECIALTY;
@@ -879,9 +899,7 @@ CREATE OR REPLACE PACKAGE BODY PKG_DOCTOR AS
         xDocNum IN NUMBER,
         xMilitaryForce IN VARCHAR,
         xIdSpeciality IN NUMBER) IS
-    BEGIN        
-        INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
-
+    BEGIN 
         INSERT INTO DOCTOR VALUES (xDocType, xDocNum, xMilitaryForce);
 
         INSERT INTO DoctorSpeciality VALUES (xDocType, xDocNum, xIdSpeciality);
