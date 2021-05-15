@@ -1,6 +1,7 @@
 -- CLINICAL HISTORY
 CREATE OR REPLACE VIEW V_CLINICAL_HISTORY AS
     SELECT 
+    ClinicalHistory.idClinicalHistory AS ID_CLINICAL_HISTORY,
     ClinicalHistory.documentType AS PATIENT_DOC_TYPE,
     ClinicalHistory.documentNumber AS PATIENT_DOC_NUMBER,
     PROCEDURES.name AS PROCEDURE,
@@ -10,10 +11,10 @@ CREATE OR REPLACE VIEW V_CLINICAL_HISTORY AS
     APPOINTMENT.dateAppointment AS APP_DATE
     FROM
     ClinicalHistory
-    JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
-    JOIN DISEASE ON BACKGROUND.idBackground = DISEASE.idBackground
-    JOIN PROCEDURES ON ClinicalHistory.idClinicalHistory = PROCEDURES.idClinicalHistory
-    JOIN APPOINTMENT ON ClinicalHistory.idClinicalHistory = APPOINTMENT.idClinicalHistory
+    LEFT JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
+    LEFT JOIN DISEASE ON BACKGROUND.idBackground = DISEASE.idBackground
+    LEFT JOIN PROCEDURES ON ClinicalHistory.idClinicalHistory = PROCEDURES.idClinicalHistory
+    LEFT JOIN APPOINTMENT ON ClinicalHistory.idClinicalHistory = APPOINTMENT.idClinicalHistory
     ORDER BY ClinicalHistory.documentType, ClinicalHistory.documentNumber;
 
 -- BACKGROUND DISEASE
@@ -314,6 +315,7 @@ CREATE OR REPLACE VIEW V_BACKGROUND_PROCEDURE AS
  -- PROCEDURE  
 CREATE OR REPLACE VIEW V_PROCEDURES AS 
     SELECT 
+    PROCEDURES.idProcedure AS ID_PROCEDURE,
     PROCEDURES.name AS PROCEDURE,
     PROCEDURES.dateProcedure AS DATE_PROCEDURE,
     HOSPITAL.name AS HOSPITAL,
@@ -331,12 +333,12 @@ CREATE OR REPLACE VIEW V_PROCEDURES AS
     FROM PROCEDURES    
     FULL JOIN ClinicalHistory ON ClinicalHistory.idClinicalHistory = PROCEDURES.idClinicalHistory
     FULL JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
-    JOIN PERSON ON ClinicalHistory.documentType = PERSON.documentType AND ClinicalHistory.documentNumber = PERSON.documentNumber
-    JOIN ProcedureDoctor ON PROCEDURES.idProcedure = ProcedureDoctor.idProcedure
-    JOIN PERSON DOCTOR ON ProcedureDoctor.documentType = DOCTOR.documentType AND ProcedureDoctor.documentNumber = DOCTOR.documentNumber
-    JOIN HOSPITAL ON PROCEDURES.idHospital = HOSPITAL.idHospital
-    JOIN MANAGEMENTPLAN ON PROCEDURES.idManagementPlan = ManagementPlan.idManagementPlan
-    JOIN MEDICINES ON MEDICINES.idManagementPlan = PROCEDURES.idManagementPlan
+    LEFT JOIN PERSON ON ClinicalHistory.documentType = PERSON.documentType AND ClinicalHistory.documentNumber = PERSON.documentNumber
+    LEFT JOIN ProcedureDoctor ON PROCEDURES.idProcedure = ProcedureDoctor.idProcedure
+    LEFT JOIN PERSON DOCTOR ON ProcedureDoctor.documentType = DOCTOR.documentType AND ProcedureDoctor.documentNumber = DOCTOR.documentNumber
+    LEFT JOIN HOSPITAL ON PROCEDURES.idHospital = HOSPITAL.idHospital
+    LEFT JOIN MANAGEMENTPLAN ON PROCEDURES.idManagementPlan = ManagementPlan.idManagementPlan
+    LEFT JOIN MEDICINES ON MEDICINES.idManagementPlan = PROCEDURES.idManagementPlan
     ORDER BY PROCEDURES.idProcedure;
 
 

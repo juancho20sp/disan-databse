@@ -458,6 +458,86 @@ END PKG_APPOINTMENT;
 
 /
 
+--- DISEASE
+CREATE OR REPLACE PACKAGE PKG_DISEASE AS
+  -- CREATE
+    PROCEDURE ADD_DISEASE (
+        xName IN VARCHAR,
+        xDescription IN VARCHAR
+        );
+
+    -- READ
+    FUNCTION READ_DISEASES RETURN SYS_REFCURSOR; 
+ 
+END PKG_DISEASE;
+
+/
+
+--- PROCEDURE
+CREATE OR REPLACE PACKAGE PKG_PROCEDURE AS
+  -- CREATE
+    PROCEDURE ADD_PROCEDURE (
+        xDate IN DATE,
+        xName IN VARCHAR,
+        xDescription IN VARCHAR,
+        xIdClinicalHistory IN NUMBER,
+        xIdHospital IN NUMBER
+        );
+
+
+    -- READ
+    FUNCTION READ_PROCEDURES RETURN SYS_REFCURSOR; 
+ 
+END PKG_PROCEDURE;
+
+/
+
+--- BACKGROUND
+CREATE OR REPLACE PACKAGE PKG_BACKGROUND AS
+  -- CREATE
+    PROCEDURE ADD_BACKGROUND (
+        xIdClinicalHistory IN NUMBER
+        );
+
+
+    -- READ
+    FUNCTION READ_BACKGROUNDS RETURN SYS_REFCURSOR; 
+ 
+END PKG_BACKGROUND;
+
+/
+
+--- MANAGEMENT PLAN
+CREATE OR REPLACE PACKAGE BODY PKG_MANAGEMENT_PLAN AS
+    -- CREATE
+    PROCEDURE ADD_MANAGEMENT_PLAN(
+        xInstructions IN VARCHAR
+        ) IS
+    BEGIN 
+        INSERT INTO ManagementPlan VALUES (NULL, xInstructions);
+        COMMIT;
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PLAN DE MANEJO');   
+    END;
+
+    -- READ
+    FUNCTION READ_MANAGEMENT_PLAN RETURN SYS_REFCURSOR 
+    IS INF_MANAGEMENT SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_MANAGEMENT FOR
+            SELECT *
+            FROM ManagementPlan
+            ORDER BY idManagementPlan;
+        RETURN INF_MANAGEMENT ;
+    END;
+
+END PKG_MANAGEMENT_PLAN;
+
+/
+
 --- CLINICAL HISTORY
 CREATE OR REPLACE PACKAGE PKG_CLINICAL_HISTORY AS
     -- CLINICAL HISTORY
@@ -473,64 +553,61 @@ CREATE OR REPLACE PACKAGE PKG_CLINICAL_HISTORY AS
         xDocNum IN NUMBER
     ) RETURN SYS_REFCURSOR;
 
-    -- BACKGROUND
     -- CREATE
     PROCEDURE ADD_BACKGROUND_DISEASE(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xDescription IN VARCHAR
+        xIdDisease IN NUMBER,
+        xIdBackground IN NUMBER
         );
 
-    -- READ
-    FUNCTION READ_BACKGROUND_DISEASE(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER
-    ) RETURN SYS_REFCURSOR;
+    -- -- READ
+    -- FUNCTION READ_BACKGROUND_DISEASE(
+    --     xDocType IN VARCHAR,
+    --     xDocNum IN NUMBER
+    -- ) RETURN SYS_REFCURSOR;
 
     -- BACKGROUND PROCEDURE
     -- CREATE
-    PROCEDURE ADD_BACKGROUND_PROCEDURE(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xDateProcedure IN DATE,
-        xManagementPlan IN VARCHAR,
-        xHospital IN VARCHAR,
-        xMedName IN VARCHAR,
-        xMedPresentation IN VARCHAR,
-        xMedProducer IN VARCHAR,
-        xMedType IN VARCHAR
-        );
+    -- PROCEDURE ADD_BACKGROUND_PROCEDURE(
+    --     xDocType IN VARCHAR,
+    --     xDocNum IN NUMBER,
+    --     xName IN VARCHAR,
+    --     xDateProcedure IN DATE,
+    --     xManagementPlan IN VARCHAR,
+    --     xHospital IN VARCHAR,
+    --     xMedName IN VARCHAR,
+    --     xMedPresentation IN VARCHAR,
+    --     xMedProducer IN VARCHAR,
+    --     xMedType IN VARCHAR
+    --     );
 
     -- READ
-    FUNCTION READ_BACKGROUND_PROCEDURE(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER
-    ) RETURN SYS_REFCURSOR;
+    -- FUNCTION READ_BACKGROUND_PROCEDURE(
+    --     xDocType IN VARCHAR,
+    --     xDocNum IN NUMBER
+    -- ) RETURN SYS_REFCURSOR;
 
     -- APPOINTMENT
      -- CREATE
-    PROCEDURE ADD_APPOINTMENT(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xAppointmentMotive IN VARCHAR,
-        xDate IN DATE,
-        -- PASAR CC Y # DEL MEDICO
-        xDoctorEmail IN VARCHAR,
-        xHospital IN VARCHAR
-        );
+    -- PROCEDURE ADD_APPOINTMENT(
+    --     xDocType IN VARCHAR,
+    --     xDocNum IN NUMBER,
+    --     xAppointmentMotive IN VARCHAR,
+    --     xDate IN DATE,
+    --     -- PASAR CC Y # DEL MEDICO
+    --     xDoctorEmail IN VARCHAR,
+    --     xHospital IN VARCHAR
+    --     );
 
     -- READ
-    FUNCTION READ_APPOINTMENTS RETURN SYS_REFCURSOR;
+    -- FUNCTION READ_APPOINTMENTS RETURN SYS_REFCURSOR;
 
 
     -- APPOINTMENT NURSE
-    PROCEDURE ADD_APPOINTMENT_NURSE(
+    -- PROCEDURE ADD_APPOINTMENT_NURSE(
         -- PASAR CC Y # DE LA ENFERMERA
-        xNurseEmail IN VARCHAR,
-        xIdAppointment IN NUMBER
-        );
+        -- xNurseEmail IN VARCHAR,
+        -- xIdAppointment IN NUMBER
+        -- );
 
 END PKG_CLINICAL_HISTORY;
 

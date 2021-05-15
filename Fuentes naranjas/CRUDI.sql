@@ -1037,6 +1037,133 @@ END PKG_NURSE;
 
 /
 
+-- DISEASE
+CREATE OR REPLACE PACKAGE BODY PKG_DISEASE AS
+    -- CREATE
+    PROCEDURE ADD_DISEASE(
+        xName IN VARCHAR,
+        xDescription IN VARCHAR
+        ) IS
+    BEGIN 
+        INSERT INTO Disease VALUES (NULL, xName, xDescription, NULL);
+        COMMIT;
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA ENFERMEDAD');   
+    END;
+
+    -- READ
+    FUNCTION READ_DISEASES RETURN SYS_REFCURSOR 
+    IS INF_DISEASE SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_DISEASE FOR
+            SELECT *
+            FROM Disease
+            ORDER BY idDisease;
+        RETURN INF_DISEASE ;
+    END;
+
+END PKG_DISEASE;
+
+/
+
+-- PROCEDURE
+CREATE OR REPLACE PACKAGE BODY PKG_PROCEDURE AS
+    -- CREATE
+    PROCEDURE ADD_PROCEDURE(
+        xDate IN DATE,
+        xName IN VARCHAR,
+        xDescription IN VARCHAR,
+        xIdClinicalHistory IN NUMBER,
+        xIdHospital IN NUMBER
+        ) IS
+    BEGIN 
+        INSERT INTO Procedures VALUES (NULL, xName, xDate, NULL, NULL, xIdClinicalHistory, xIdHospital);
+        COMMIT;
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PROCEDIMIENTO');   
+    END;
+
+    -- READ
+    FUNCTION READ_PROCEDURES RETURN SYS_REFCURSOR 
+    IS INF_PROCEDURES SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_PROCEDURES FOR
+            SELECT *
+            FROM V_PROCEDURES;
+        RETURN INF_PROCEDURES ;
+    END;
+
+END PKG_PROCEDURE;
+
+/
+
+-- BACKGROUND
+CREATE OR REPLACE PACKAGE BODY PKG_BACKGROUND AS
+    -- CREATE
+    PROCEDURE ADD_BACKGROUND(
+        xIdClinicalHistory IN NUMBER
+        ) IS
+    BEGIN 
+        INSERT INTO Background VALUES (NULL, xIdClinicalHistory);
+        COMMIT;
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL CONTENEDOR DE ANTECEDENTES');   
+    END;
+
+    -- READ
+    FUNCTION READ_BACKGROUNDS RETURN SYS_REFCURSOR 
+    IS INF_BACKGROUNDS SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_BACKGROUNDS FOR
+            SELECT *
+            FROM V_BACKGROUND;
+        RETURN INF_BACKGROUNDS ;
+    END;
+
+END PKG_BACKGROUND;
+
+/
+
+-- MANAGEMENT PLAN
+CREATE OR REPLACE PACKAGE BODY PKG_MANAGEMENT_PLAN AS
+    -- CREATE
+    PROCEDURE ADD_MANAGEMENT_PLAN(
+        xInstructions IN VARCHAR
+        ) IS
+    BEGIN 
+        INSERT INTO ManagementPlan VALUES (NULL, xInstructions);
+        COMMIT;
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PLAN DE MANEJO');   
+    END;
+
+    -- READ
+    FUNCTION READ_MANAGEMENT_PLAN RETURN SYS_REFCURSOR 
+    IS INF_MANAGEMENT SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_MANAGEMENT FOR
+            SELECT *
+            FROM ManagementPlan
+            ORDER BY idManagementPlan;
+        RETURN INF_MANAGEMENT ;
+    END;
+
+END PKG_MANAGEMENT_PLAN;
+
+/
+
 -- CLINICAL HISTORY
 CREATE OR REPLACE PACKAGE BODY PKG_CLINICAL_HISTORY AS
     -- CLINICAL HISTORY
@@ -1052,13 +1179,9 @@ CREATE OR REPLACE PACKAGE BODY PKG_CLINICAL_HISTORY AS
             INSERT INTO ClinicalHistory VALUES (NULL, xDocType, xDocNum);
 
             SELECT idClinicalHistory INTO xIdClinicalHistory FROM ClinicalHistory
-           -- WHERE ROWNUM = 1
-            --ORDER BY idClinicalHistory DESC;
             WHERE documentType = xDocType AND documentNumber = xDocNum;
 
-            
-
-            INSERT INTO Background VALUES (NULL, xIdClinicalHistory);
+            INSERT INTO Background VALUES (xIdClinicalHistory, xIdClinicalHistory);
             COMMIT;
       
             EXCEPTION 
@@ -1082,222 +1205,209 @@ CREATE OR REPLACE PACKAGE BODY PKG_CLINICAL_HISTORY AS
         RETURN INF_CLINICAL_HISTORY ;
     END;
 
+
     -- BACKGROUND DISEASE
-    -- CREATE
     PROCEDURE ADD_BACKGROUND_DISEASE(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xDescription IN VARCHAR
+        xIdDisease IN NUMBER,
+        xIdBackground IN NUMBER
         ) IS
     BEGIN 
-        DECLARE
-            xIdClinicalHistory NUMBER;
-            xIdBackground NUMBER;
-
-        BEGIN
-            SELECT idClinicalHistory INTO xIdClinicalHistory FROM
-            ClinicalHistory 
-            WHERE ROWNUM = 1 AND
-            documentType = xDocType AND documentNumber = xDocNum;
-
-            SELECT idBackground INTO xIdBackground FROM Background
-            WHERE idClinicalHistory = xIdClinicalHistory;
-
-            INSERT INTO Disease VALUES (NULL, xName, xDescription, xIdBackground);
-            COMMIT;
-      
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ANTECEDENTE MÉDICO');
-        END;
+        UPDATE Disease
+        SET 
+            idBackground = xIdBackground 
+        WHERE idDisease = xIdDisease;
+        COMMIT;
+    
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ANTECEDENTE MÉDICO');
     END;
 
-    -- READ
-    FUNCTION READ_BACKGROUND_DISEASE(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER
-    ) RETURN SYS_REFCURSOR 
-    IS INF_BACKGROUND_DISEASE SYS_REFCURSOR;
-    BEGIN
-        OPEN INF_BACKGROUND_DISEASE FOR
-            SELECT *
-            FROM V_BACKGROUND_DISEASE
-            WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
-        RETURN INF_BACKGROUND_DISEASE ;
-    END;
+    -- -- READ
+    -- FUNCTION READ_BACKGROUND_DISEASE(
+    --     xDocType IN VARCHAR,
+    --     xDocNum IN NUMBER
+    -- ) RETURN SYS_REFCURSOR 
+    -- IS INF_BACKGROUND_DISEASE SYS_REFCURSOR;
+    -- BEGIN
+    --     OPEN INF_BACKGROUND_DISEASE FOR
+    --         SELECT *
+    --         FROM V_BACKGROUND_DISEASE
+    --         WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
+    --     RETURN INF_BACKGROUND_DISEASE ;
+    -- END;
 
 
-    -- BACKGROUND PROCEDURE
-    -- CREATE
-    PROCEDURE ADD_BACKGROUND_PROCEDURE(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xDateProcedure IN DATE,
-        xManagementPlan IN VARCHAR,
-        xHospital IN VARCHAR,
-        xMedName IN VARCHAR,
-        xMedPresentation IN VARCHAR,
-        xMedProducer IN VARCHAR,
-        xMedType IN VARCHAR
-        ) IS
-    BEGIN 
-        DECLARE
-            xIdClinicalHistory NUMBER;
-            xIdBackground NUMBER;
-            xIdManagementPlan NUMBER;
-            xIdHospital NUMBER;
-            xIdMedicationInventory NUMBER;
-            xIdMedicationType NUMBER;
+    -- -- BACKGROUND PROCEDURE
+    -- -- CREATE
+    -- PROCEDURE ADD_BACKGROUND_PROCEDURE(
+    --     xDocType IN VARCHAR,
+    --     xDocNum IN NUMBER,
+    --     xName IN VARCHAR,
+    --     xDateProcedure IN DATE,
+    --     xManagementPlan IN VARCHAR,
+    --     xHospital IN VARCHAR,
+    --     xMedName IN VARCHAR,
+    --     xMedPresentation IN VARCHAR,
+    --     xMedProducer IN VARCHAR,
+    --     xMedType IN VARCHAR
+    --     ) IS
+    -- BEGIN 
+    --     DECLARE
+    --         xIdClinicalHistory NUMBER;
+    --         xIdBackground NUMBER;
+    --         xIdManagementPlan NUMBER;
+    --         xIdHospital NUMBER;
+    --         xIdMedicationInventory NUMBER;
+    --         xIdMedicationType NUMBER;
 
-        BEGIN
-            SELECT idMedicationType INTO xIdMedicationType FROM MedicationType
-            WHERE name LIKE xMedType;
+    --     BEGIN
+    --         SELECT idMedicationType INTO xIdMedicationType FROM MedicationType
+    --         WHERE name LIKE xMedType;
 
-            SELECT idHospital INTO xIdHospital FROM HOSPITAL
-            WHERE name LIKE xHospital;
+    --         SELECT idHospital INTO xIdHospital FROM HOSPITAL
+    --         WHERE name LIKE xHospital;
 
-            SELECT idMedicationInventory INTO xIdMedicationInventory FROM HOSPITAL
-            WHERE name LIKE xHospital;
+    --         SELECT idMedicationInventory INTO xIdMedicationInventory FROM HOSPITAL
+    --         WHERE name LIKE xHospital;
 
-            INSERT INTO ManagementPlan VALUES(NULL, xManagementPlan);
+    --         INSERT INTO ManagementPlan VALUES(NULL, xManagementPlan);
 
-            SELECT idManagementPlan INTO xIdManagementPlan FROM ManagementPlan
-            WHERE ROWNUM = 1
-            ORDER BY idManagementPlan DESC;
+    --         SELECT idManagementPlan INTO xIdManagementPlan FROM ManagementPlan
+    --         WHERE ROWNUM = 1
+    --         ORDER BY idManagementPlan DESC;
 
-            INSERT INTO Medicines VALUES(NULL, xMedName, xMedPresentation, xMedProducer, xIdManagementPlan, xIdMedicationType, xIdMedicationInventory);
+    --         INSERT INTO Medicines VALUES(NULL, xMedName, xMedPresentation, xMedProducer, xIdManagementPlan, xIdMedicationType, xIdMedicationInventory);
             
-            SELECT idClinicalHistory INTO xIdClinicalHistory FROM
-            ClinicalHistory 
-            WHERE ROWNUM = 1 AND
-            documentType = xDocType AND documentNumber = xDocNum;
+    --         SELECT idClinicalHistory INTO xIdClinicalHistory FROM
+    --         ClinicalHistory 
+    --         WHERE ROWNUM = 1 AND
+    --         documentType = xDocType AND documentNumber = xDocNum;
 
-            SELECT idBackground INTO xIdBackground FROM Background
-            WHERE idClinicalHistory = xIdClinicalHistory;
+    --         SELECT idBackground INTO xIdBackground FROM Background
+    --         WHERE idClinicalHistory = xIdClinicalHistory;
 
-            INSERT INTO Procedures VALUES (NULL, xName, xDateProcedure, xIdBackground, xIdManagementPlan, xIdClinicalHistory, xIdHospital);
-            COMMIT;
+    --         INSERT INTO Procedures VALUES (NULL, xName, xDateProcedure, xIdBackground, xIdManagementPlan, xIdClinicalHistory, xIdHospital);
+    --         COMMIT;
 
 
       
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ANTECEDENTE QUIÚRGICO');
-        END;
-    END;
+    --         EXCEPTION 
+    --         WHEN OTHERS THEN 
+    --             ROLLBACK;
+    --             RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ANTECEDENTE QUIÚRGICO');
+    --     END;
+    -- END;
 
-    -- READ
-    FUNCTION READ_BACKGROUND_PROCEDURE(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER
-    ) RETURN SYS_REFCURSOR 
-    IS INF_BACKGROUND_PROCEDURE SYS_REFCURSOR;
-    BEGIN
-        OPEN INF_BACKGROUND_PROCEDURE FOR
-            SELECT *
-            FROM V_BACKGROUND_PROCEDURE
-            WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
-        RETURN INF_BACKGROUND_PROCEDURE ;
-    END;
+    -- -- READ
+    -- FUNCTION READ_BACKGROUND_PROCEDURE(
+    --     xDocType IN VARCHAR,
+    --     xDocNum IN NUMBER
+    -- ) RETURN SYS_REFCURSOR 
+    -- IS INF_BACKGROUND_PROCEDURE SYS_REFCURSOR;
+    -- BEGIN
+    --     OPEN INF_BACKGROUND_PROCEDURE FOR
+    --         SELECT *
+    --         FROM V_BACKGROUND_PROCEDURE
+    --         WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
+    --     RETURN INF_BACKGROUND_PROCEDURE ;
+    -- END;
 
 
-    -- APPOINTMENT
-    -- CREATE
-    PROCEDURE ADD_APPOINTMENT(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xAppointmentMotive IN VARCHAR,
-        xDate IN DATE,
-        xDoctorEmail IN VARCHAR,
-        xHospital IN VARCHAR
-        ) IS
-    BEGIN 
-        DECLARE
-            xIdClinicalHistory NUMBER;
-            xIdHospital NUMBER;
-            xDoctorDocType VARCHAR(2);
-            xDoctorDocNumber NUMBER;
-            xIdAppointment NUMBER;
-        BEGIN
-            SELECT documentType INTO xDoctorDocType FROM PERSON
-            WHERE email LIKE xDoctorEmail;
+    -- -- APPOINTMENT
+    -- -- CREATE
+    -- PROCEDURE ADD_APPOINTMENT(
+    --     xDocType IN VARCHAR,
+    --     xDocNum IN NUMBER,
+    --     xAppointmentMotive IN VARCHAR,
+    --     xDate IN DATE,
+    --     xDoctorEmail IN VARCHAR,
+    --     xHospital IN VARCHAR
+    --     ) IS
+    -- BEGIN 
+    --     DECLARE
+    --         xIdClinicalHistory NUMBER;
+    --         xIdHospital NUMBER;
+    --         xDoctorDocType VARCHAR(2);
+    --         xDoctorDocNumber NUMBER;
+    --         xIdAppointment NUMBER;
+    --     BEGIN
+    --         SELECT documentType INTO xDoctorDocType FROM PERSON
+    --         WHERE email LIKE xDoctorEmail;
 
-            SELECT documentNumber INTO xDoctorDocNumber FROM PERSON
-            WHERE email LIKE xDoctorEmail;
+    --         SELECT documentNumber INTO xDoctorDocNumber FROM PERSON
+    --         WHERE email LIKE xDoctorEmail;
 
-            SELECT idHospital INTO xIdHospital FROM HOSPITAL
-            WHERE name LIKE xHospital;
+    --         SELECT idHospital INTO xIdHospital FROM HOSPITAL
+    --         WHERE name LIKE xHospital;
 
-            SELECT idClinicalHistory INTO xIdClinicalHistory FROM
-            ClinicalHistory 
-            WHERE ROWNUM = 1 AND
-            documentType = xDocType AND documentNumber = xDocNum;
+    --         SELECT idClinicalHistory INTO xIdClinicalHistory FROM
+    --         ClinicalHistory 
+    --         WHERE ROWNUM = 1 AND
+    --         documentType = xDocType AND documentNumber = xDocNum;
 
-            INSERT INTO Appointment VALUES (NULL, xAppointmentMotive, NULL, xDate,  xIdClinicalHistory, NULL, xIdHospital);
+    --         INSERT INTO Appointment VALUES (NULL, xAppointmentMotive, NULL, xDate,  xIdClinicalHistory, NULL, xIdHospital);
             
 
-            SELECT idAppointment INTO xIdAppointment FROM
-            Appointment 
-            WHERE ROWNUM = 1 AND
-            idClinicalHistory = xIdClinicalHistory
-            ORDER BY idAppointment DESC;
+    --         SELECT idAppointment INTO xIdAppointment FROM
+    --         Appointment 
+    --         WHERE ROWNUM = 1 AND
+    --         idClinicalHistory = xIdClinicalHistory
+    --         ORDER BY idAppointment DESC;
 
 
-            INSERT INTO AppointmentDoctor VALUES (xIdAppointment, xDoctorDocType, xDoctorDocNumber);
+    --         INSERT INTO AppointmentDoctor VALUES (xIdAppointment, xDoctorDocType, xDoctorDocNumber);
 
-            COMMIT;
-
-      
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA CITA MÉDICA');
-        END;
-    END;
-
-
-    -- CREATE
-    PROCEDURE ADD_APPOINTMENT_NURSE(
-        xNurseEmail IN VARCHAR,
-        xIdAppointment IN NUMBER
-        ) IS
-    BEGIN 
-        DECLARE
-            xNurseDocType VARCHAR(2);
-            xNurseDocNumber NUMBER;
-        BEGIN
-            SELECT documentType INTO xNurseDocType FROM PERSON
-            WHERE email LIKE xNurseEmail;
-
-            SELECT documentNumber INTO xNurseDocNumber FROM PERSON
-            WHERE email LIKE xNurseEmail;
-
-
-            INSERT INTO AppointmentNurse VALUES (xIdAppointment, xNurseDocType, xNurseDocNumber);
-
-            COMMIT;
+    --         COMMIT;
 
       
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA ENFERMERA EN LA CITA MÉDICA');
-        END;
-    END;
+    --         EXCEPTION 
+    --         WHEN OTHERS THEN 
+    --             ROLLBACK;
+    --             RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA CITA MÉDICA');
+    --     END;
+    -- END;
 
-    -- READ
-    FUNCTION READ_APPOINTMENTS RETURN SYS_REFCURSOR 
-    IS INF_APPOINTMENTS  SYS_REFCURSOR;
-    BEGIN
-        OPEN INF_APPOINTMENTS FOR
-            SELECT *
-            FROM V_APPOINTMENT;
-        RETURN INF_APPOINTMENTS ;
-    END;
+
+    -- -- CREATE
+    -- PROCEDURE ADD_APPOINTMENT_NURSE(
+    --     xNurseEmail IN VARCHAR,
+    --     xIdAppointment IN NUMBER
+    --     ) IS
+    -- BEGIN 
+    --     DECLARE
+    --         xNurseDocType VARCHAR(2);
+    --         xNurseDocNumber NUMBER;
+    --     BEGIN
+    --         SELECT documentType INTO xNurseDocType FROM PERSON
+    --         WHERE email LIKE xNurseEmail;
+
+    --         SELECT documentNumber INTO xNurseDocNumber FROM PERSON
+    --         WHERE email LIKE xNurseEmail;
+
+
+    --         INSERT INTO AppointmentNurse VALUES (xIdAppointment, xNurseDocType, xNurseDocNumber);
+
+    --         COMMIT;
+
+      
+    --         EXCEPTION 
+    --         WHEN OTHERS THEN 
+    --             ROLLBACK;
+    --             RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA ENFERMERA EN LA CITA MÉDICA');
+    --     END;
+    -- END;
+
+    -- -- READ
+    -- FUNCTION READ_APPOINTMENTS RETURN SYS_REFCURSOR 
+    -- IS INF_APPOINTMENTS  SYS_REFCURSOR;
+    -- BEGIN
+    --     OPEN INF_APPOINTMENTS FOR
+    --         SELECT *
+    --         FROM V_APPOINTMENT;
+    --     RETURN INF_APPOINTMENTS ;
+    -- END;
 
 
 END PKG_CLINICAL_HISTORY;
