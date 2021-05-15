@@ -1246,7 +1246,7 @@ CREATE OR REPLACE PACKAGE BODY PKG_APPOINTMENT AS
         xIdAppointment IN NUMBER
         ) IS
     BEGIN
-        INSERT INTO AppointmentNurse VALUES (xIdAppointment, xNurseDocType, xNurseDocNumber);
+        INSERT INTO AppointmentNurse VALUES (xIdAppointment, xDocType, xDocNum);
         COMMIT;
 
     
@@ -1255,6 +1255,42 @@ CREATE OR REPLACE PACKAGE BODY PKG_APPOINTMENT AS
             ROLLBACK;
             RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA ENFERMERA EN LA CITA MÉDICA');
     END;
+
+
+    -- ADD DIAGNOSIS
+    PROCEDURE ADD_DIAGNOSIS(
+        xIdAppointment IN NUMBER,
+        xDiagnosis IN VARCHAR
+        ) IS
+    BEGIN
+        UPDATE Appointment
+            SET diagnosis = xDiagnosis
+        WHERE idAppointment = xIdAppointment;
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL DIAGNÓSTICO EN LA CITA MÉDICA');
+    END;
+
+    -- FINISH APPOINTMENT
+    PROCEDURE FINISH_APPOINTMENT(
+        xIdAppointment IN NUMBER
+        ) IS
+    BEGIN
+        UPDATE Appointment
+            SET active = 0
+        WHERE idAppointment = xIdAppointment;
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL FINALIZAR LA CITA MÉDICA');
+    END;
+
+
 
     -- READ
     FUNCTION READ_APPOINTMENTS RETURN SYS_REFCURSOR 
@@ -1291,6 +1327,20 @@ CREATE OR REPLACE PACKAGE BODY PKG_APPOINTMENT AS
             SELECT *
             FROM V_APPOINTMENT_NURSE
             WHERE NURSE_DOC_TYPE = xDocType AND NURSE_DOC_NUMBER = xDocNum;
+        RETURN INF_APPOINTMENTS ;
+    END;
+
+    -- READ PATIENT APPOINTMENTS
+    FUNCTION READ_PAT_APPOINTMENTS(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR 
+    IS INF_APPOINTMENTS  SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_APPOINTMENTS FOR
+            SELECT *
+            FROM V_APPOINTMENT
+            WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
         RETURN INF_APPOINTMENTS ;
     END;
 

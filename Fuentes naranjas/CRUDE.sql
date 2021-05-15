@@ -575,6 +575,17 @@ CREATE OR REPLACE PACKAGE PKG_APPOINTMENT AS
         xIdAppointment IN NUMBER
         );
 
+    -- ADD DIAGNOSIS
+    PROCEDURE ADD_DIAGNOSIS(
+        xIdAppointment IN NUMBER,
+        xDiagnosis IN VARCHAR
+        );
+
+    -- FINISH APPOINTMENT
+    PROCEDURE ADD_DIAGNOSIS(
+        xIdAppointment IN NUMBER
+        );
+
 
     -- READ
     FUNCTION READ_APPOINTMENTS RETURN SYS_REFCURSOR;
