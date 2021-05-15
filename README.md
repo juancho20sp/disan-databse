@@ -11,6 +11,7 @@ Here you will find all the SQL code used to create the DISAN database. The DBM t
 - Módulo de exámenes (Exams, exams nurse)
 - Módulo de medicinas
 - Agregar enfermeras a las citas y procedimientos
+- Agregar datos XML
 
 - Si una persona es doctor, los tipos de documento válidos son ('CC', 'CE', 'PS')
 - Si una persona es enfermero/a, los tipos de documento válidos son ('CC', 'CE', 'PS')

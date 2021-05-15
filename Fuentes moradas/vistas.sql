@@ -84,6 +84,7 @@ CREATE OR REPLACE VIEW V_LABORATORY AS
 -- APPOINTMENT
 CREATE OR REPLACE VIEW V_APPOINTMENT AS
     SELECT
+    -- AGREGAR DOCUMENTO DEL PACIENTE
     APPOINTMENT.idAppointment AS ID,
     PATIENT.name AS PATIENT_NAME,
     PATIENT.lastname AS PATIENT_LASTNAME,
@@ -101,7 +102,7 @@ CREATE OR REPLACE VIEW V_APPOINTMENT AS
     JOIN HOSPITAL ON APPOINTMENT.idHospital = HOSPITAL.idHospital
     JOIN CITY ON HOSPITAL.idCity = CITY.idCity
     JOIN MILITARYUNIT ON HOSPITAL.idBattalion = MILITARYUNIT.idMilitaryUnit
-    JOIN APPOINTMENTDOCTOR ON APPOINTMENT.idAppointment = AppointmentDoctor.idAppointment
+    FULL JOIN APPOINTMENTDOCTOR ON APPOINTMENT.idAppointment = AppointmentDoctor.idAppointment
     JOIN PERSON ON AppointmentDoctor.documentType = PERSON.documentType AND AppointmentDoctor.documentNumber = PERSON.documentNumber
     JOIN CLINICALHISTORY ON APPOINTMENT.idClinicalHistory = ClinicalHistory.idClinicalHistory
     JOIN PERSON PATIENT ON ClinicalHistory.documentType = PATIENT.documentType AND ClinicalHistory.documentNumber = PATIENT.documentNumber
@@ -303,5 +304,59 @@ CREATE OR REPLACE VIEW V_BACKGROUND_PROCEDURE AS
     ORDER BY ClinicalHistory.documentType, ClinicalHistory.documentNumber;
 
 
-    
+ -- PROCEDURE  
+CREATE OR REPLACE VIEW V_PROCEDURES AS 
+    SELECT 
+    PROCEDURES.name AS PROCEDURE,
+    PROCEDURES.dateProcedure AS DATE_PROCEDURE,
+    HOSPITAL.name AS HOSPITAL,
+    HOSPITAL.address AS ADDRESS,
+    ClinicalHistory.documentType AS PATIENT_DOC_TYPE,
+    ClinicalHistory.documentNumber AS PATIENT_DOC_NUMBER,
+    PERSON.name AS PATIENT_NAME,
+    PERSON.lastname AS PATIENT_LASTNAME,
+    PERSON.email AS PATIENT_EMAIL,
+    MANAGEMENTPLAN.instructions AS MANAGEMENT_PLAN,
+    MEDICINES.commercialName AS MEDICINE_NAME,
+    DOCTOR.name AS DOCTOR_NAME,
+    DOCTOR.lastname AS DOCTOR_LASTNAME,
+    DOCTOR.email AS DOCTOR_EMAIL
+    FROM PROCEDURES    
+    FULL JOIN ClinicalHistory ON ClinicalHistory.idClinicalHistory = PROCEDURES.idClinicalHistory
+    FULL JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
+    JOIN PERSON ON ClinicalHistory.documentType = PERSON.documentType AND ClinicalHistory.documentNumber = PERSON.documentNumber
+    JOIN ProcedureDoctor ON PROCEDURES.idProcedure = ProcedureDoctor.idProcedure
+    JOIN PERSON DOCTOR ON ProcedureDoctor.documentType = DOCTOR.documentType AND ProcedureDoctor.documentNumber = DOCTOR.documentNumber
+    JOIN HOSPITAL ON PROCEDURES.idHospital = HOSPITAL.idHospital
+    JOIN MANAGEMENTPLAN ON PROCEDURES.idManagementPlan = ManagementPlan.idManagementPlan
+    JOIN MEDICINES ON MEDICINES.idManagementPlan = PROCEDURES.idManagementPlan
+    ORDER BY PROCEDURES.idProcedure;
 
+
+ -- PROCEDURE  
+CREATE OR REPLACE VIEW V_NURSE_PROCEDURES AS 
+    SELECT 
+    PROCEDURES.name AS PROCEDURE,
+    PROCEDURES.dateProcedure AS DATE_PROCEDURE,
+    HOSPITAL.name AS HOSPITAL,
+    HOSPITAL.address AS ADDRESS,
+    ClinicalHistory.documentType AS PATIENT_DOC_TYPE,
+    ClinicalHistory.documentNumber AS PATIENT_DOC_NUMBER,
+    PERSON.name AS PATIENT_NAME,
+    PERSON.lastname AS PATIENT_LASTNAME,
+    PERSON.email AS PATIENT_EMAIL,
+    MANAGEMENTPLAN.instructions AS MANAGEMENT_PLAN,
+    MEDICINES.commercialName AS MEDICINE_NAME,
+    NURSE.name AS NURSE_NAME,
+    NURSE.lastname AS NURSE_LASTNAME,
+    NURSE.email AS NURSE_EMAIL
+    FROM PROCEDURES    
+    FULL JOIN ClinicalHistory ON ClinicalHistory.idClinicalHistory = PROCEDURES.idClinicalHistory
+    FULL JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
+    JOIN PERSON ON ClinicalHistory.documentType = PERSON.documentType AND ClinicalHistory.documentNumber = PERSON.documentNumber
+    JOIN ProcedureNurse ON PROCEDURES.idProcedure = ProcedureNurse.idProcedure
+    JOIN PERSON NURSE ON ProcedureNurse.documentType = NURSE.documentType AND ProcedureNurse.documentNumber = NURSE.documentNumber
+    JOIN HOSPITAL ON PROCEDURES.idHospital = HOSPITAL.idHospital
+    JOIN MANAGEMENTPLAN ON PROCEDURES.idManagementPlan = ManagementPlan.idManagementPlan
+    JOIN MEDICINES ON MEDICINES.idManagementPlan = PROCEDURES.idManagementPlan
+    ORDER BY PROCEDURES.idProcedure;

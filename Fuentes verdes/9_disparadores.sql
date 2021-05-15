@@ -206,6 +206,8 @@ FOR EACH ROW
 BEGIN
   SELECT ID_APPOINTMENT.NEXTVAL INTO :NEW.idAppointment FROM DUAL;
 
+  -- NO PUEDEN EXISTIR DOS CITAS A LA MISMA HORA CON EL MISMO MÉDICO
+
   IF  SYSDATE > :new.dateAppointment   THEN 
         RAISE_APPLICATION_ERROR(-20005,'No se puede generar una cita en una fecha anterior a la actual');
     END IF;

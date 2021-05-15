@@ -1,62 +1,3 @@
--- SUPPLY
-CREATE OR REPLACE PACKAGE BODY PKG_SUPPLY AS
-    -- CREATE
-    PROCEDURE ADD_SUPPLY(
-        xName IN VARCHAR,
-        xAmount IN NUMBER,
-        xInventory IN NUMBER
-        ) IS
-    BEGIN 
-        INSERT INTO SUPPLY VALUES (null, xName, xAmount, xInventory);
-        COMMIT;
-      
-        EXCEPTION 
-        WHEN OTHERS THEN 
-            ROLLBACK;
-            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL SUMINISTRO');
-    END;
-
-    -- READ
-     FUNCTION READ_SUPPLY RETURN SYS_REFCURSOR IS INF_SUPPLY SYS_REFCURSOR;
-    BEGIN
-        OPEN INF_SUPPLY FOR
-            SELECT *
-            FROM V_SUPPLIES;
-        RETURN INF_SUPPLY ;
-    END;
-    
-
-    -- UPDATE
-    PROCEDURE UPDATE_SUPPLY(
-        xName IN VARCHAR, 
-        xAmount IN NUMBER,
-         xInventory IN NUMBER
-        ) IS  
-
-    BEGIN
-        DECLARE
-            xId NUMBER;
-        BEGIN
-            SELECT idSupply INTO xId FROM SUPPLY
-                WHERE name LIKE xName;
-                
-
-            UPDATE Supply
-                SET amount = xAmount, idSuppliesInventory = xInventory
-            WHERE idSupply = xId;
-
-            COMMIT;
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL SUMINISTRO');
-        END;
-    END;
-
-END PKG_SUPPLY;
-
-/
-
 -- SUPPLIES INVENTORY
 CREATE OR REPLACE PACKAGE BODY PKG_SUPPLIES_INVENTORY AS
     -- CREATE
@@ -104,6 +45,72 @@ CREATE OR REPLACE PACKAGE BODY PKG_SUPPLIES_INVENTORY AS
 END PKG_SUPPLIES_INVENTORY;
 
 /
+
+
+
+-- SUPPLY
+CREATE OR REPLACE PACKAGE BODY PKG_SUPPLY AS
+    -- CREATE
+    PROCEDURE ADD_SUPPLY(
+        xName IN VARCHAR,
+        xAmount IN NUMBER,
+        xInventory IN NUMBER
+        ) IS
+    BEGIN 
+        INSERT INTO SUPPLY VALUES (null, xName, xAmount, xInventory);
+        COMMIT;
+      
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL SUMINISTRO');
+    END;
+
+    -- READ ALL SUPLLIES
+    FUNCTION READ_SUPPLY RETURN SYS_REFCURSOR IS INF_SUPPLY SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_SUPPLY FOR
+            SELECT *
+            FROM V_SUPPLIES;
+        RETURN INF_SUPPLY ;
+    END;
+
+    -- READ SPECIFIC SUPPLIES
+    FUNCTION READ_SPEC_SUPPLY(
+        xName IN VARCHAR
+    ) RETURN SYS_REFCURSOR IS INF_SUPPLY SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_SUPPLY FOR
+            SELECT *
+            FROM V_SUPPLIES
+            WHERE NAME LIKE xName;
+        RETURN INF_SUPPLY ;
+    END;
+    
+
+    -- UPDATE
+    PROCEDURE UPDATE_SUPPLY(
+        xId IN NUMBER, 
+        xAmount IN NUMBER,
+         xInventory IN NUMBER
+        ) IS  
+
+    BEGIN      
+        UPDATE Supply
+            SET amount = xAmount, idSuppliesInventory = xInventory
+        WHERE idSupply = xId;
+
+        COMMIT;
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFCAR EL SUMINISTRO');
+    END;
+
+END PKG_SUPPLY;
+
+/
+
 
 -- MILITARY UNIT
 CREATE OR REPLACE PACKAGE BODY PKG_MILITARY_UNIT AS
@@ -1662,3 +1669,136 @@ CREATE OR REPLACE PACKAGE BODY PKG_APPOINTMENT AS
         RETURN INF_APPOINTMENTS ;
     END;
 END PKG_APPOINTMENT;
+
+/
+
+-- PROCEDURES
+CREATE OR REPLACE PACKAGE BODY PKG_PROCEDURES AS
+    -- CREATE
+    PROCEDURE ADD_PROCEDURE(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xName IN VARCHAR,
+        xDateProcedure IN DATE,
+        xHospital IN VARCHAR,
+        xDoctorEmail IN VARCHAR
+        ) IS
+    BEGIN 
+        DECLARE
+            xIdClinicalHistory NUMBER;
+            xIdHospital NUMBER;
+            xDoctorDocType VARCHAR(2);
+            xDoctorDocNumber NUMBER;   
+            xIdProcedure NUMBER;
+
+        BEGIN
+            SELECT documentType INTO xDoctorDocType FROM PERSON
+            WHERE email LIKE xDoctorEmail;
+
+            SELECT documentNumber INTO xDoctorDocNumber FROM PERSON
+            WHERE email LIKE xDoctorEmail;
+
+            SELECT idHospital INTO xIdHospital FROM HOSPITAL
+            WHERE name LIKE xHospital;
+
+            SELECT idClinicalHistory INTO xIdClinicalHistory FROM
+            ClinicalHistory 
+            WHERE ROWNUM = 1 AND
+            documentType = xDocType AND documentNumber = xDocNum;
+
+            INSERT INTO Procedures VALUES (NULL, xName, xDateProcedure, NULL, NULL, xIdClinicalHistory, xIdHospital);
+
+            SELECT idProcedure INTO xIdProcedure FROM Procedures
+            WHERE ROWNUM = 1 AND name LIKE xName
+            ORDER BY idProcedure DESC;
+
+            INSERT INTO ProcedureDoctor VALUES(xDocType, xDocNum, xIdProcedure);
+            COMMIT;
+      
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PROCEDIMIENTO');
+        END;
+    END;
+
+    -- READ ALL PROCEDURES
+    FUNCTION READ_PROCEDURES RETURN SYS_REFCURSOR 
+    IS INF_PROCEDURES SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_PROCEDURES FOR
+            SELECT *
+            FROM V_PROCEDURES;
+        RETURN INF_PROCEDURES ;
+    END;
+
+    -- READ SPECIFIC PATIENT PROCEDURES
+    FUNCTION READ_PATIENT_PROCEDURES(
+        xEmail IN VARCHAR
+    ) RETURN SYS_REFCURSOR 
+    IS INF_PROCEDURES SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_PROCEDURES FOR
+            SELECT *
+            FROM V_PROCEDURES
+            WHERE PATIENT_EMAIL = xEmail;
+        RETURN INF_PROCEDURES ;
+    END;
+
+
+    -- READ SPECIFIC DOCTOR PROCEDURES
+    FUNCTION READ_DOCTOR_PROCEDURES(
+        xEmail IN VARCHAR
+    ) RETURN SYS_REFCURSOR 
+    IS INF_PROCEDURES SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_PROCEDURES FOR
+            SELECT *
+            FROM V_PROCEDURES
+            WHERE DOCTOR_EMAIL = xEmail;
+        RETURN INF_PROCEDURES ;
+    END;
+
+    -- READ SPECIFIC NURSE PROCEDURES
+    FUNCTION READ_NURSE_PROCEDURES(
+        xEmail IN VARCHAR
+    ) RETURN SYS_REFCURSOR 
+    IS INF_PROCEDURES SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_PROCEDURES FOR
+            SELECT *
+            FROM V_NURSE_PROCEDURES
+            WHERE NURSE_EMAIL = xEmail;
+        RETURN INF_PROCEDURES ;
+    END;
+   
+
+    -- ADD A NURSE TO THE PROCEDURE
+    PROCEDURE ADD_PROCEDURE_NURSE(
+        xNurseEmail IN VARCHAR,
+        xIdProcedure IN NUMBER
+        ) IS
+    BEGIN 
+        DECLARE
+            xNurseDocType VARCHAR(2);
+            xNurseDocNumber NUMBER;
+        BEGIN
+            SELECT documentType INTO xNurseDocType FROM PERSON
+            WHERE email LIKE xNurseEmail;
+
+            SELECT documentNumber INTO xNurseDocNumber FROM PERSON
+            WHERE email LIKE xNurseEmail;
+
+
+            INSERT INTO ProcedureNurse VALUES (xIdProcedure, xNurseDocType, xNurseDocNumber);
+
+            COMMIT;
+
+      
+            EXCEPTION 
+            WHEN OTHERS THEN 
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ENFERMERO EN EL PROCEDIMIENTO');
+        END;
+    END;
+END PKG_PROCEDURES;

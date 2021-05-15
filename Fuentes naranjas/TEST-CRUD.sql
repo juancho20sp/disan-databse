@@ -51,3 +51,20 @@ END;
 
 
 INSERT INTO TEST VALUES('T', 'T');
+
+
+
+PROCEDURE TRANSACTION(inName IN VARCHAR, inLastname IN VARCHAR) AS
+    BEGIN 
+        EXECUTE PKG_SUPPLIES_INVENTORY.ADD_SUPPLIES_INVENTORY(1);
+
+        
+        INSERT INTO TEST VALUES (inName, inLastname);
+        INSERT INTO TEST2 VALUES (inName, inLastname);
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'Error al modificar el camerino.');
+    END;
