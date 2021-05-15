@@ -782,16 +782,9 @@ CREATE OR REPLACE PACKAGE BODY PKG_PATIENT AS
     -- CREATE
     PROCEDURE ADD_PATIENT(
         xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xLastname IN VARCHAR,
-        xGender IN VARCHAR,
-        xBirthdate IN DATE,
-        xEmail IN VARCHAR
+        xDocNum IN NUMBER
         ) IS
-    BEGIN       
-        INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
-
+    BEGIN    
         INSERT INTO Patient VALUES (xDocType, xDocNum, NULL);
         COMMIT;
 
@@ -801,48 +794,80 @@ CREATE OR REPLACE PACKAGE BODY PKG_PATIENT AS
             RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PACIENTE');
     END;
 
-    -- READ PATIENT
-    FUNCTION READ_PATIENT(
+   -- READ SPECIFIC PATIENT
+    FUNCTION READ_SPECIFIC_PATIENT(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER
     ) RETURN SYS_REFCURSOR 
-    IS INF_PATIENT SYS_REFCURSOR;
+    IS INF_SPECIFIC_PATIENT SYS_REFCURSOR;
     BEGIN
-        OPEN INF_PATIENT FOR
+        OPEN INF_SPECIFIC_PATIENT FOR
             SELECT *
             FROM V_PATIENT
             WHERE DOCUMENT_TYPE = xDocType AND DOCUMENT_NUMBER = xDocNum;
-        RETURN INF_PATIENT ;
+        RETURN INF_SPECIFIC_PATIENT ;
     END;
 
-    -- READ PATIENT BACKGROUND PROCEDURES
-    FUNCTION READ_BACK_PROC(
+    -- READ SPECIFIC PATIENT BACKGROUND PROCEDURES
+    FUNCTION READ_PATIENT_BACK_PROC(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER
     ) RETURN SYS_REFCURSOR 
-    IS INF_BACK_PROC SYS_REFCURSOR;
+    IS INF_PATIENT_BACK_PROC SYS_REFCURSOR;
     BEGIN
-        OPEN INF_BACK_PROC FOR
+        OPEN INF_PATIENT_BACK_PROC FOR
             SELECT *
             FROM V_BACKGROUND_PROCEDURE
             WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
-        RETURN INF_BACK_PROC ;
+        RETURN INF_PATIENT_BACK_PROC ;
     END;
 
-    -- READ PATIENT BACKGROUND DISEASES
-    FUNCTION READ_BACK_DIS(
+    -- READ PECIFIC PATIENT BACKGROUND DISEASES
+    FUNCTION READ_PATIENT_BACK_DIS(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER
     ) RETURN SYS_REFCURSOR 
-    IS INF_BACK_DIS SYS_REFCURSOR;
+    IS INF_PATIENT_BACK_DIS SYS_REFCURSOR;
     BEGIN
-        OPEN INF_BACK_DIS FOR
+        OPEN INF_PATIENT_BACK_DIS FOR
             SELECT *
             FROM V_BACKGROUND_DISEASE
             WHERE PATIENT_DOC_TYPE = xDocType AND PATIENT_DOC_NUMBER = xDocNum;
-        RETURN INF_BACK_DIS ;
+        RETURN INF_PATIENT_BACK_DIS ;
     END;
 END PKG_PATIENT;
+
+/
+
+-- SPECIALTY
+CREATE OR REPLACE PACKAGE BODY PKG_SPECIALTY AS
+    -- CREATE
+    PROCEDURE ADD_SPECIALTY(
+        xName IN VARCHAR
+        ) IS
+    BEGIN    
+        INSERT INTO Speciality VALUES (NULL, xName);
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR LA ESPECIALIDAD');
+    END;
+
+   -- READ SPECIFIC PATIENT
+    FUNCTION READ_SPECIALTIES RETURN SYS_REFCURSOR 
+    IS INF_SPECIALTIES SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_SPECIALTIES FOR
+            SELECT *
+            FROM Speciality
+            ORDER BY idSpeciality;
+        RETURN INF_SPECIALTIES ;
+    END;
+
+    
+END PKG_SPECIALTY;
 
 /
 
@@ -852,34 +877,20 @@ CREATE OR REPLACE PACKAGE BODY PKG_DOCTOR AS
     PROCEDURE ADD_DOCTOR(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xLastname IN VARCHAR,
-        xGender IN VARCHAR,
-        xBirthdate IN DATE,
-        xEmail IN VARCHAR,
         xMilitaryForce IN VARCHAR,
-        xSpecialty IN VARCHAR) IS
-    BEGIN 
-        DECLARE
-            xIdSpeciality NUMBER;
+        xIdSpeciality IN NUMBER) IS
+    BEGIN        
+        INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
 
-        BEGIN
-            INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
+        INSERT INTO DOCTOR VALUES (xDocType, xDocNum, xMilitaryForce);
 
-            INSERT INTO DOCTOR VALUES (xDocType, xDocNum, xMilitaryForce);
+        INSERT INTO DoctorSpeciality VALUES (xDocType, xDocNum, xIdSpeciality);
+        COMMIT;
 
-            SELECT idSpeciality INTO xIdSpeciality FROM Speciality
-            WHERE name LIKE xSpecialty;
-
-            INSERT INTO DoctorSpeciality VALUES (xDocType, xDocNum, xIdSpeciality);
-            COMMIT;
-    
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL DOCTOR');
-        END;
-        
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL DOCTOR');
     END;
 
     -- READ ALL DOCTORS

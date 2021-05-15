@@ -24,8 +24,8 @@ CREATE OR REPLACE VIEW V_BACKGROUND_DISEASE AS
     DISEASE.name AS DISEASE
     FROM
     ClinicalHistory
-    JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
-    JOIN DISEASE ON BACKGROUND.idBackground = DISEASE.idBackground
+    LEFT JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
+    LEFT JOIN DISEASE ON BACKGROUND.idBackground = DISEASE.idBackground
     ORDER BY ClinicalHistory.documentType, ClinicalHistory.documentNumber;
 
 -- HOSPITAL
@@ -298,11 +298,11 @@ CREATE OR REPLACE VIEW V_BACKGROUND_PROCEDURE AS
     MEDICINES.commercialName AS MEDICINE_NAME
     FROM
     ClinicalHistory
-    JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
-    JOIN PROCEDURES ON ClinicalHistory.idClinicalHistory = PROCEDURES.idClinicalHistory
-    JOIN HOSPITAL ON PROCEDURES.idHospital = HOSPITAL.idHospital
-    JOIN MANAGEMENTPLAN ON PROCEDURES.idManagementPlan = ManagementPlan.idManagementPlan
-    JOIN MEDICINES ON MEDICINES.idManagementPlan = PROCEDURES.idManagementPlan
+    LEFT JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
+    LEFT JOIN PROCEDURES ON ClinicalHistory.idClinicalHistory = PROCEDURES.idClinicalHistory
+    LEFT JOIN HOSPITAL ON PROCEDURES.idHospital = HOSPITAL.idHospital
+    LEFT JOIN MANAGEMENTPLAN ON PROCEDURES.idManagementPlan = ManagementPlan.idManagementPlan
+    LEFT JOIN MEDICINES ON MEDICINES.idManagementPlan = PROCEDURES.idManagementPlan
     ORDER BY ClinicalHistory.documentType, ClinicalHistory.documentNumber;
 
 
