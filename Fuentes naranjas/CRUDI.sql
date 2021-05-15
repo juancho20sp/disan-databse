@@ -921,29 +921,44 @@ CREATE OR REPLACE PACKAGE BODY PKG_DOCTOR AS
         RETURN INF_DOCTOR ;
     END;
 
-    -- READ SPECIFIC DOCTOR DATA
-     FUNCTION READ_SPECIFIC_DOCTOR(
-        xDoctorEmail IN VARCHAR
+    -- READ DOCTORS BY SPECIALTY
+     FUNCTION READ_DOC_SPECIALTY(
+        xIdSpeciality IN NUMBER
     ) RETURN SYS_REFCURSOR
       IS INF_DOCTOR SYS_REFCURSOR;
     BEGIN
         OPEN INF_DOCTOR FOR
             SELECT *
             FROM V_DOCTOR
-            WHERE EMAIL = xDoctorEmail;
+            WHERE ID_SPECIALTY = xIdSpeciality;
+        RETURN INF_DOCTOR ;
+    END;
+
+    -- READ SPECIFIC DOCTOR DATA
+     FUNCTION READ_SPECIFIC_DOCTOR(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
+    ) RETURN SYS_REFCURSOR
+      IS INF_DOCTOR SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_DOCTOR FOR
+            SELECT *
+            FROM V_DOCTOR
+            WHERE DOCUMENT_TYPE = xDocType AND xDocNum = DOCUMENT_NUMBER;
         RETURN INF_DOCTOR ;
     END;
 
     -- READ DOCTOR APPOINTMENTS
     FUNCTION READ_APPOINTMENTS(
-        xDoctorEmail IN VARCHAR
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
     ) RETURN SYS_REFCURSOR 
     IS INF_APPOINTMENTS  SYS_REFCURSOR;
     BEGIN
         OPEN INF_APPOINTMENTS FOR
             SELECT *
             FROM V_APPOINTMENT_DOCTOR
-            WHERE DOCTOR_EMAIL = xDoctorEmail;
+            WHERE DOCTOR_DOCUMENT_TYPE = xDocType AND xDocNum = DOCTOR_DOCUMENT_NUMBER;
         RETURN INF_APPOINTMENTS ;
     END;
     
@@ -957,34 +972,18 @@ CREATE OR REPLACE PACKAGE BODY PKG_NURSE AS
     PROCEDURE ADD_NURSE(
         xDocType IN VARCHAR,
         xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xLastname IN VARCHAR,
-        xGender IN VARCHAR,
-        xBirthdate IN DATE,
-        xEmail IN VARCHAR,
         xMilitaryForce IN VARCHAR,
-        xSpecialty IN VARCHAR) IS
+        xIdSpeciality IN NUMBER) IS
     BEGIN 
-        DECLARE
-            xIdSpeciality NUMBER;
+        INSERT INTO Nurse VALUES (xDocType, xDocNum, xMilitaryForce);
 
-        BEGIN
-            INSERT INTO Person VALUES (xDocType, xDocNum, xName, xLastname, xGender, xBirthdate, NULL, xEmail, NULL);
+        INSERT INTO NurseSpeciality VALUES (xDocType, xDocNum, xIdSpeciality);
+        COMMIT;
 
-            INSERT INTO Nurse VALUES (xDocType, xDocNum, xMilitaryForce);
-
-            SELECT idSpeciality INTO xIdSpeciality FROM Speciality
-            WHERE name LIKE xSpecialty;
-
-            INSERT INTO NurseSpeciality VALUES (xDocType, xDocNum, xIdSpeciality);
-            COMMIT;
-    
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ENFERMERO');
-        END;
-        
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ENFERMERO');
     END;
 
     -- READ ALL NURSES
@@ -999,28 +998,40 @@ CREATE OR REPLACE PACKAGE BODY PKG_NURSE AS
 
     -- READ SPECIFIC NURSE DATA
      FUNCTION READ_SPECIFIC_NURSE(
-        xNurseEmail IN VARCHAR
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
     ) RETURN SYS_REFCURSOR
       IS INF_NURSE SYS_REFCURSOR;
     BEGIN
         OPEN INF_NURSE FOR
             SELECT *
             FROM V_NURSE
-            WHERE EMAIL = xNurseEmail;
+            WHERE DOCUMENT_TYPE = xDocType AND xDocNum = DOCUMENT_NUMBER;
         RETURN INF_NURSE ;
     END;
 
     -- READ NURSE APPOINTMENTS
     FUNCTION READ_APPOINTMENTS(
-        xNurseEmail IN VARCHAR
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER
     ) RETURN SYS_REFCURSOR 
     IS INF_APPOINTMENTS  SYS_REFCURSOR;
     BEGIN
         OPEN INF_APPOINTMENTS FOR
             SELECT *
             FROM V_APPOINTMENT_NURSE
-            WHERE NURSE_EMAIL = xNurseEmail;
+            WHERE NURSE_DOCUMENT_TYPE = xDocType AND xDocNum = NURSE_DOCUMENT_NUMBER;
         RETURN INF_APPOINTMENTS ;
+    END;
+
+     -- READ ALL DOCTORS
+     FUNCTION READ_ALL_DOCTORS RETURN SYS_REFCURSOR
+      IS INF_DOCTOR SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_DOCTOR FOR
+            SELECT *
+            FROM V_DOCTOR;
+        RETURN INF_DOCTOR ;
     END;
 END PKG_NURSE;
 
