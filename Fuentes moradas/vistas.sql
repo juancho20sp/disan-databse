@@ -339,6 +339,8 @@ CREATE OR REPLACE VIEW V_PROCEDURES AS
     PERSON.email AS PATIENT_EMAIL,
     MANAGEMENTPLAN.instructions AS MANAGEMENT_PLAN,
     MEDICINES.commercialName AS MEDICINE_NAME,
+    DOCTOR.documentType AS DOCTOR_DOC_TYPE,
+    DOCTOR.documentNumber AS DOCTOR_DOC_NUMBER,
     DOCTOR.name AS DOCTOR_NAME,
     DOCTOR.lastname AS DOCTOR_LASTNAME,
     DOCTOR.email AS DOCTOR_EMAIL
@@ -368,16 +370,18 @@ CREATE OR REPLACE VIEW V_NURSE_PROCEDURES AS
     PERSON.email AS PATIENT_EMAIL,
     MANAGEMENTPLAN.instructions AS MANAGEMENT_PLAN,
     MEDICINES.commercialName AS MEDICINE_NAME,
+    NURSE.documentType AS NURSE_DOC_TYPE,
+    NURSE.documentNumber AS NURSE_DOC_NUMBER,
     NURSE.name AS NURSE_NAME,
     NURSE.lastname AS NURSE_LASTNAME,
     NURSE.email AS NURSE_EMAIL
     FROM PROCEDURES    
-    FULL JOIN ClinicalHistory ON ClinicalHistory.idClinicalHistory = PROCEDURES.idClinicalHistory
-    FULL JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
-    JOIN PERSON ON ClinicalHistory.documentType = PERSON.documentType AND ClinicalHistory.documentNumber = PERSON.documentNumber
-    JOIN ProcedureNurse ON PROCEDURES.idProcedure = ProcedureNurse.idProcedure
-    JOIN PERSON NURSE ON ProcedureNurse.documentType = NURSE.documentType AND ProcedureNurse.documentNumber = NURSE.documentNumber
-    JOIN HOSPITAL ON PROCEDURES.idHospital = HOSPITAL.idHospital
-    JOIN MANAGEMENTPLAN ON PROCEDURES.idManagementPlan = ManagementPlan.idManagementPlan
-    JOIN MEDICINES ON MEDICINES.idManagementPlan = PROCEDURES.idManagementPlan
+    LEFT JOIN ClinicalHistory ON ClinicalHistory.idClinicalHistory = PROCEDURES.idClinicalHistory
+    LEFT JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
+    LEFT JOIN PERSON ON ClinicalHistory.documentType = PERSON.documentType AND ClinicalHistory.documentNumber = PERSON.documentNumber
+    LEFT JOIN ProcedureNurse ON PROCEDURES.idProcedure = ProcedureNurse.idProcedure
+    LEFT JOIN PERSON NURSE ON ProcedureNurse.documentType = NURSE.documentType AND ProcedureNurse.documentNumber = NURSE.documentNumber
+    LEFT JOIN HOSPITAL ON PROCEDURES.idHospital = HOSPITAL.idHospital
+    LEFT JOIN MANAGEMENTPLAN ON PROCEDURES.idManagementPlan = ManagementPlan.idManagementPlan
+    LEFT JOIN MEDICINES ON MEDICINES.idManagementPlan = PROCEDURES.idManagementPlan
     ORDER BY PROCEDURES.idProcedure;
