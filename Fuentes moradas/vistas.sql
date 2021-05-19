@@ -418,3 +418,22 @@ CREATE OR REPLACE VIEW V_EXAMS AS
     LEFT JOIN Person ON Person.documentType = ExamsNurse.documentType AND Person.documentNumber = ExamsNurse.documentNumber
     ORDER BY Exams.idExams;  
 
+ -- MEDICINES
+CREATE OR REPLACE VIEW V_MEDICINES AS 
+    SELECT 
+    Medicines.idMedicines AS ID_MEDICINE,
+    Medicines.commercialName AS COMMERCIAL_NAME,
+    Medicines.presentation AS PRESENTATION,
+    Medicines.producer AS PRODUCER,
+    ManagementPlan.instructions AS INSTRUCTIONS,
+    MedicationType.name AS MEDICATION_TYPE,
+    Medicines.idMedicationInventory AS ID_MEDICATION_INVENTORY,
+    MedicationComponents.idMedicationComponent AS ID_MED_COMPONENT,
+    MedicationComponents.name AS MEDICATION_COMPONENT
+    FROM Medicines    
+    LEFT JOIN ManagementPlan ON Medicines.idManagementPlan = ManagementPlan.idManagementPlan
+    LEFT JOIN MedicationType ON Medicines.idMedicationType = MedicationType.idMedicationType
+    FULL JOIN MedicationComponents ON Medicines.idMedicines = MedicationComponents.idMedicines
+    ORDER BY Medicines.idMedicines;  
+
+
