@@ -48,25 +48,29 @@ CREATE OR REPLACE VIEW V_HOSPITAL AS
     ORDER BY idHospital;
     
 
+
+
+
+
 -- MEDICINES
-CREATE OR REPLACE VIEW V_MEDICINES AS
-    SELECT
-    MEDICINES.commercialName AS COMMERCIAL_NAME,
-    MEDICINES.presentation AS PRESENTATION,
-    MEDICINES.producer AS PRODUCER
-    FROM MEDICINES
-    ORDER BY idMedicines;
+-- CREATE OR REPLACE VIEW V_MEDICINES AS
+--     SELECT
+--     MEDICINES.commercialName AS COMMERCIAL_NAME,
+--     MEDICINES.presentation AS PRESENTATION,
+--     MEDICINES.producer AS PRODUCER
+--     FROM MEDICINES
+--     ORDER BY idMedicines;
 
 
 -- SUPPLIES
-CREATE OR REPLACE VIEW V_SUPPLIES AS
-    SELECT
-    SUPPLY.idSupply AS ID,
-    SUPPLY.name AS NAME,
-    SUPPLY.amount AS AMOUNT,
-    SUPPLY.idSuppliesInventory AS INVENTORY
-    FROM SUPPLY
-    ORDER BY idSupply;
+-- CREATE OR REPLACE VIEW V_SUPPLIES AS
+    -- SELECT
+    -- SUPPLY.idSupply AS ID,
+    -- SUPPLY.name AS NAME,
+    -- SUPPLY.amount AS AMOUNT,
+    -- SUPPLY.idSuppliesInventory AS INVENTORY
+    -- FROM SUPPLY
+    -- ORDER BY idSupply;
 
 
 -- LABORATORY
@@ -115,7 +119,7 @@ CREATE OR REPLACE VIEW V_APPOINTMENT AS
     ORDER BY APPOINTMENT.idAppointment;
 
 -- APPOINTMENT DOCTOR
-CREATE OR REPLACE VIEW V_APPOINTMENT_DOCTOR AS
+-- CREATE OR REPLACE VIEW V_APPOINTMENT_DOCTOR AS
     SELECT
     AppointmentDoctor.idAppointment AS ID,
     APPOINTMENT.appointmentMotive AS MOTIVE,
@@ -386,3 +390,31 @@ CREATE OR REPLACE VIEW V_NURSE_PROCEDURES AS
     LEFT JOIN MANAGEMENTPLAN ON PROCEDURES.idManagementPlan = ManagementPlan.idManagementPlan
     LEFT JOIN MEDICINES ON MEDICINES.idManagementPlan = PROCEDURES.idManagementPlan
     ORDER BY PROCEDURES.idProcedure;
+
+ -- EXAMS / LABORATORY  / NURSE
+CREATE OR REPLACE VIEW V_EXAMS AS 
+    SELECT 
+    Exams.idExams AS ID_EXAM,
+    Exams.name AS EXAM_NAME,
+    ManagementPlan.instructions AS INSTRUCTIONS,
+    Laboratory.idLaboratory AS ID_LABORATORY,
+    Laboratory.name AS LABORATORY_NAME,
+    Laboratory.address AS LABORATORY_ADDRESS,
+    Person.documentType AS NURSE_DOC_TYPE,
+    Person.documentNumber AS NURSE_DOC_NUMBER,
+    Person.name AS NURSE_NAME,
+    Person.lastname AS NURSE_LASTNAME,
+    Person.email AS NURSE_EMAIL,
+    City.name AS CITY,
+    MilitaryUnit.name AS BATTALION
+
+    FROM Exams    
+    LEFT JOIN ManagementPlan ON Exams.idManagementPlan = ManagementPlan.idManagementPlan
+    LEFT JOIN ExamsLaboratory ON Exams.idExams = ExamsLaboratory.idExam
+    LEFT JOIN Laboratory ON Laboratory.idLaboratory = ExamsLaboratory.idLaboratory
+    LEFT JOIN CITY ON Laboratory.idCity = City.idCity
+    LEFT JOIN MilitaryUnit ON Laboratory.idBattalion = MilitaryUnit.idMilitaryUnit
+    LEFT JOIN ExamsNurse ON ExamsNurse.idExam = Exams.idExams
+    LEFT JOIN Person ON Person.documentType = ExamsNurse.documentType AND Person.documentNumber = ExamsNurse.documentNumber
+    ORDER BY Exams.idExams;  
+

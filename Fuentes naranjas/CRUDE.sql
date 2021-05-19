@@ -640,6 +640,60 @@ END PKG_CLINICAL_HISTORY;
 
 /
 
--- EXAMENES
+-- EXAMS
+CREATE OR REPLACE PACKAGE PKG_EXAMS AS
+    -- EXAMS
+    PROCEDURE ADD_EXAM(
+        xName IN VARCHAR
+        );
+
+    -- READ ALL EXAMS
+    FUNCTION READ_ALL_EXAMS RETURN SYS_REFCURSOR;
+
+    -- READ SPECIFIC EXAM
+    FUNCTION READ_SPEC_EXAMS(
+        xIdExam IN NUMBER
+    ) RETURN SYS_REFCURSOR;
+
+    -- ADD MANAGEMENT PLAN
+    PROCEDURE ADD_MANAGEMENT_PLAN(
+        xIdExam IN NUMBER,
+        xIdManagementPlan IN NUMBER
+    );
+
+    
+    -- ADD EXAM LABORATORY
+    PROCEDURE ADD_EXAM_LAB(
+        xIdLaboratory IN NUMBER,
+        xIdExam IN NUMBER        
+    );
+
+    -- READ EXAM LABORATORY
+    FUNCTION READ_EXAM_LAB(
+        xIdExam IN NUMBER
+    ) RETURN SYS_REFCURSOR;
+
+    -- UPDATE EXAM LABORATORY
+    PROCEDURE UPDATE_EXAM_LAB(
+        xIdLaboratory IN NUMBER,
+        xIdExam IN NUMBER        
+    );
+
+    -- ADD EXAM NURSE
+    PROCEDURE ADD_EXAM_NURSE(
+        xIdExam IN NUMBER,
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER       
+    );
+
+    -- READ EXAM NURSE
+    FUNCTION READ_EXAM_NURSE(
+        xIdExam IN NUMBER,
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER 
+    ) RETURN SYS_REFCURSOR;
+END PKG_EXAMS;
+
+/
 
 -- MEDICAMENTOS

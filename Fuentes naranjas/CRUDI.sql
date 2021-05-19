@@ -68,8 +68,13 @@ CREATE OR REPLACE PACKAGE BODY PKG_SUPPLY AS
     FUNCTION READ_SUPPLY RETURN SYS_REFCURSOR IS INF_SUPPLY SYS_REFCURSOR;
     BEGIN
         OPEN INF_SUPPLY FOR
-            SELECT *
-            FROM V_SUPPLIES;
+            SELECT
+            SUPPLY.idSupply AS ID,
+            SUPPLY.name AS NAME,
+            SUPPLY.amount AS AMOUNT,
+            SUPPLY.idSuppliesInventory AS INVENTORY
+            FROM SUPPLY
+            ORDER BY idSupply;
         RETURN INF_SUPPLY ;
     END;
 
@@ -79,8 +84,12 @@ CREATE OR REPLACE PACKAGE BODY PKG_SUPPLY AS
     ) RETURN SYS_REFCURSOR IS INF_SUPPLY SYS_REFCURSOR;
     BEGIN
         OPEN INF_SUPPLY FOR
-            SELECT *
-            FROM V_SUPPLIES
+            SELECT
+            SUPPLY.idSupply AS ID,
+            SUPPLY.name AS NAME,
+            SUPPLY.amount AS AMOUNT,
+            SUPPLY.idSuppliesInventory AS INVENTORY
+            FROM SUPPLY
             WHERE NAME LIKE xName;
         RETURN INF_SUPPLY ;
     END;
@@ -957,8 +966,8 @@ CREATE OR REPLACE PACKAGE BODY PKG_DOCTOR AS
     BEGIN
         OPEN INF_APPOINTMENTS FOR
             SELECT *
-            FROM V_APPOINTMENT_DOCTOR
-            WHERE DOCTOR_DOCUMENT_TYPE = xDocType AND xDocNum = DOCTOR_DOCUMENT_NUMBER;
+            FROM V_APPOINTMENT
+            WHERE DOCTOR_DOC_TYPE = xDocType AND xDocNum = DOCTOR_DOC_NUMBER;
         RETURN INF_APPOINTMENTS ;
     END;
     
@@ -1520,133 +1529,287 @@ END PKG_CLINICAL_HISTORY;
 
 /
 
--- PROCEDURES
-CREATE OR REPLACE PACKAGE BODY PKG_PROCEDURES AS
-    -- CREATE
-    PROCEDURE ADD_PROCEDURE(
-        xDocType IN VARCHAR,
-        xDocNum IN NUMBER,
-        xName IN VARCHAR,
-        xDateProcedure IN DATE,
-        xHospital IN VARCHAR,
-        xDoctorEmail IN VARCHAR
-        ) IS
-    BEGIN 
-        DECLARE
-            xIdClinicalHistory NUMBER;
-            xIdHospital NUMBER;
-            xDoctorDocType VARCHAR(2);
-            xDoctorDocNumber NUMBER;   
-            xIdProcedure NUMBER;
+-- -- PROCEDURES
+-- CREATE OR REPLACE PACKAGE BODY PKG_PROCEDURES AS
+--     -- CREATE
+--     PROCEDURE ADD_PROCEDURE(
+--         xDocType IN VARCHAR,
+--         xDocNum IN NUMBER,
+--         xName IN VARCHAR,
+--         xDateProcedure IN DATE,
+--         xHospital IN VARCHAR,
+--         xDoctorEmail IN VARCHAR
+--         ) IS
+--     BEGIN 
+--         DECLARE
+--             xIdClinicalHistory NUMBER;
+--             xIdHospital NUMBER;
+--             xDoctorDocType VARCHAR(2);
+--             xDoctorDocNumber NUMBER;   
+--             xIdProcedure NUMBER;
 
-        BEGIN
-            SELECT documentType INTO xDoctorDocType FROM PERSON
-            WHERE email LIKE xDoctorEmail;
+--         BEGIN
+--             SELECT documentType INTO xDoctorDocType FROM PERSON
+--             WHERE email LIKE xDoctorEmail;
 
-            SELECT documentNumber INTO xDoctorDocNumber FROM PERSON
-            WHERE email LIKE xDoctorEmail;
+--             SELECT documentNumber INTO xDoctorDocNumber FROM PERSON
+--             WHERE email LIKE xDoctorEmail;
 
-            SELECT idHospital INTO xIdHospital FROM HOSPITAL
-            WHERE name LIKE xHospital;
+--             SELECT idHospital INTO xIdHospital FROM HOSPITAL
+--             WHERE name LIKE xHospital;
 
-            SELECT idClinicalHistory INTO xIdClinicalHistory FROM
-            ClinicalHistory 
-            WHERE ROWNUM = 1 AND
-            documentType = xDocType AND documentNumber = xDocNum;
+--             SELECT idClinicalHistory INTO xIdClinicalHistory FROM
+--             ClinicalHistory 
+--             WHERE ROWNUM = 1 AND
+--             documentType = xDocType AND documentNumber = xDocNum;
 
-            INSERT INTO Procedures VALUES (NULL, xName, xDateProcedure, NULL, NULL, xIdClinicalHistory, xIdHospital);
+--             INSERT INTO Procedures VALUES (NULL, xName, xDateProcedure, NULL, NULL, xIdClinicalHistory, xIdHospital);
 
-            SELECT idProcedure INTO xIdProcedure FROM Procedures
-            WHERE ROWNUM = 1 AND name LIKE xName
-            ORDER BY idProcedure DESC;
+--             SELECT idProcedure INTO xIdProcedure FROM Procedures
+--             WHERE ROWNUM = 1 AND name LIKE xName
+--             ORDER BY idProcedure DESC;
 
-            INSERT INTO ProcedureDoctor VALUES(xDocType, xDocNum, xIdProcedure);
-            COMMIT;
+--             INSERT INTO ProcedureDoctor VALUES(xDocType, xDocNum, xIdProcedure);
+--             COMMIT;
       
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PROCEDIMIENTO');
-        END;
-    END;
+--             EXCEPTION 
+--             WHEN OTHERS THEN 
+--                 ROLLBACK;
+--                 RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PROCEDIMIENTO');
+--         END;
+--     END;
 
-    -- READ ALL PROCEDURES
-    FUNCTION READ_PROCEDURES RETURN SYS_REFCURSOR 
-    IS INF_PROCEDURES SYS_REFCURSOR;
-    BEGIN
-        OPEN INF_PROCEDURES FOR
-            SELECT *
-            FROM V_PROCEDURES;
-        RETURN INF_PROCEDURES ;
-    END;
+--     -- READ ALL PROCEDURES
+--     FUNCTION READ_PROCEDURES RETURN SYS_REFCURSOR 
+--     IS INF_PROCEDURES SYS_REFCURSOR;
+--     BEGIN
+--         OPEN INF_PROCEDURES FOR
+--             SELECT *
+--             FROM V_PROCEDURES;
+--         RETURN INF_PROCEDURES ;
+--     END;
 
-    -- READ SPECIFIC PATIENT PROCEDURES
-    FUNCTION READ_PATIENT_PROCEDURES(
-        xEmail IN VARCHAR
-    ) RETURN SYS_REFCURSOR 
-    IS INF_PROCEDURES SYS_REFCURSOR;
-    BEGIN
-        OPEN INF_PROCEDURES FOR
-            SELECT *
-            FROM V_PROCEDURES
-            WHERE PATIENT_EMAIL = xEmail;
-        RETURN INF_PROCEDURES ;
-    END;
+--     -- READ SPECIFIC PATIENT PROCEDURES
+--     FUNCTION READ_PATIENT_PROCEDURES(
+--         xEmail IN VARCHAR
+--     ) RETURN SYS_REFCURSOR 
+--     IS INF_PROCEDURES SYS_REFCURSOR;
+--     BEGIN
+--         OPEN INF_PROCEDURES FOR
+--             SELECT *
+--             FROM V_PROCEDURES
+--             WHERE PATIENT_EMAIL = xEmail;
+--         RETURN INF_PROCEDURES ;
+--     END;
 
 
-    -- READ SPECIFIC DOCTOR PROCEDURES
-    FUNCTION READ_DOCTOR_PROCEDURES(
-        xEmail IN VARCHAR
-    ) RETURN SYS_REFCURSOR 
-    IS INF_PROCEDURES SYS_REFCURSOR;
-    BEGIN
-        OPEN INF_PROCEDURES FOR
-            SELECT *
-            FROM V_PROCEDURES
-            WHERE DOCTOR_EMAIL = xEmail;
-        RETURN INF_PROCEDURES ;
-    END;
+--     -- READ SPECIFIC DOCTOR PROCEDURES
+    -- FUNCTION READ_DOCTOR_PROCEDURES(
+    --     xEmail IN VARCHAR
+    -- ) RETURN SYS_REFCURSOR 
+    -- IS INF_PROCEDURES SYS_REFCURSOR;
+    -- BEGIN
+    --     OPEN INF_PROCEDURES FOR
+    --         SELECT *
+    --         FROM V_PROCEDURES
+    --         WHERE DOCTOR_EMAIL = xEmail;
+    --     RETURN INF_PROCEDURES ;
+    -- END;
 
-    -- READ SPECIFIC NURSE PROCEDURES
-    FUNCTION READ_NURSE_PROCEDURES(
-        xEmail IN VARCHAR
-    ) RETURN SYS_REFCURSOR 
-    IS INF_PROCEDURES SYS_REFCURSOR;
-    BEGIN
-        OPEN INF_PROCEDURES FOR
-            SELECT *
-            FROM V_NURSE_PROCEDURES
-            WHERE NURSE_EMAIL = xEmail;
-        RETURN INF_PROCEDURES ;
-    END;
+--     -- READ SPECIFIC NURSE PROCEDURES
+--     FUNCTION READ_NURSE_PROCEDURES(
+--         xEmail IN VARCHAR
+--     ) RETURN SYS_REFCURSOR 
+--     IS INF_PROCEDURES SYS_REFCURSOR;
+--     BEGIN
+--         OPEN INF_PROCEDURES FOR
+--             SELECT *
+--             FROM V_NURSE_PROCEDURES
+--             WHERE NURSE_EMAIL = xEmail;
+--         RETURN INF_PROCEDURES ;
+--     END;
    
 
-    -- ADD A NURSE TO THE PROCEDURE
-    PROCEDURE ADD_PROCEDURE_NURSE(
-        xNurseEmail IN VARCHAR,
-        xIdProcedure IN NUMBER
-        ) IS
-    BEGIN 
-        DECLARE
-            xNurseDocType VARCHAR(2);
-            xNurseDocNumber NUMBER;
-        BEGIN
-            SELECT documentType INTO xNurseDocType FROM PERSON
-            WHERE email LIKE xNurseEmail;
+--     -- ADD A NURSE TO THE PROCEDURE
+--     PROCEDURE ADD_PROCEDURE_NURSE(
+--         xNurseEmail IN VARCHAR,
+--         xIdProcedure IN NUMBER
+--         ) IS
+--     BEGIN 
+--         DECLARE
+--             xNurseDocType VARCHAR(2);
+--             xNurseDocNumber NUMBER;
+--         BEGIN
+--             SELECT documentType INTO xNurseDocType FROM PERSON
+--             WHERE email LIKE xNurseEmail;
 
-            SELECT documentNumber INTO xNurseDocNumber FROM PERSON
-            WHERE email LIKE xNurseEmail;
+--             SELECT documentNumber INTO xNurseDocNumber FROM PERSON
+--             WHERE email LIKE xNurseEmail;
 
 
-            INSERT INTO ProcedureNurse VALUES (xIdProcedure, xNurseDocType, xNurseDocNumber);
+--             INSERT INTO ProcedureNurse VALUES (xIdProcedure, xNurseDocType, xNurseDocNumber);
 
-            COMMIT;
+--             COMMIT;
 
       
-            EXCEPTION 
-            WHEN OTHERS THEN 
-                ROLLBACK;
-                RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ENFERMERO EN EL PROCEDIMIENTO');
-        END;
+--             EXCEPTION 
+--             WHEN OTHERS THEN 
+--                 ROLLBACK;
+--                 RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL ENFERMERO EN EL PROCEDIMIENTO');
+--         END;
+--     END;
+-- END PKG_PROCEDURES;
+
+/
+
+-- EXAMS
+CREATE OR REPLACE PACKAGE BODY PKG_EXAMS AS
+    -- EXAMS
+    PROCEDURE ADD_EXAM(
+        xName IN VARCHAR
+        ) IS
+    BEGIN 
+        INSERT INTO Exams VALUES(NULL, xName, NULL);  
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL EXAMEN');
     END;
-END PKG_PROCEDURES;
+
+    -- READ ALL EXAMS
+    FUNCTION READ_ALL_EXAMS RETURN SYS_REFCURSOR
+    IS INF_EXAMS SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_EXAMS FOR
+            SELECT idExams AS ID,
+            name AS NAME,
+            idManagementPlan AS ID_MANAGEMENT_PLAN
+            FROM Exams
+            ORDER BY ID;
+        RETURN INF_EXAMS ;
+    END;
+
+
+    -- READ SPECIFIC EXAM
+    FUNCTION READ_SPEC_EXAMS(
+        xIdExam IN NUMBER
+    ) RETURN SYS_REFCURSOR
+    IS INF_EXAMS SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_EXAMS FOR
+            SELECT 
+            ID_EXAM,
+            EXAM_NAME,
+            INSTRUCTIONS
+            FROM V_EXAMS;            
+        RETURN INF_EXAMS ;
+    END;
+
+    -- ADD MANAGEMENT PLAN
+    PROCEDURE ADD_MANAGEMENT_PLAN(
+        xIdExam IN NUMBER,
+        xIdManagementPlan IN NUMBER
+    ) IS
+    BEGIN
+        UPDATE Exams
+            SET idManagementPlan = xIdManagementPlan
+        WHERE idExams = xIdExam;
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL PLAN DE MANEJO');
+    END;
+
+    
+    -- ADD EXAM LABORATORY
+    PROCEDURE ADD_EXAM_LAB(
+        xIdLaboratory IN NUMBER,
+        xIdExam IN NUMBER        
+    )  IS
+    BEGIN 
+        INSERT INTO ExamsLaboratory VALUES(xIdLaboratory, xIdExam);  
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EXAMEN/LABORATORIO');
+    END;
+
+    -- READ EXAM LABORATORY
+    FUNCTION READ_EXAM_LAB(
+        xIdExam IN NUMBER
+    ) RETURN SYS_REFCURSOR
+    IS INF_EXAMS SYS_REFCURSOR;
+    BEGIN
+        OPEN INF_EXAMS FOR
+            SELECT *
+            FROM V_EXAMS
+            WHERE ID_EXAM = xIdExam;
+        RETURN INF_EXAMS ;
+    END;
+
+    -- UPDATE EXAM LABORATORY
+    PROCEDURE UPDATE_EXAM_LAB(
+        xIdLaboratory IN NUMBER,
+        xIdExam IN NUMBER        
+    ) IS
+    BEGIN
+        UPDATE ExamsLaboratory
+            SET idLaboratory = xIdLaboratory
+        WHERE idExam = xIdExam;
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL MODIFICAR EL EXAMEN / LABORATORIO');
+    END;
+
+    -- ADD EXAM NURSE
+    PROCEDURE ADD_EXAM_NURSE(
+        xIdExam IN NUMBER,
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER       
+    ) IS
+    BEGIN 
+        INSERT INTO ExamsNurse VALUES(xIdExam, xDocType, xDocNum);  
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EXAMEN/ENFERMERO');
+    END;
+
+    -- READ EXAM NURSE
+    FUNCTION READ_EXAM_NURSE(
+        xIdExam IN NUMBER,
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER 
+    ) RETURN SYS_REFCURSOR
+    IS INF_EXAMS SYS_REFCURSOR;
+    BEGIN
+        IF xIdExam IS NULL THEN
+                OPEN INF_EXAMS FOR
+                SELECT *
+                FROM V_EXAMS
+                WHERE NURSE_DOC_TYPE = xDocType AND NURSE_DOC_NUMBER = xDocNum;
+            RETURN INF_EXAMS ;
+        END IF;
+
+        IF xIdExam IS NOT NULL THEN
+                OPEN INF_EXAMS FOR
+                SELECT *
+                FROM V_EXAMS
+                WHERE ID_EXAM = xIdExam;
+            RETURN INF_EXAMS ;
+        END IF;
+    END;
+END PKG_EXAMS;
+
+/
