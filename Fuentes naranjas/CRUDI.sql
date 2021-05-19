@@ -1876,8 +1876,24 @@ CREATE OR REPLACE PACKAGE BODY PKG_MEDICINES AS
         xProducer IN VARCHAR,
         xIdManagementPlan IN NUMBER,
         xIdMedType IN NUMBER,
-        xIdMedicationInventory IN NUMBER,
-    );
+        xIdMedicationInventory IN NUMBER
+    )  IS
+    BEGIN 
+        INSERT INTO Medicines VALUES(NULL,
+         xCommercialName,
+         xPresentation,
+         xProducer,
+         xIdManagementPlan,
+         xIdMedType,
+         xIdMedicationInventory
+         );  
+        COMMIT;
+
+        EXCEPTION 
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL MEDICAMENTO');
+    END;
 
     -- READ ALL MEDICINES
     FUNCTION READ_ALL_MED RETURN SYS_REFCURSOR
