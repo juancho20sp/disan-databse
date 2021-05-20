@@ -1029,7 +1029,7 @@ CREATE OR REPLACE PACKAGE BODY PKG_NURSE AS
         OPEN INF_APPOINTMENTS FOR
             SELECT *
             FROM V_APPOINTMENT_NURSE
-            WHERE NURSE_DOCUMENT_TYPE = xDocType AND xDocNum = NURSE_DOCUMENT_NUMBER;
+            WHERE NURSE_DOC_TYPE = xDocType AND xDocNum = NURSE_DOC_NUMBER;
         RETURN INF_APPOINTMENTS ;
     END;
 
@@ -1270,7 +1270,7 @@ CREATE OR REPLACE PACKAGE BODY PKG_APPOINTMENT AS
     PROCEDURE ADD_APPOINTMENT(
         xIdClinicalHistory IN NUMBER,
         xAppointmentMotive IN VARCHAR,
-        xDate IN DATE,
+        xDate IN TIMESTAMP,
         xIdHospital IN NUMBER
         ) IS
     BEGIN        
@@ -1281,7 +1281,8 @@ CREATE OR REPLACE PACKAGE BODY PKG_APPOINTMENT AS
             xDate,  
             xIdClinicalHistory, 
             NULL, 
-            xIdHospital);
+            xIdHospital,
+            NULL);
         COMMIT;
 
     

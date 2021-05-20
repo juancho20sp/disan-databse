@@ -39,7 +39,7 @@ CREATE TABLE Appointment (
     idAppointment	    NUMBER(10) NOT NULL,
 	appointmentMotive   VARCHAR2(250) NOT NULL,
     diagnosis          	VARCHAR2(500),
-    dateAppointment    	DATE NOT NULL,
+    dateAppointment    	TIMESTAMP NOT NULL,
 	idClinicalHistory	NUMBER(10) NOT NULL, 
 	idManagementPlan	NUMBER(10),
 	idHospital			NUMBER(10) NOT NULL,

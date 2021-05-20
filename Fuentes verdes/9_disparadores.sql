@@ -192,10 +192,20 @@ END;
 CREATE OR REPLACE TRIGGER INSERT_APPOINTMENT
 BEFORE INSERT ON APPOINTMENT 
 FOR EACH ROW
-BEGIN
+DECLARE
+    myCount NUMBER;
+BEGIN 
   SELECT ID_APPOINTMENT.NEXTVAL INTO :NEW.idAppointment FROM DUAL;
 
   -- NO PUEDEN EXISTIR DOS CITAS A LA MISMA HORA CON EL MISMO MÉDICO
+
+  -- SELECT COUNT(*) INTO myCount FROM APPOINTMENT
+  -- LEFT JOIN AppointmentDoctor ON Appointment.idAppointment = AppointmentDoctor.idAppointment
+  -- GROUP BY dateAppointment;
+
+  -- IF myCount > 1 THEN
+  --   RAISE_APPLICATION_ERROR(-20252, 'Paila con la hora mi bro');
+  -- END IF;
 
   IF  SYSDATE > :new.dateAppointment   THEN 
         RAISE_APPLICATION_ERROR(-20005,'No se puede generar una cita en una fecha anterior a la actual');
