@@ -188,11 +188,12 @@ CREATE TABLE Person (
 CREATE TABLE Procedures (
     idProcedure			NUMBER(10) NOT NULL,
 	name				VARCHAR2(250) NOT NULL, 
-	dateProcedure		DATE NOT NULL,
+	dateProcedure		TIMESTAMP NOT NULL,
 	idBackground		NUMBER(10), 
 	idManagementPlan	NUMBER(10), 
 	idClinicalHistory	NUMBER(10) NOT NULL, 
-	idHospital			NUMBER(10) NOT NULL
+	idHospital			NUMBER(10) NOT NULL,
+	active				NUMBER(1)
 );
 
 CREATE TABLE Speciality (

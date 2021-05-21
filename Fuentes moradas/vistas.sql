@@ -92,6 +92,7 @@ CREATE OR REPLACE VIEW V_LABORATORY AS
 CREATE OR REPLACE VIEW V_APPOINTMENT AS
     SELECT
     APPOINTMENT.idAppointment AS ID,
+    APPOINTMENT.active AS STATUS,
     PATIENT.documentType AS PATIENT_DOC_TYPE,
     PATIENT.documentNumber AS PATIENT_DOC_NUMBER,
     PATIENT.name AS PATIENT_NAME,
@@ -99,6 +100,7 @@ CREATE OR REPLACE VIEW V_APPOINTMENT AS
     PATIENT.email AS PATIENT_EMAIL,
     APPOINTMENT.appointmentMotive AS MOTIVE,
     APPOINTMENT.diagnosis AS DIAGNOSIS,
+    ManagementPlan.instructions AS MANAGEMENT_PLAN,
     APPOINTMENT.dateAppointment AS APP_DATE,
     HOSPITAL.name AS HOSPITAL,
     HOSPITAL.address AS ADDRESS,
@@ -107,6 +109,10 @@ CREATE OR REPLACE VIEW V_APPOINTMENT AS
     PERSON.documentNumber AS DOCTOR_DOC_NUMBER,
     PERSON.name AS DOCTOR_NAME,
     PERSON.lastname AS DOCTOR_LASTNAME,
+    NURSE.documentType AS NURSE_DOC_TYPE,
+    NURSE.documentNumber AS NURSE_DOC_NUMBER,
+    NURSE.name AS NURSE_NAME,
+    NURSE.lastname AS NURSE_LASTNAME,
     MILITARYUNIT.name AS BATTALION
     FROM APPOINTMENT    
     LEFT JOIN HOSPITAL ON APPOINTMENT.idHospital = HOSPITAL.idHospital
@@ -114,8 +120,11 @@ CREATE OR REPLACE VIEW V_APPOINTMENT AS
     LEFT JOIN MILITARYUNIT ON HOSPITAL.idBattalion = MILITARYUNIT.idMilitaryUnit
     LEFT JOIN APPOINTMENTDOCTOR ON APPOINTMENT.idAppointment = AppointmentDoctor.idAppointment
     LEFT JOIN PERSON ON AppointmentDoctor.documentType = PERSON.documentType AND AppointmentDoctor.documentNumber = PERSON.documentNumber
+    LEFT JOIN AppointmentNurse ON AppointmentNurse.idAppointment = APPOINTMENT.idAppointment
+    LEFT JOIN PERSON NURSE ON AppointmentNurse.documentType = NURSE.documentType AND AppointmentNurse.documentNumber = NURSE.documentNumber
     LEFT JOIN CLINICALHISTORY ON APPOINTMENT.idClinicalHistory = ClinicalHistory.idClinicalHistory
     LEFT JOIN PERSON PATIENT ON ClinicalHistory.documentType = PATIENT.documentType AND ClinicalHistory.documentNumber = PATIENT.documentNumber
+    LEFT JOIN ManagementPlan ON APPOINTMENT.idManagementPlan = ManagementPlan.idManagementPlan
     ORDER BY APPOINTMENT.idAppointment;
 
 -- APPOINTMENT DOCTOR
@@ -332,6 +341,7 @@ CREATE OR REPLACE VIEW V_BACKGROUND_PROCEDURE AS
 CREATE OR REPLACE VIEW V_PROCEDURES AS 
     SELECT 
     PROCEDURES.idProcedure AS ID_PROCEDURE,
+    PROCEDURES.active AS STATUS,
     PROCEDURES.name AS PROCEDURE,
     PROCEDURES.dateProcedure AS DATE_PROCEDURE,
     HOSPITAL.name AS HOSPITAL,
@@ -347,13 +357,20 @@ CREATE OR REPLACE VIEW V_PROCEDURES AS
     DOCTOR.documentNumber AS DOCTOR_DOC_NUMBER,
     DOCTOR.name AS DOCTOR_NAME,
     DOCTOR.lastname AS DOCTOR_LASTNAME,
-    DOCTOR.email AS DOCTOR_EMAIL
+    DOCTOR.email AS DOCTOR_EMAIL,
+    NURSE.documentType AS NURSE_DOC_TYPE,
+    NURSE.documentNumber AS NURSE_DOC_NUMBER,
+    NURSE.name AS NURSE_NAME,
+    NURSE.lastname AS NURSE_LASTNAME,
+    NURSE.email AS NURSE_EMAIL
     FROM PROCEDURES    
     JOIN ClinicalHistory ON ClinicalHistory.idClinicalHistory = PROCEDURES.idClinicalHistory
     LEFT JOIN BACKGROUND ON ClinicalHistory.idClinicalHistory = BACKGROUND.idClinicalHistory
     LEFT JOIN PERSON ON ClinicalHistory.documentType = PERSON.documentType AND ClinicalHistory.documentNumber = PERSON.documentNumber
     LEFT JOIN ProcedureDoctor ON PROCEDURES.idProcedure = ProcedureDoctor.idProcedure
     LEFT JOIN PERSON DOCTOR ON ProcedureDoctor.documentType = DOCTOR.documentType AND ProcedureDoctor.documentNumber = DOCTOR.documentNumber
+    LEFT JOIN ProcedureNurse ON PROCEDURES.idProcedure = ProcedureNurse.idProcedure
+    LEFT JOIN PERSON NURSE ON ProcedureNurse.documentType = NURSE.documentType AND ProcedureNurse.documentNumber = NURSE.documentNumber
     LEFT JOIN HOSPITAL ON PROCEDURES.idHospital = HOSPITAL.idHospital
     LEFT JOIN MANAGEMENTPLAN ON PROCEDURES.idManagementPlan = ManagementPlan.idManagementPlan
     LEFT JOIN MEDICINES ON MEDICINES.idManagementPlan = PROCEDURES.idManagementPlan
@@ -364,6 +381,7 @@ CREATE OR REPLACE VIEW V_PROCEDURES AS
 CREATE OR REPLACE VIEW V_NURSE_PROCEDURES AS 
     SELECT 
     PROCEDURES.idProcedure AS ID_PROCEDURE,
+    PROCEDURES.active AS STATUS,
     PROCEDURES.name AS PROCEDURE,
     PROCEDURES.dateProcedure AS DATE_PROCEDURE,
     HOSPITAL.name AS HOSPITAL,
