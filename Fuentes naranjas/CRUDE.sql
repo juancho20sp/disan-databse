@@ -716,12 +716,22 @@ CREATE OR REPLACE PACKAGE PKG_MEDICINES AS
         xProducer IN VARCHAR,
         xIdManagementPlan IN NUMBER,
         xIdMedType IN NUMBER,
-        xIdMedicationInventory IN NUMBER
+        xIdMedicationInventory IN NUMBER,
+        xAmount IN NUMBER
         );
 
     -- READ ALL MEDICINES
     FUNCTION READ_ALL_MED RETURN SYS_REFCURSOR;
 
+    -- READ SPECIFIC MEDICINE
+    FUNCTION READ_SPEC_MED(xCommercialName IN VARCHAR) RETURN SYS_REFCURSOR;
+
+
+    -- ADD MEDICINE TO APPOINTMENT
+    PROCEDURE ADD_MED_TO_APPOINTMENT(
+        xCommercialName IN VARCHAR,
+        xIdAppointment IN VARCHAR
+        );
 
 
     

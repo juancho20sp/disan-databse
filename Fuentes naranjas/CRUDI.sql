@@ -530,6 +530,7 @@ CREATE OR REPLACE PACKAGE BODY PKG_HOSPITAL AS
     BEGIN     
         UPDATE Hospital
             SET 
+                name = xName,
                 address = xAddress,
                 bedNumber = xBeds,
                 UCINumber = xUCI,
@@ -1910,7 +1911,8 @@ CREATE OR REPLACE PACKAGE BODY PKG_MEDICINES AS
         xProducer IN VARCHAR,
         xIdManagementPlan IN NUMBER,
         xIdMedType IN NUMBER,
-        xIdMedicationInventory IN NUMBER
+        xIdMedicationInventory IN NUMBER,
+        xAmount IN NUMBER
     )  IS
     BEGIN 
         INSERT INTO Medicines VALUES(NULL,
@@ -1919,7 +1921,8 @@ CREATE OR REPLACE PACKAGE BODY PKG_MEDICINES AS
          xProducer,
          xIdManagementPlan,
          xIdMedType,
-         xIdMedicationInventory
+         xIdMedicationInventory,
+         xAmount
          );  
         COMMIT;
 
@@ -1937,6 +1940,45 @@ CREATE OR REPLACE PACKAGE BODY PKG_MEDICINES AS
             SELECT *
             FROM V_MEDICINES;
         RETURN INF_MED ;
+    END;
+
+    -- READ SPECIFIC MEDICINE
+    FUNCTION READ_SPEC_MED(xCommercialName IN VARCHAR) RETURN SYS_REFCURSOR
+    IS RES SYS_REFCURSOR;
+    BEGIN
+        OPEN RES FOR
+            SELECT *  
+            FROM V_MEDICINES
+            WHERE COMMERCIAL_NAME LIKE xCommercialName;
+        RETURN RES;
+    END;
+
+    -- ADD MEDICINE TO APPOINTMENT
+    PROCEDURE ADD_MED_TO_APPOINTMENT(
+        xCommercialName IN VARCHAR,
+        xIdAppointment IN VARCHAR
+        )   IS
+    BEGIN 
+        DECLARE
+            xIdManagementPlan NUMBER;
+            xIdMedicine NUMBER;
+        
+        BEGIN
+            SELECT idManagementPlan INTO xIdManagementPlan FROM Appointment WHERE idAppointment LIKE xIdAppointment;
+
+            SELECT idMedicines INTO xIdMedicine FROM Medicines WHERE commercialName LIKE xCommercialName;
+
+            UPDATE Medicines
+            SET
+                idManagementPlan = xIdManagementPlan
+            WHERE idMedicines = xIdMedicine;
+            COMMIT;
+
+            EXCEPTION 
+            WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL MEDICAMENTO EN LA CITA');
+        END;     
     END;
 END PKG_MEDICINES;
 

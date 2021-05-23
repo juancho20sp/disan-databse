@@ -43,7 +43,7 @@ CREATE TABLE Appointment (
 	idClinicalHistory	NUMBER(10) NOT NULL, 
 	idManagementPlan	NUMBER(10),
 	idHospital			NUMBER(10) NOT NULL,
-	active				NUMBER(1)
+	active				NUMBER(1) 
 ); 
 
 CREATE TABLE Background (
@@ -151,7 +151,8 @@ CREATE TABLE Medicines (
 	producer			  VARCHAR2(250) NOT NULL, 
 	idManagementPlan	  NUMBER(10), 
 	idMedicationType	  NUMBER(10) NOT NULL, 
-	idMedicationInventory NUMBER(10) NOT NULL
+	idMedicationInventory NUMBER(10) NOT NULL,
+	amount				  NUMBER(10)
 ); 
 
 CREATE TABLE MilitaryUnit (
