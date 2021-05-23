@@ -38,6 +38,7 @@ CREATE OR REPLACE VIEW V_HOSPITAL AS
     HOSPITAL.bedNumber AS BED_NUMBER,
     HOSPITAL.UCINumber AS UCI_NUMBER,
     CITY.name AS CITY,
+    MILITARYUNIT.idMilitaryUnit AS ID_BATTALION,
     MILITARYUNIT.name AS BATTALION,
     HOSPITAL.idSuppliesInventory AS SUPPLIES_INVENTORY,
     HOSPITAL.idMedicationInventory AS MEDICATION_INVENTORY
@@ -443,6 +444,7 @@ CREATE OR REPLACE VIEW V_MEDICINES AS
     Medicines.commercialName AS COMMERCIAL_NAME,
     Medicines.presentation AS PRESENTATION,
     Medicines.producer AS PRODUCER,
+    Medicines.amount AS AMOUNT,
     ManagementPlan.instructions AS INSTRUCTIONS,
     MedicationType.name AS MEDICATION_TYPE,
     Medicines.idMedicationInventory AS ID_MEDICATION_INVENTORY,

@@ -1962,15 +1962,22 @@ CREATE OR REPLACE PACKAGE BODY PKG_MEDICINES AS
         DECLARE
             xIdManagementPlan NUMBER;
             xIdMedicine NUMBER;
+            xAmount NUMBER;
         
         BEGIN
             SELECT idManagementPlan INTO xIdManagementPlan FROM Appointment WHERE idAppointment LIKE xIdAppointment;
 
-            SELECT idMedicines INTO xIdMedicine FROM Medicines WHERE commercialName LIKE xCommercialName;
+            SELECT idMedicines, amount INTO xIdMedicine, xAmount FROM Medicines WHERE commercialName LIKE xCommercialName;
+
+            IF xAmount = 0 THEN
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'NO QUEDAN EXISTENCIAS DEL MEDICAMENTO ESPECIFICADO');
+            END IF;
 
             UPDATE Medicines
             SET
-                idManagementPlan = xIdManagementPlan
+                idManagementPlan = xIdManagementPlan,
+                amount = xAmount - 1
             WHERE idMedicines = xIdMedicine;
             COMMIT;
 
@@ -1978,6 +1985,41 @@ CREATE OR REPLACE PACKAGE BODY PKG_MEDICINES AS
             WHEN OTHERS THEN 
             ROLLBACK;
             RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL MEDICAMENTO EN LA CITA');
+        END;     
+    END;
+
+    -- ADD MEDICINE TO PROCEDURE
+    PROCEDURE ADD_MED_TO_PROCEDURE(
+        xCommercialName IN VARCHAR,
+        xIdProcedure IN VARCHAR
+        )   IS
+    BEGIN 
+        DECLARE
+            xIdManagementPlan NUMBER;
+            xIdMedicine NUMBER;
+            xAmount NUMBER;
+        
+        BEGIN
+            SELECT idManagementPlan INTO xIdManagementPlan FROM Procedures WHERE idProcedure LIKE xIdProcedure;
+
+            SELECT idMedicines, amount INTO xIdMedicine, xAmount FROM Medicines WHERE commercialName LIKE xCommercialName;
+
+            IF xAmount = 0 THEN
+                ROLLBACK;
+                RAISE_APPLICATION_ERROR(-20001,'NO QUEDAN EXISTENCIAS DEL MEDICAMENTO ESPECIFICADO');
+            END IF;
+
+            UPDATE Medicines
+            SET
+                idManagementPlan = xIdManagementPlan,
+                amount = xAmount - 1
+            WHERE idMedicines = xIdMedicine;
+            COMMIT;
+
+            EXCEPTION 
+            WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001,'ERROR AL INSERTAR EL MEDICAMENTO EN EL PROCEDIMIENTO');
         END;     
     END;
 END PKG_MEDICINES;

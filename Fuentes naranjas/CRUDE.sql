@@ -733,6 +733,12 @@ CREATE OR REPLACE PACKAGE PKG_MEDICINES AS
         xIdAppointment IN VARCHAR
         );
 
+    -- ADD MEDICINE TO PROCEDURE
+    PROCEDURE ADD_MED_TO_PROCEDURE(
+        xCommercialName IN VARCHAR,
+        xIdProcedure IN VARCHAR
+        );
+
 
     
 END PKG_MEDICINES;

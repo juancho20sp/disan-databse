@@ -86,6 +86,34 @@ CREATE OR REPLACE PACKAGE BODY PA_DOCTOR IS
         RETURN RES; 
     END;
 
+    -- READ SPECIFIC MEDICINE
+    FUNCTION READ_SPEC_MED(xCommercialName IN VARCHAR) RETURN SYS_REFCURSOR
+    IS RES SYS_REFCURSOR;
+    BEGIN
+        RES := PKG_MEDICINES.READ_SPEC_MED(xCommercialName);
+        RETURN RES;
+    END;
+
+    -- ADD MEDICINE TO APPOINTMENT
+    PROCEDURE ADD_MED_TO_APPOINTMENT(
+        xCommercialName IN VARCHAR,
+        xIdAppointment IN VARCHAR
+        ) 
+    IS
+    BEGIN
+        PKG_MEDICINES.ADD_MED_TO_APPOINTMENT(xCommercialName, xIdAppointment);
+    END;
+
+    -- ADD MEDICINE TO PROCEDURE
+    PROCEDURE ADD_MED_TO_PROCEDURE(
+        xCommercialName IN VARCHAR,
+        xIdProcedure IN VARCHAR
+        )
+    IS
+    BEGIN
+        PKG_MEDICINES.ADD_MED_TO_PROCEDURE(xCommercialName, xIdProcedure);
+    END;
+
     -- READ SUPPLY
     FUNCTION READ_SUPPLY RETURN SYS_REFCURSOR
     IS RES SYS_REFCURSOR;
