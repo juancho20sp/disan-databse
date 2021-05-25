@@ -1,37 +1,37 @@
 --- X POBLAR ---
-DELETE FROM MedicationType; 
-DELETE FROM MedicationInventory;
-DELETE FROM SuppliesInventory; 
-DELETE FROM MilitaryUnit;
-DELETE FROM City; 
-DELETE FROM Division;
-DELETE FROM Brigade; 
-DELETE FROM Battalion; 
-DELETE FROM Hospital; 
-DELETE FROM Person; 
-DELETE FROM Doctor; 
-DELETE FROM Nurse; 
-DELETE FROM Patient; 
-DELETE FROM ClinicalHistory; 
-DELETE FROM Speciality; 
-DELETE FROM DoctorSpeciality;
 DELETE FROM NurseSpeciality; 
-DELETE FROM Background; 
-DELETE FROM Disease; 
-DELETE FROM Laboratory; 
-DELETE FROM ManagementPlan; 
-DELETE FROM Appointment; 
+DELETE FROM DoctorSpeciality;
 DELETE FROM AppointmentDoctor;
 DELETE FROM AppointmentNurse; 
-DELETE FROM Exams; 
-DELETE FROM ExamsLaboratory; 
-DELETE FROM Supply; 
-DELETE FROM Medicines;
-DELETE FROM MedicationComponents; 
-DELETE FROM Procedures; 
-DELETE FROM ExamsNurse; 
 DELETE FROM ProcedureNurse;
-DELETE FROM ProcedureDoctor;
+DELETE FROM ProcedureDoctor; 
+DELETE FROM ExamsLaboratory;
+DELETE FROM ExamsNurse; 
+DELETE FROM MedicationComponents; 
+DELETE FROM Medicines;
+DELETE FROM MedicationType;
+DELETE FROM Disease;  
+DELETE FROM Supply; 
+DELETE FROM Appointment;
+DELETE FROM Exams; 
+DELETE FROM Procedures;
+DELETE FROM ManagementPlan;  
+DELETE FROM Laboratory;  
+DELETE FROM Hospital; 
+DELETE FROM MedicationInventory; 
+DELETE FROM SuppliesInventory;  
+DELETE FROM Battalion; 
+DELETE FROM Brigade; 
+DELETE FROM Division;
+DELETE FROM MilitaryUnit; 
+DELETE FROM City; 
+DELETE FROM Speciality; 
+DELETE FROM Background; 
+DELETE FROM ClinicalHistory; 
+DELETE FROM Patient;
+DELETE FROM Doctor; 
+DELETE FROM Nurse; 
+DELETE FROM Person; 
 --- POBLAR OK ---
 --- MEDICATION TYPE (DONE) ---
 INSERT INTO MedicationType VALUES (0000000001, 'Oral'); 
@@ -268,9 +268,6 @@ INSERT INTO Nurse VALUES('CC', 4563832319, 'Fuerza Aerea');
 --- QUERY ---
 --- SELECT * FROM Nurse;
 
-
-
-
 --- PATIENT --- 
 INSERT INTO Patient VALUES ('TI', 1948559565, 00001);
 INSERT INTO Patient VALUES ('CC', 9254619331, 00002);
@@ -387,16 +384,16 @@ INSERT INTO ManagementPlan VALUES (0000000010, 'Retroverted and incarcerated gra
 
 
 --- APPOINTMENT ---
-INSERT INTO Appointment VALUES (0000000001, 'Dolor de cabeza', 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_TIMESTAMP('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3);
-INSERT INTO Appointment VALUES (0000000002, 'Dolor de estómago', 'Machinery accident on board other powered watercraft, initial encounter',TO_TIMESTAMP( '9/22/2021', 'MM/DD/YYYY'), 2, 3, 3);
-INSERT INTO Appointment VALUES (0000000003, 'Dolor de cabeza', 'Yellow fever', TO_TIMESTAMP('6/13/2021', 'MM/DD/YYYY'), 3, 1, 9);
-INSERT INTO Appointment VALUES (0000000004, 'Dolor de estómago', 'Drug-induced folate deficiency anemia', TO_TIMESTAMP('12/6/2022', 'MM/DD/YYYY'), 4, 1, 1);
-INSERT INTO Appointment VALUES (0000000005, 'Dolor de pie', 'Absolute glaucoma, bilateral', TO_TIMESTAMP('6/17/2024', 'MM/DD/YYYY'), 1, 7, 3);
-INSERT INTO Appointment VALUES (0000000006, 'Dolor de brazo', 'Laceration with foreign body of unspecified thumb with damage to nail, subsequent encounter', TO_TIMESTAMP('11/3/2024', 'MM/DD/YYYY'), 3, 2, 1);
-INSERT INTO Appointment VALUES (0000000007, 'Dolor de cabeza', 'Open bite of right thumb without damage to nail, subsequent encounter', TO_TIMESTAMP('11/10/2022', 'MM/DD/YYYY'), 2, 2, 2);
-INSERT INTO Appointment VALUES (0000000008, 'Dolor de estómago', 'Nondisplaced avulsion fracture of tuberosity of unspecified calcaneus, initial encounter for open fracture', TO_TIMESTAMP('6/6/2023', 'MM/DD/YYYY'), 1, 1, 1);
-INSERT INTO Appointment VALUES (0000000009, 'Dolor de pierna', 'Burn of first degree of right palm', TO_TIMESTAMP('10/11/2021', 'MM/DD/YYYY'), 3, 2, 3);
-INSERT INTO Appointment VALUES (0000000010, 'Dolor de cabeza', 'Crushing injury of right hand, initial encounter', TO_TIMESTAMP('11/20/2022', 'MM/DD/YYYY'), 4, 4, 4);
+INSERT INTO Appointment VALUES (0000000001, 'Dolor de cabeza', 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_TIMESTAMP('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3, null);
+INSERT INTO Appointment VALUES (0000000002, 'Dolor de estómago', 'Machinery accident on board other powered watercraft, initial encounter',TO_TIMESTAMP( '9/22/2021', 'MM/DD/YYYY'), 2, 3, 3, null);
+INSERT INTO Appointment VALUES (0000000003, 'Dolor de cabeza', 'Yellow fever', TO_TIMESTAMP('6/13/2021', 'MM/DD/YYYY'), 3, 1, 9, null);
+INSERT INTO Appointment VALUES (0000000004, 'Dolor de estómago', 'Drug-induced folate deficiency anemia', TO_TIMESTAMP('12/6/2022', 'MM/DD/YYYY'), 4, 1, 1, null);
+INSERT INTO Appointment VALUES (0000000005, 'Dolor de pie', 'Absolute glaucoma, bilateral', TO_TIMESTAMP('6/17/2024', 'MM/DD/YYYY'), 1, 7, 3, null);
+INSERT INTO Appointment VALUES (0000000006, 'Dolor de brazo', 'Laceration with foreign body of unspecified thumb with damage to nail, subsequent encounter', TO_TIMESTAMP('11/3/2024', 'MM/DD/YYYY'), 3, 2, 1, null);
+INSERT INTO Appointment VALUES (0000000007, 'Dolor de cabeza', 'Open bite of right thumb without damage to nail, subsequent encounter', TO_TIMESTAMP('11/10/2022', 'MM/DD/YYYY'), 2, 2, 2, null);
+INSERT INTO Appointment VALUES (0000000008, 'Dolor de estómago', 'Nondisplaced avulsion fracture of tuberosity of unspecified calcaneus, initial encounter for open fracture', TO_TIMESTAMP('6/6/2023', 'MM/DD/YYYY'), 1, 1, 1, null);
+INSERT INTO Appointment VALUES (0000000009, 'Dolor de pierna', 'Burn of first degree of right palm', TO_TIMESTAMP('10/11/2021', 'MM/DD/YYYY'), 3, 2, 3, null);
+INSERT INTO Appointment VALUES (0000000010, 'Dolor de cabeza', 'Crushing injury of right hand, initial encounter', TO_TIMESTAMP('11/20/2022', 'MM/DD/YYYY'), 4, 4, 4, null);
 
 --- QUERY ---
 --- SELECT * FROM Appointment ORDER BY idAppointment;
@@ -482,16 +479,16 @@ INSERT INTO Supply VALUES (000000010, 'Caryophyllaceae', 66042, 3);
 
 
 --- MEDICINES ---
-INSERT INTO Medicines VALUES (0000000001, 'bisoprolol fumarate and hydrochlorothiazide', 'Ziac', 'Teva Women''s Health, Inc.', 1, 10, 9);
-INSERT INTO Medicines VALUES (0000000002, 'BENZOYL PEROXIDE', 'Benzoyl peroxide short contact', 'Metacon Labs', 2, 12, 1);
-INSERT INTO Medicines VALUES (0000000003, 'TITANIUM DIOXIDE, ZINC OXIDE', 'Anew Solar Advance', 'Avon Products, Inc.', 3, 3, 3);
-INSERT INTO Medicines VALUES (0000000004, 'fosamprenavir calcium', 'LEXIVA', 'REMEDYREPACK INC.', 1, 1, 3);
-INSERT INTO Medicines VALUES (0000000005, 'Loperamide HCl', 'Anti-Diarrheal', 'GREAT LAKES WHOLESALE, MARKETING, AND SALES, INC.', 4, 3, 9);
-INSERT INTO Medicines VALUES (0000000006, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 2, 2, 2);
-INSERT INTO Medicines VALUES (0000000007, 'isopropyl alcohol', 'LENS CLEANER', 'Yuyao Jessie Commodity Co.,Ltd.', 8, 7, 1);
-INSERT INTO Medicines VALUES (0000000008, 'Atropa belladonna, Euphrasia stricta and Calcium sulfide', 'Irritated Eye Relief', 'Similasan Corporation', 10, 10, 10);
-INSERT INTO Medicines VALUES (0000000009, 'Dextromethorphan Hydrobromide, Guaifenesin, and Phenylephrine Hydrochloride', 'Giltuss', 'Gil Pharmaceutical Corp', 5, 3, 1);
-INSERT INTO Medicines VALUES (0000000010, 'Fluoxetine Hydrochloride', 'Fluoxetine', 'Rebel Distributors Corp', 2, 10, 2);
+INSERT INTO Medicines VALUES (0000000001, 'bisoprolol fumarate and hydrochlorothiazide', 'Ziac', 'Teva Women''s Health, Inc.', 1, 10, 9, 10);
+INSERT INTO Medicines VALUES (0000000002, 'BENZOYL PEROXIDE', 'Benzoyl peroxide short contact', 'Metacon Labs', 2, 12, 1, 10);
+INSERT INTO Medicines VALUES (0000000003, 'TITANIUM DIOXIDE, ZINC OXIDE', 'Anew Solar Advance', 'Avon Products, Inc.', 3, 3, 3, 10);
+INSERT INTO Medicines VALUES (0000000004, 'fosamprenavir calcium', 'LEXIVA', 'REMEDYREPACK INC.', 1, 1, 3, 10);
+INSERT INTO Medicines VALUES (0000000005, 'Loperamide HCl', 'Anti-Diarrheal', 'GREAT LAKES WHOLESALE, MARKETING, AND SALES, INC.', 4, 3, 9, 10);
+INSERT INTO Medicines VALUES (0000000006, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 2, 2, 2, 10);
+INSERT INTO Medicines VALUES (0000000007, 'isopropyl alcohol', 'LENS CLEANER', 'Yuyao Jessie Commodity Co.,Ltd.', 8, 7, 1, 10);
+INSERT INTO Medicines VALUES (0000000008, 'Atropa belladonna, Euphrasia stricta and Calcium sulfide', 'Irritated Eye Relief', 'Similasan Corporation', 10, 10, 10, 10);
+INSERT INTO Medicines VALUES (0000000009, 'Dextromethorphan Hydrobromide, Guaifenesin, and Phenylephrine Hydrochloride', 'Giltuss', 'Gil Pharmaceutical Corp', 5, 3, 1, 10);
+INSERT INTO Medicines VALUES (0000000010, 'Fluoxetine Hydrochloride', 'Fluoxetine', 'Rebel Distributors Corp', 2, 10, 2, 10);
 
 --- QUERY ---
 --- SELECT * FROM Medicines ORDER BY idMedicines; 
@@ -514,16 +511,16 @@ INSERT INTO MedicationComponents VALUES (0000000010, 'Myrbetriq', 10);
 
 
 --- PROCEDURES ---
-INSERT INTO Procedures VALUES (0000000001, 'Fluoroscopy of Right Hand/Finger Joint using H Osm Contrast', TO_TIMESTAMP('7/1/2024', 'MM/DD/YYYY'), 4, 10, 4, 10);
-INSERT INTO Procedures VALUES (0000000002, 'Excision of Ileocecal Valve, Via Opening', TO_TIMESTAMP('6/5/2024', 'MM/DD/YYYY'), 1, 8, 2, 3);
-INSERT INTO Procedures VALUES (0000000003, 'Extirpation of Matter from Cranial Cavity, Open Approach',TO_TIMESTAMP( '8/27/2021', 'MM/DD/YYYY'), 1, 2, 3, 4);
-INSERT INTO Procedures VALUES (0000000004, 'Replace of L Metatarsophal Jt with Nonaut Sub, Open Approach', TO_TIMESTAMP('10/30/2021', 'MM/DD/YYYY'), 2, 6, 1, 4);
-INSERT INTO Procedures VALUES (0000000005, 'Drainage of Ileum with Drainage Device, Via Opening', TO_TIMESTAMP('5/15/2022', 'MM/DD/YYYY'), 4, 10, 2, 1);
-INSERT INTO Procedures VALUES (0000000006, 'Bypass L Com Iliac Art to B Femor A w Autol Art, Perc Endo',TO_TIMESTAMP( '2/20/2022', 'MM/DD/YYYY'), 3, 2, 2, 2);
-INSERT INTO Procedures VALUES (0000000007, 'Destruction of Left Tibia, Open Approach', TO_TIMESTAMP('12/25/2022', 'MM/DD/YYYY'), 4, 4, 4, 4);
-INSERT INTO Procedures VALUES (0000000008, 'Bypass Cereb Vent to Periton Cav w Synth Sub, Perc',TO_TIMESTAMP( '5/26/2024', 'MM/DD/YYYY'), 1, 1, 1, 1);
-INSERT INTO Procedures VALUES (0000000009, 'Release Esophagogastric Junction, Percutaneous Approach',TO_TIMESTAMP( '5/2/2024', 'MM/DD/YYYY'), 3, 3, 3, 3);
-INSERT INTO Procedures VALUES (0000000010, 'Revise of Infusion Dev in R Temporomandib Jt, Perc Approach', TO_TIMESTAMP('8/22/2022', 'MM/DD/YYYY'), 1, 2, 3, 4);
+INSERT INTO Procedures VALUES (0000000001, 'Fluoroscopy of Right Hand/Finger Joint using H Osm Contrast', TO_TIMESTAMP('7/1/2024', 'MM/DD/YYYY'), 4, 10, 4, 10, 1);
+INSERT INTO Procedures VALUES (0000000002, 'Excision of Ileocecal Valve, Via Opening', TO_TIMESTAMP('6/5/2024', 'MM/DD/YYYY'), 1, 8, 2, 3, 1);
+INSERT INTO Procedures VALUES (0000000003, 'Extirpation of Matter from Cranial Cavity, Open Approach',TO_TIMESTAMP( '8/27/2021', 'MM/DD/YYYY'), 1, 2, 3, 4, 1);
+INSERT INTO Procedures VALUES (0000000004, 'Replace of L Metatarsophal Jt with Nonaut Sub, Open Approach', TO_TIMESTAMP('10/30/2021', 'MM/DD/YYYY'), 2, 6, 1, 4, 1);
+INSERT INTO Procedures VALUES (0000000005, 'Drainage of Ileum with Drainage Device, Via Opening', TO_TIMESTAMP('5/15/2022', 'MM/DD/YYYY'), 4, 10, 2, 1, 1);
+INSERT INTO Procedures VALUES (0000000006, 'Bypass L Com Iliac Art to B Femor A w Autol Art, Perc Endo',TO_TIMESTAMP( '2/20/2022', 'MM/DD/YYYY'), 3, 2, 2, 2, 1);
+INSERT INTO Procedures VALUES (0000000007, 'Destruction of Left Tibia, Open Approach', TO_TIMESTAMP('12/25/2022', 'MM/DD/YYYY'), 4, 4, 4, 4, 1);
+INSERT INTO Procedures VALUES (0000000008, 'Bypass Cereb Vent to Periton Cav w Synth Sub, Perc',TO_TIMESTAMP( '5/26/2024', 'MM/DD/YYYY'), 1, 1, 1, 1, 1);
+INSERT INTO Procedures VALUES (0000000009, 'Release Esophagogastric Junction, Percutaneous Approach',TO_TIMESTAMP( '5/2/2024', 'MM/DD/YYYY'), 3, 3, 3, 3, 1);
+INSERT INTO Procedures VALUES (0000000010, 'Revise of Infusion Dev in R Temporomandib Jt, Perc Approach', TO_TIMESTAMP('8/22/2022', 'MM/DD/YYYY'), 1, 2, 3, 4, 1);
 
 --- QUERY ---
 --- SELECT * FROM Procedures ORDER BY idProcedure; 

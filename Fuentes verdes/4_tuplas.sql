@@ -53,11 +53,3 @@ ALTER TABLE Person
 	ADD CONSTRAINT CK_PERSON_DATEVAL 
 	CHECK (registerDate > birthDate); 
 	
-
-	
-	
-
-
-	
-
-	

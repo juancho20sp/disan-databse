@@ -1,37 +1,37 @@
 --- X POBLAR ---
-DELETE FROM Appointment; 
-DELETE FROM Background; 
-DELETE FROM Battalion; 
-DELETE FROM Brigade; 
-DELETE FROM City; 
-DELETE FROM ClinicalHistory; 
-DELETE FROM Disease; 
-DELETE FROM Division; 
-DELETE FROM Doctor; 
-DELETE FROM Hospital; 
-DELETE FROM Exams; 
-DELETE FROM Laboratory; 
-DELETE FROM ManagementPlan; 
-DELETE FROM MedicationComponents; 
-DELETE FROM MedicationInventory; 
-DELETE FROM MedicationType; 
-DELETE FROM Medicines;
-DELETE FROM MilitaryUnit;
-DELETE FROM Nurse; 
-DELETE FROM Patient; 
-DELETE FROM Person; 
-DELETE FROM Procedures; 
-DELETE FROM Speciality; 
-DELETE FROM SuppliesInventory; 
-DELETE FROM Supply; 
-DELETE FROM ExamsLaboratory; 
-DELETE FROM ExamsNurse; 
 DELETE FROM NurseSpeciality; 
 DELETE FROM DoctorSpeciality;
 DELETE FROM AppointmentDoctor;
 DELETE FROM AppointmentNurse; 
 DELETE FROM ProcedureNurse;
-DELETE FROM ProcedureDoctor;
+DELETE FROM ProcedureDoctor; 
+DELETE FROM ExamsLaboratory;
+DELETE FROM ExamsNurse; 
+DELETE FROM MedicationComponents; 
+DELETE FROM Medicines;
+DELETE FROM MedicationType;
+DELETE FROM Disease;  
+DELETE FROM Supply; 
+DELETE FROM Appointment;
+DELETE FROM Exams; 
+DELETE FROM Procedures;
+DELETE FROM ManagementPlan;  
+DELETE FROM Laboratory;  
+DELETE FROM Hospital; 
+DELETE FROM MedicationInventory; 
+DELETE FROM SuppliesInventory;  
+DELETE FROM Battalion; 
+DELETE FROM Brigade; 
+DELETE FROM Division;
+DELETE FROM MilitaryUnit; 
+DELETE FROM City; 
+DELETE FROM Speciality; 
+DELETE FROM Background; 
+DELETE FROM ClinicalHistory; 
+DELETE FROM Patient;
+DELETE FROM Doctor; 
+DELETE FROM Nurse; 
+DELETE FROM Person; 
 
 --- POBLAR ---
 --- MEDICATION TYPE ---
@@ -324,10 +324,10 @@ INSERT INTO NurseSpeciality VALUES ('CC', 4563832319, 0000000004);
 
 
 --- BACKGROUND ---
-INSERT INTO Background VALUES (NULL, 00001); 
-INSERT INTO Background VALUES (NULL, 00002); 
-INSERT INTO Background VALUES (NULL, 00003); 
-INSERT INTO Background VALUES (NULL, 00004);
+INSERT INTO Background VALUES (1, 00001); 
+INSERT INTO Background VALUES (2, 00002); 
+INSERT INTO Background VALUES (3, 00003); 
+INSERT INTO Background VALUES (4, 00004);
 
 --- QUERY ---
 --- SELECT * FROM Background ORDER BY idBackground ;
@@ -384,11 +384,11 @@ INSERT INTO ManagementPlan VALUES (NULL, 'Retroverted and incarcerated gravid ut
 --- APPOINTMENT ---
 INSERT INTO Appointment VALUES (NULL,'Dolor de cabeza', 'Atypical squamous cells of undetermined significance on cytologic smear of anus (ASC-US)', TO_DATE('7/22/2022', 'MM/DD/YYYY'), 1, 2, 3, NULL);
 INSERT INTO Appointment VALUES (NULL,'Dolor de estómago', 'Machinery accident on board other powered watercraft, initial encounter',TO_DATE( '9/22/2021', 'MM/DD/YYYY'), 2, 3, 3, NULL);
-INSERT INTO Appointment VALUES (NULL,'Dolor de cabeza', 'Yellow fever', TO_DATE('6/13/2021', 'MM/DD/YYYY'), 3, 1, 9);
+INSERT INTO Appointment VALUES (NULL,'Dolor de cabeza', 'Yellow fever', TO_DATE('6/13/2021', 'MM/DD/YYYY'), 3, 1, 9, null);
 INSERT INTO Appointment VALUES (NULL,'Dolor de estómago', 'Drug-induced folate deficiency anemia', TO_DATE('12/6/2022', 'MM/DD/YYYY'), 4, 1, 1, NULL);
-INSERT INTO Appointment VALUES (NULL,'Dolor de pie', 'Absolute glaucoma, bilateral', TO_DATE('6/17/2024', 'MM/DD/YYYY'), 1, 7, 3);
+INSERT INTO Appointment VALUES (NULL,'Dolor de pie', 'Absolute glaucoma, bilateral', TO_DATE('6/17/2024', 'MM/DD/YYYY'), 1, 7, 3, null);
 INSERT INTO Appointment VALUES (NULL,'Dolor de brazo', 'Laceration with foreign body of unspecified thumb with damage to nail, subsequent encounter', TO_DATE('11/3/2024', 'MM/DD/YYYY'), 3, 2, 1, NULL);
-INSERT INTO Appointment VALUES (NULL,'Dolor de cabeza', 'Open bite of right thumb without damage to nail, subsequent encounter', TO_DATE('11/10/2022', 'MM/DD/YYYY'), 2, 2, 2);
+INSERT INTO Appointment VALUES (NULL,'Dolor de cabeza', 'Open bite of right thumb without damage to nail, subsequent encounter', TO_DATE('11/10/2022', 'MM/DD/YYYY'), 2, 2, 2, null);
 INSERT INTO Appointment VALUES (NULL,'Dolor de estómago', 'Nondisplaced avulsion fracture of tuberosity of unspecified calcaneus, initial encounter for open fracture', TO_DATE('6/6/2023', 'MM/DD/YYYY'), 1, 1, 1, NULL);
 INSERT INTO Appointment VALUES (NULL,'Dolor de pierna', 'Burn of first degree of right palm', TO_DATE('10/11/2021', 'MM/DD/YYYY'), 3, 2, 3, NULL);
 INSERT INTO Appointment VALUES (NULL,'Dolor de cabeza', 'Crushing injury of right hand, initial encounter', TO_DATE('11/20/2022', 'MM/DD/YYYY'), 4, 4, 4, NULL);
@@ -478,16 +478,16 @@ INSERT INTO Supply VALUES (NULL, 'Caryophyllaceae', 66042, 3);
 
 
 --- MEDICINES ---
-INSERT INTO Medicines VALUES (NULL, 'bisoprolol fumarate and hydrochlorothiazide', 'Ziac', 'Teva Women''s Health, Inc.', 1, 10, 9);
-INSERT INTO Medicines VALUES (NULL, 'BENZOYL PEROXIDE', 'Benzoyl peroxide short contact', 'Metacon Labs', 2, 12, 1);
-INSERT INTO Medicines VALUES (NULL, 'TITANIUM DIOXIDE, ZINC OXIDE', 'Anew Solar Advance', 'Avon Products, Inc.', 3, 3, 3);
-INSERT INTO Medicines VALUES (NULL, 'fosamprenavir calcium', 'LEXIVA', 'REMEDYREPACK INC.', 1, 1, 3);
-INSERT INTO Medicines VALUES (NULL, 'Loperamide HCl', 'Anti-Diarrheal', 'GREAT LAKES WHOLESALE, MARKETING, AND SALES, INC.', 4, 3, 9);
-INSERT INTO Medicines VALUES (NULL, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 2, 2, 2);
-INSERT INTO Medicines VALUES (NULL, 'isopropyl alcohol', 'LENS CLEANER', 'Yuyao Jessie Commodity Co.,Ltd.', 8, 7, 1);
-INSERT INTO Medicines VALUES (NULL, 'Atropa belladonna, Euphrasia stricta and Calcium sulfide', 'Irritated Eye Relief', 'Similasan Corporation', 10, 10, 10);
-INSERT INTO Medicines VALUES (NULL, 'Dextromethorphan Hydrobromide, Guaifenesin, and Phenylephrine Hydrochloride', 'Giltuss', 'Gil Pharmaceutical Corp', 5, 3, 1);
-INSERT INTO Medicines VALUES (NULL, 'Fluoxetine Hydrochloride', 'Fluoxetine', 'Rebel Distributors Corp', 2, 10, 2);
+INSERT INTO Medicines VALUES (NULL, 'bisoprolol fumarate and hydrochlorothiazide', 'Ziac', 'Teva Women''s Health, Inc.', 1, 10, 9, 10);
+INSERT INTO Medicines VALUES (NULL, 'BENZOYL PEROXIDE', 'Benzoyl peroxide short contact', 'Metacon Labs', 2, 12, 1, 10);
+INSERT INTO Medicines VALUES (NULL, 'TITANIUM DIOXIDE, ZINC OXIDE', 'Anew Solar Advance', 'Avon Products, Inc.', 3, 3, 3, 10);
+INSERT INTO Medicines VALUES (NULL, 'fosamprenavir calcium', 'LEXIVA', 'REMEDYREPACK INC.', 1, 1, 3, 10);
+INSERT INTO Medicines VALUES (NULL, 'Loperamide HCl', 'Anti-Diarrheal', 'GREAT LAKES WHOLESALE, MARKETING, AND SALES, INC.', 4, 3, 9, 10);
+INSERT INTO Medicines VALUES (NULL, 'topiramate', 'Topamax', 'Rebel Distributors Corp', 2, 2, 2, 10);
+INSERT INTO Medicines VALUES (NULL, 'isopropyl alcohol', 'LENS CLEANER', 'Yuyao Jessie Commodity Co.,Ltd.', 8, 7, 1, 10);
+INSERT INTO Medicines VALUES (NULL, 'Atropa belladonna, Euphrasia stricta and Calcium sulfide', 'Irritated Eye Relief', 'Similasan Corporation', 10, 10, 10, 10);
+INSERT INTO Medicines VALUES (NULL, 'Dextromethorphan Hydrobromide, Guaifenesin, and Phenylephrine Hydrochloride', 'Giltuss', 'Gil Pharmaceutical Corp', 5, 3, 1, 10);
+INSERT INTO Medicines VALUES (NULL, 'Fluoxetine Hydrochloride', 'Fluoxetine', 'Rebel Distributors Corp', 2, 10, 2, 10);
 
 --- QUERY ---
 --- SELECT * FROM Medicines ORDER BY idMedicines;
