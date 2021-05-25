@@ -369,80 +369,13 @@ CREATE OR REPLACE PACKAGE BODY PA_DOCTOR IS
         PKG_PROCEDURE.FINISH_PROCEDURE(xIdProcedure);
     END;
 
-
-
-
---     -- CREATE PERSON
---     PROCEDURE ADD_PERSON(
---         xDocType IN VARCHAR,
---         xDocNum IN NUMBER,
---         xName IN VARCHAR,
---         xLastname IN VARCHAR,
---         xGender IN VARCHAR,
---         xBirthdate IN DATE,
---         xEmail IN VARCHAR
---    );
-
---     -- CREATE DOCTOR
---    PROCEDURE ADD_DOCTOR(
---         xDocType IN VARCHAR,
---         xDocNum IN NUMBER,
---         xMilitaryForce IN VARCHAR);
-
---     -- CREATE APPOINTMENT
---     PROCEDURE ADD_APPOINTMENT(
---         xDocType IN VARCHAR,
---         xDocNum IN NUMBER,
---         xAppointmentMotive IN VARCHAR,
---         xDate IN DATE,
---         xDoctorEmail IN VARCHAR,
---         xHospital IN VARCHAR
---         );
-
---     -- ADD A NURSE TO THE APPOINTMENT
---     PROCEDURE ADD_APPOINTMENT_NURSE(
---         xNurseEmail IN VARCHAR,
---         xIdAppointment IN NUMBER
---         );
-
---     -- ADD BACKGROUND DISEASE TO PATIENT
---     PROCEDURE ADD_BACKGROUND_DISEASE(
---         xDocType IN VARCHAR,
---         xDocNum IN NUMBER,
---         xName IN VARCHAR,
---         xDescription IN VARCHAR
---         );
-
---     -- ADD BACKGROUND PROCEDURE TO PATIENT
---     PROCEDURE ADD_BACKGROUND_PROCEDURE(
---         xDocType IN VARCHAR,
---         xDocNum IN NUMBER,
---         xName IN VARCHAR,
---         xDateProcedure IN DATE,
---         xManagementPlan IN VARCHAR,
---         xHospital IN VARCHAR,
---         xMedName IN VARCHAR,
---         xMedPresentation IN VARCHAR,
---         xMedProducer IN VARCHAR,
---         xMedType IN VARCHAR
---         );
-
---     -- ADD PROCEDURE TO PATIENT
---     PROCEDURE ADD_PROCEDURE(
---         xDocType IN VARCHAR,
---         xDocNum IN NUMBER,
---         xName IN VARCHAR,
---         xDateProcedure IN DATE,
---         xHospital IN VARCHAR,
---         xDoctorEmail IN VARCHAR
---         );
-
---     -- ADD A NURSE TO THE PROCEDURE
---     PROCEDURE ADD_PROCEDURE_NURSE(
---         xNurseEmail IN VARCHAR,
---         xIdProcedure IN NUMBER
---         );
-    
+    -- APPOINTMENT DOCTOR
+    FUNCTION READ_DOC_APPOINTMENTS(xDocType IN VARCHAR, xDocNum IN NUMBER) RETURN SYS_REFCURSOR
+    IS RES SYS_REFCURSOR;
+    BEGIN
+        RES := PKG_APPOINTMENT.READ_DOC_APPOINTMENTS(xDocType, xDocNum);
+        RETURN RES; 
+    END;
 
 END PA_DOCTOR ;
 /
@@ -670,127 +603,12 @@ CREATE OR REPLACE PACKAGE BODY PA_NURSE IS
         PKG_MEDICATION_INVENTORY.UPDATE_MEDICATION_INVENTORY(xOldId, xNewId);
     END;
 
-    
---     -- CREATE PERSON
---     PROCEDURE ADD_PERSON(
---         xDocType IN VARCHAR,
---         xDocNum IN NUMBER,
---         xName IN VARCHAR,
---         xLastname IN VARCHAR,
---         xGender IN VARCHAR,
---         xBirthdate IN DATE,
---         xEmail IN VARCHAR
---    );
-
---     -- CREATE NURSE
---     PROCEDURE ADD_NURSE(
---         xDocType IN VARCHAR,
---         xDocNum IN NUMBER,        
---         xMilitaryForce IN VARCHAR);
-
-
---     -- ADD BACKGROUND DISEASE TO PATIENT
---     PROCEDURE ADD_BACKGROUND_DISEASE(
---         xDocType IN VARCHAR,
---         xDocNum IN NUMBER,
---         xName IN VARCHAR,
---         xDescription IN VARCHAR
---         );
-
---     -- ADD BACKGROUND PROCEDURE TO PATIENT
---     PROCEDURE ADD_BACKGROUND_PROCEDURE(
---         xDocType IN VARCHAR,
---         xDocNum IN NUMBER,
---         xName IN VARCHAR,
---         xDateProcedure IN DATE,
---         xManagementPlan IN VARCHAR,
---         xHospital IN VARCHAR,
---         xMedName IN VARCHAR,
---         xMedPresentation IN VARCHAR,
---         xMedProducer IN VARCHAR,
---         xMedType IN VARCHAR
---         );
-  
-
-    -- -- READ ALL LABORATORIES
-    -- FUNCTION READ_LABORATORY RETURN SYS_REFCURSOR;
-
-    -- -- READ ALL HOSPITALS
-    -- FUNCTION READ_HOSPITAL RETURN SYS_REFCURSOR;
-
-    -- -- READ ALL DOCTORS
-    -- FUNCTION READ_DOCTOR RETURN SYS_REFCURSOR;
-
-    -- -- READ NURSE APPOINTMENTS
-    -- FUNCTION READ_NUR_APPOINTMENTS(
-    --     xNurseEmail IN VARCHAR
-    -- ) RETURN SYS_REFCURSOR;
-
-    -- -- READ PATIENT APPOINTMENTS
-    -- FUNCTION READ_PAT_APPOINTMENTS(
-    --     xPatientEmail IN VARCHAR
-    -- ) RETURN SYS_REFCURSOR;
-    
-    -- -- READ CLINICAL HISTORY
-    -- FUNCTION READ_CLINICAL_HISTORY(
-    --     xDocType IN VARCHAR,
-    --     xDocNum IN NUMBER
-    -- ) RETURN SYS_REFCURSOR;
-
-    -- -- READ PATIENT BACKGROUND DISEASE
-    -- FUNCTION READ_BACKGROUND_DISEASE(
-    --     xDocType IN VARCHAR,
-    --     xDocNum IN NUMBER
-    -- ) RETURN SYS_REFCURSOR;
-
-    -- -- READ PATIENT BACKGROUND PROCEDURES
-    -- FUNCTION READ_BACKGROUND_PROCEDURE(
-    --     xDocType IN VARCHAR,
-    --     xDocNum IN NUMBER
-    -- ) RETURN SYS_REFCURSOR;
-
-    -- -- READ SPECIFIC PATIENT PROCEDURES
-    -- FUNCTION READ_PATIENT_PROCEDURES(
-    --     xEmail IN VARCHAR
-    -- ) RETURN SYS_REFCURSOR;
-
-    -- -- READ SPECIFIC NURSE PROCEDURES
-    -- FUNCTION READ_NURSE_PROCEDURES(
-    --     xEmail IN VARCHAR
-    -- ) RETURN SYS_REFCURSOR;
-
-
-
-    -- PROCEDURE UPDATE_NURSE(
-    --     xDocType IN VARCHAR,
-    --     xDocNum IN NUMBER,
-    --     xMilitaryForce IN VARCHAR
-    --     );
-
 END PA_NURSE;
 
 /
 
 -- PATIENT
 CREATE OR REPLACE PACKAGE BODY PA_PATIENT IS
---     -- CREATE PERSON
---     PROCEDURE ADD_PERSON(
---         xDocType IN VARCHAR,
---         xDocNum IN NUMBER,
---         xName IN VARCHAR,
---         xLastname IN VARCHAR,
---         xGender IN VARCHAR,
---         xBirthdate IN DATE,
---         xEmail IN VARCHAR
---    );
-
---     -- CREATE NURSE
---     PROCEDURE ADD_PATIENT(
---         xDocType IN VARCHAR,
---         xDocNum IN NUMBER
---         );
-  
-
     -- READ ALL LABORATORIES
     FUNCTION READ_LABORATORY RETURN SYS_REFCURSOR
     IS RES SYS_REFCURSOR;
@@ -911,6 +729,14 @@ CREATE OR REPLACE PACKAGE BODY PA_PATIENT IS
         RETURN RES; 
     END;
 
+    -- READ DOCTORS BY SPECIALTY
+    FUNCTION READ_DOC_SPECIALTY(xIdSpeciality IN NUMBER) RETURN SYS_REFCURSOR
+    IS RES SYS_REFCURSOR;
+    BEGIN
+        RES := PKG_DOCTOR.READ_DOC_SPECIALTY(xIdSpeciality);
+        RETURN RES; 
+    END;
+
     -- READ PATIENT BACKGROUND PROCEDURE
     FUNCTION READ_PATIENT_BACK_PROC(xDocType IN VARCHAR, xDocNum IN NUMBER) RETURN SYS_REFCURSOR
     IS RES SYS_REFCURSOR;
@@ -924,6 +750,57 @@ CREATE OR REPLACE PACKAGE BODY PA_PATIENT IS
     IS RES SYS_REFCURSOR;
     BEGIN
         RES := PKG_PERSON.READ_PATIENT_BACK_DIS(xDocType, xDocNum);
+        RETURN RES; 
+    END;
+
+    -- ADD APPOINTMENT
+    PROCEDURE ADD_APPOINTMENT(
+        xIdClinicalHistory IN NUMBER,
+        xAppointmentMotive IN VARCHAR,
+        xDate IN TIMESTAMP,
+        xIdHospital IN NUMBER
+        ) IS
+    BEGIN
+        PKG_APPOINTMENT.ADD_APPOINTMENT(xIdClinicalHistory, xAppointmentMotive, xDate, xIdHospital);
+    END;
+
+    -- ADD APPOINTMENT DOCTOR
+    PROCEDURE ADD_APPOINTMENT_DOCTOR(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xIdAppointment IN NUMBER
+        ) IS
+    BEGIN
+        PKG_APPOINTMENT.ADD_APPOINTMENT_DOCTOR(xDocType, xDocNum, xIdAppointment);
+    END;
+
+    -- ADD PROCEDURE
+    PROCEDURE ADD_PROCEDURE (
+        xDate IN DATE,
+        xName IN VARCHAR,
+        xDescription IN VARCHAR,
+        xIdClinicalHistory IN NUMBER,
+        xIdHospital IN NUMBER
+        ) IS
+    BEGIN
+        PKG_PROCEDURE.ADD_PROCEDURE(xDate, xName, xDescription, xIdClinicalHistory, xIdHospital);
+    END;
+
+    -- ADD PROCEDURE DOCTOR
+    PROCEDURE ADD_PROCEDURE_DOCTOR(
+        xDocType IN VARCHAR,
+        xDocNum IN NUMBER,
+        xIdProcedure IN NUMBER
+        ) IS
+    BEGIN
+        PKG_PROCEDURE.ADD_PROCEDURE_DOCTOR(xDocType, xDocNum, xIdProcedure);
+    END;
+
+    -- READ ALL SPECIALTIES
+    FUNCTION READ_SPECIALTIES RETURN SYS_REFCURSOR
+    IS RES SYS_REFCURSOR;
+    BEGIN
+        RES := PKG_SPECIALTY.READ_SPECIALTIES;
         RETURN RES; 
     END;
 END PA_PATIENT;
@@ -1272,10 +1149,10 @@ CREATE OR REPLACE PACKAGE BODY PA_ADMIN IS
     END;
 
     -- ADD DOCTOR
-    PROCEDURE ADD_DOCTOR(xDocType IN VARCHAR, xDocNum IN NUMBER, xMilitaryForce IN VARCHAR)
+    PROCEDURE ADD_DOCTOR(xDocType IN VARCHAR, xDocNum IN NUMBER, xMilitaryForce IN VARCHAR, xIdSpecialty IN NUMBER)
     IS
     BEGIN
-        PKG_PERSON.ADD_DOCTOR(xDocType, xDocNum, xMilitaryForce);
+        PKG_DOCTOR.ADD_DOCTOR(xDocType, xDocNum, xMilitaryForce, xIdSpecialty);
     END;
 
 
@@ -1469,9 +1346,6 @@ CREATE OR REPLACE PACKAGE BODY PA_ADMIN IS
         RETURN RES; 
     END;
 
-    
-
-
 
     -- READ MED COMPONENTS
     FUNCTION READ_MED_COMPONENTS RETURN SYS_REFCURSOR
@@ -1488,5 +1362,21 @@ CREATE OR REPLACE PACKAGE BODY PA_ADMIN IS
         RES := PKG_MEDICINES.READ_ALL_MED;
         RETURN RES; 
     END;
+
+    -- ADD SPECIALTY
+    PROCEDURE ADD_SPECIALTY(xName IN VARCHAR)
+    IS
+    BEGIN
+        PKG_SPECIALTY.ADD_SPECIALTY(xName);
+    END;
+
+    -- READ ALL SPECIALTIES
+    FUNCTION READ_SPECIALTIES RETURN SYS_REFCURSOR
+    IS RES SYS_REFCURSOR;
+    BEGIN
+        RES := PKG_SPECIALTY.READ_SPECIALTIES;
+        RETURN RES; 
+    END;
+
 
 END PA_ADMIN;
