@@ -233,6 +233,10 @@ FOR EACH ROW
 BEGIN
   SELECT ID_MEDICINES.NEXTVAL INTO :NEW.idMedicines FROM DUAL;
 
+  IF :NEW.AMOUNT < 0 THEN
+    RAISE_APPLICATION_ERROR(-20154, 'No se pueden ingresar cantidades negativas');
+  END IF;
+
   IF :NEW.AMOUNT IS NULL THEN
     :NEW.AMOUNT := 0;
   END IF;
@@ -256,6 +260,10 @@ BEFORE INSERT ON PROCEDURES
 FOR EACH ROW
 BEGIN
   SELECT ID_PROCEDURE.NEXTVAL INTO :NEW.idProcedure FROM DUAL;
+
+  IF  SYSDATE > :new.dateProcedure   THEN 
+        RAISE_APPLICATION_ERROR(-20005,'No se puede generar un procedimiento en una fecha anterior a la actual');
+  END IF;
 
   :NEW.active := 1;
 END;
